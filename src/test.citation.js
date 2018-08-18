@@ -3149,7 +3149,9 @@ var _parse2 = _interopRequireDefault(require("./output/parse"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 describe('.async()', function () {
   var noGraph = {
@@ -3218,7 +3220,9 @@ var _cite = _interopRequireDefault(require("./input/cite"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -3540,7 +3544,9 @@ var _parse2 = _interopRequireDefault(require("./output/parse"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -3603,6 +3609,7 @@ var configs = {
     'with one simple entry': [_parse.default.bibtex.simple, _parse2.default.bibtex.simple],
     'with whitespace and unknown fields': [_parse.default.bibtex.whitespace, _parse2.default.bibtex.whitespace],
     'with unicode and capitalized types': [_parse.default.bibtex.unicode, [_parse2.default.bibtex.unicode]],
+    'with rich text': [_parse.default.bibtex.rich, _parse2.default.bibtex.rich],
     'with literals': [_parse.default.bibtex.literals, _parse2.default.bibtex.literals],
     'with year and month without date': [_parse.default.bibtex.yearMonthNeeded, _parse2.default.bibtex.yearMonthNeeded],
     'with year and month with date': [_parse.default.bibtex.yearMonth, _parse2.default.bibtex.yearMonth]
@@ -4334,28 +4341,93 @@ module.exports={
 
 },{}],12:[function(require,module,exports){
 module.exports={
-  "csl": {
-    "simple": [
-      {
-        "id": "Q23571040",
-        "type": "article-journal",
-        "title": "Correlation of the Base Strengths of Amines 1",
-        "DOI": "10.1021/ja01577a030",
-        "author": [
-          {
-            "given": "H. K.",
-            "family": "Hall"
-          }
-        ],
-        "issued": {"date-parts": [[1957, 1, 1]]},
-        "container-title": "Journal of the American Chemical Society",
-        "volume": "79",
-        "issue": "20",
-        "page": "5441-5444"
-      }
-    ],
-    "locale": [{"id": "a", "type": "article-journal"}]
-  }
+  "simple": [
+    {
+      "id": "Q23571040",
+      "type": "article-journal",
+      "title": "Correlation of the Base Strengths of Amines 1",
+      "DOI": "10.1021/ja01577a030",
+      "author": [
+        {
+          "given": "H. K.",
+          "family": "Hall"
+        }
+      ],
+      "issued": {"date-parts": [[1957, 1, 1]]},
+      "container-title": "Journal of the American Chemical Society",
+      "volume": "79",
+      "issue": "20",
+      "page": "5441-5444"
+    }
+  ],
+  "citation": [{
+    "id": "1",
+    "type": "article-journal",
+    "title": "a",
+    "issued": {"date-parts": [[2011]]}
+  }, {
+    "id": "2",
+    "type": "article-journal",
+    "title": "b",
+    "author": [{
+      "family": "d",
+      "given": "c"
+    }, {
+      "literal": "h"
+    }],
+    "issued": {"date-parts": [[2012]]}
+  }, {
+    "id": "3",
+    "type": "article-journal",
+    "title": "e",
+    "author": [{
+      "family": "f",
+      "given": "g"
+    }],
+    "issued": {"date-parts": [[2013]]}
+  }],
+  "locale": [{"id": "a", "type": "article-journal"}],
+  "label": [{"id": "b", "citation-label": "foo", "type": "book"}],
+  "rich": [
+    {"title": "<i>i</i><b>b</b><sc>sc</sc><sup>sup</sup><sub>sub</sub>"},
+    {"title": "<span style=\"font-variant:small-caps;\">sc</span>"},
+    {"title": "<span class=\"nocase\">sc</span>"}
+  ],
+  "editor": [
+    {
+      "id": "Q37108228",
+      "year-suffix": "a",
+      "DOI": "10.1109/MIS.2013.119",
+      "type": "article-journal",
+      "title": "The Rise of Wikidata",
+      "issue": "4",
+      "page": "90-95",
+      "volume": "28",
+      "issued": {"date-parts": [[2013, 1, 1]]},
+      "accessed": {"date-parts": [[2018, 7, 21]]},
+      "number-of-pages": "6",
+      "editor": [
+        {
+          "given": "James",
+          "family": "Hendler",
+          "_ordinal": -1
+        },
+        {
+          "given": "Elena",
+          "family": "Simperl",
+          "_ordinal": -1
+        }
+      ],
+      "container-title": "IEEE Intelligent Systems",
+      "author": [
+        {
+          "given": "Denny",
+          "family": "Vrandečić",
+          "_ordinal": 1
+        }
+      ]
+    }
+  ]
 }
 
 },{}],13:[function(require,module,exports){
@@ -4381,6 +4453,7 @@ module.exports={
     "simple": "@article{Steinbeck2003, author = {Steinbeck, Christoph and Han, Yongquan and Kuhn, Stefan and Horlacher, Oliver and Luttmann, Edgar and Willighagen, Egon}, year = {2003}, pmid = 12653513, title = {{The Chemistry Development Kit (CDK): an open-source Java library for Chemo- and Bioinformatics.}}, journal = {Journal of chemical information and computer sciences}, volume = {43}, number = {2}, pages = {493--500}, doi = {10.1021/ci025584y}, isbn = {2214707786}, issn = {0095-2338}, pmid = {12653513}, url = {http://www.ncbi.nlm.nih.gov/pubmed/12653513} }",
     "whitespace": "@inproceedings{Ekstrand:2009:RYD,\n author = {Michael D. Ekstrand and John T. Riedl},\n title = {rv you're dumb: Identifying Discarded Work in Wiki Article History},\n booktitle = {Proceedings of the 5th International Symposium on Wikis and Open Collaboration},\n series = {WikiSym '09},\n year = {2009},\n isbn = {978-1-60558-730-1},\n location = {Orlando, Florida},\n pages = {4:1--4:10},\n articleno = {4},\n numpages = {10},\n url = {https://dx.doi.org/10.1145/1641309.1641317},\n doi = {10.1145/1641309.1641317},\n acmid = {1641317},\n publisher = {ACM},\n address = {New York, NY, USA},\n keywords = {Wiki, Wikipedia, article history, visualization},\n}\n",
     "unicode": "@Book{Fau86,\n  author    = \"J.W. Goethe\",\n  title     = \"Faust. Der Trag\\\"{o}die Erster Teil\",\n  publisher = \"Reclam\",\n  year      = 1986,\n  address   = \"Stuttgart\"\n}",
+    "rich": "@misc{ibscsupsub, title={{\\textit{i}\\textbf{b}\\textsc{sc}\\textsuperscript{sup}\\textsubscript{sub}}}, } @misc{sc, title={{\\textsc{sc}}}, } @misc{sc, title={{{sc}}}, }",
     "json": {
       "type": "article",
       "label": "Steinbeck2003",
@@ -4520,199 +4593,206 @@ var _get2 = _interopRequireDefault(require("./output/get"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var customTemplate = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<style xmlns=\"http://purl.org/net/xbiblio/csl\" class=\"in-text\" version=\"1.0\" demote-non-dropping-particle=\"sort-only\" page-range-format=\"minimal\">\n  <bibliography>\n    <layout>\n      <text variable=\"title\"/>\n    </layout>\n  </bibliography>\n</style>";
 var customLocale = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<locale xmlns=\"http://purl.org/net/xbiblio/csl\" version=\"1.0\" xml:lang=\"custom\">\n  <style-options punctuation-in-quote=\"true\"/>\n  <date form=\"text\">\n    <date-part name=\"month\" suffix=\" \"/>\n    <date-part name=\"day\" suffix=\", \"/>\n    <date-part name=\"year\"/>\n  </date>\n  <date form=\"numeric\">\n    <date-part name=\"month\" form=\"numeric-leading-zeros\" suffix=\"/\"/>\n    <date-part name=\"day\" form=\"numeric-leading-zeros\" suffix=\"/\"/>\n    <date-part name=\"year\"/>\n  </date>\n  <terms>\n    <term name=\"no date\" form=\"short\">custom</term>\n  </terms>\n</locale>";
+var citeMap = new WeakMap();
 
-var testCaseGenerator = function testCaseGenerator(data, options, output) {
-  var _ref = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {},
-      _ref$callback = _ref.callback,
-      callback = _ref$callback === void 0 ? function (v) {
-    return v;
-  } : _ref$callback,
-      _ref$msg = _ref.msg,
-      msg = _ref$msg === void 0 ? 'outputs correctly' : _ref$msg;
-
+function testCaseGenerator(cases) {
   return function () {
-    var out = callback(data.get(options));
-    out = typeof out === 'string' ? out.trim() : out;
-    it(msg, function () {
-      return (0, _expect.default)(out).to[_typeof(out) === 'object' ? 'eql' : 'be'](output);
-    });
-  };
-};
+    for (var name in cases) {
+      var testCase = cases[name];
 
-var defaultOpts = _citation.default.prototype.defaultOptions;
+      if (Array.isArray(testCase)) {
+        (function () {
+          var _testCase = _slicedToArray(testCase, 4),
+              input = _testCase[0],
+              format = _testCase[1],
+              options = _testCase[2],
+              expected = _testCase[3];
 
-var opts = function opts(format, type, style) {
-  var lang = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : defaultOpts.lang;
-  return {
-    format: format,
-    type: type,
-    style: style,
-    lang: lang
-  };
-};
-
-describe('output', function () {
-  var data = new _citation.default(_get.default.csl.simple);
-  describe('CSL bibliography', function () {
-    describe('html', function () {
-      describe('default built-in template (APA)', testCaseGenerator(data, opts('string', 'html', 'citation-apa'), _get2.default.csl.html.apa));
-      describe('non-default built-in template (Vancouver)', testCaseGenerator(data, opts('string', 'html', 'citation-vancouver'), _get2.default.csl.html.vancouver));
-      describe('non-existent template', testCaseGenerator(data, opts('string', 'html', 'citation-larsgw'), _get2.default.csl.html.apa));
-      describe('non-existent locale', testCaseGenerator(data, opts('string', 'html', 'citation-apa', 'larsgw'), _get2.default.csl.html.apa));
-      describe('custom template', function () {
-        _citation.default.CSL.register.addTemplate('custom', customTemplate);
-
-        it('registers the template', function () {
-          (0, _expect.default)(_citation.default.CSL.register.hasTemplate('custom')).to.be(true);
-          (0, _expect.default)(_citation.default.CSL.register.getTemplate('custom')).to.be(customTemplate);
-        });
-        testCaseGenerator(data, opts('string', 'html', 'citation-custom'), _get2.default.csl.html.title)();
-      });
-      describe('custom locale', function () {
-        var data = new _citation.default(_get.default.csl.locale);
-
-        _citation.default.CSL.register.addLocale('custom', customLocale);
-
-        it('registers the locale', function () {
-          (0, _expect.default)(_citation.default.CSL.register.hasLocale('custom')).to.be(true);
-          (0, _expect.default)(_citation.default.CSL.register.getLocale('custom')).to.be(customLocale);
-        });
-        testCaseGenerator(data, opts('string', 'html', 'citation-apa', 'custom'), _get2.default.csl.html.locale)();
-      });
-      describe('pre/append', function () {
-        context('static', testCaseGenerator(data, {
-          format: 'string',
-          type: 'html',
-          style: 'citation-apa',
-          append: 'b',
-          prepend: 'a'
-        }, _get2.default.csl.html.wrappedStatic));
-        context('dynamic', testCaseGenerator(data, {
-          format: 'string',
-          type: 'html',
-          style: 'citation-apa',
-          append: function append(_ref2) {
-            var volume = _ref2.volume;
-            return volume;
-          },
-          prepend: function prepend(_ref3) {
-            var issue = _ref3.issue;
-            return issue;
+          if (!citeMap.has(input)) {
+            citeMap.set(input, (0, _citation.default)(input));
           }
-        }, _get2.default.csl.html.wrappedDynamic));
-      });
-    });
-    describe('plain text', function () {
-      describe('default built-in template (APA)', testCaseGenerator(data, opts('string', 'string', 'citation-apa'), _get2.default.csl.apa));
-      describe('non-default built-in template (Vancouver)', testCaseGenerator(data, opts('string', 'string', 'citation-vancouver'), _get2.default.csl.vancouver));
-      describe('non-existent template', testCaseGenerator(data, opts('string', 'string', 'citation-larsgw'), _get2.default.csl.apa));
-      describe('non-existent locale', testCaseGenerator(data, opts('string', 'string', 'citation-apa', 'larsgw'), _get2.default.csl.apa));
-      describe('custom template', function () {
-        _citation.default.CSL.register.addTemplate('custom', customTemplate);
 
-        it('registers the template', function () {
-          (0, _expect.default)(_citation.default.CSL.register.hasTemplate('custom')).to.be(true);
-          (0, _expect.default)(_citation.default.CSL.register.getTemplate('custom')).to.be(customTemplate);
-        });
-        testCaseGenerator(data, opts('string', 'string', 'citation-custom'), _get2.default.csl.title)();
-      });
-      describe('custom locale', function () {
-        var data = new _citation.default(_get.default.csl.locale);
+          input = citeMap.get(input);
+          it(name, function () {
+            var actual = input.format(format, options);
+            var comparison = _typeof(actual) === 'object' ? 'eql' : 'be';
 
-        _citation.default.CSL.register.addLocale('custom', customLocale);
+            if (typeof actual === 'string') {
+              actual = actual.trim();
+            }
 
-        it('registers the locale', function () {
-          (0, _expect.default)(_citation.default.CSL.register.hasLocale('custom')).to.be(true);
-          (0, _expect.default)(_citation.default.CSL.register.getLocale('custom')).to.be(customLocale);
-        });
-        testCaseGenerator(data, opts('string', 'string', 'citation-apa', 'custom'), '(Custom).')();
-      });
-    });
-  });
-  describe('CSL citation', function () {
-    var data = new _citation.default([{
-      id: '1',
-      type: 'article-journal',
-      title: 'a',
-      issued: {
-        'date-parts': [[2011]]
+            (0, _expect.default)(actual).to[comparison](expected);
+          });
+        })();
+      } else if (typeof testCase === 'function') {
+        it(name, testCase);
+      } else if (_typeof(testCase) === 'object') {
+        describe(name, testCaseGenerator(testCase));
+      } else {
+        continue;
       }
-    }, {
-      id: '2',
-      type: 'article-journal',
-      title: 'b',
-      author: [{
-        family: 'd',
-        given: 'c'
-      }, {
-        literal: 'h'
-      }],
-      issued: {
-        'date-parts': [[2012]]
+    }
+  };
+}
+
+_citation.default.CSL.register.addTemplate('custom', customTemplate);
+
+_citation.default.CSL.register.addLocale('custom', customLocale);
+
+var cases = {
+  csl: {
+    bibliography: {
+      html: {
+        'default built-in template': [_get.default.simple, 'bibliography', {
+          format: 'html',
+          template: 'apa'
+        }, _get2.default.csl.html.apa],
+        'non-default built-in template': [_get.default.simple, 'bibliography', {
+          format: 'html',
+          template: 'vancouver'
+        }, _get2.default.csl.html.vancouver],
+        'non-existent template': [_get.default.simple, 'bibliography', {
+          format: 'html',
+          template: 'foo'
+        }, _get2.default.csl.html.apa],
+        'non-existent locale': [_get.default.simple, 'bibliography', {
+          format: 'html',
+          lang: 'foo'
+        }, _get2.default.csl.html.apa],
+        'custom template': {
+          'registers the template': function registersTheTemplate() {
+            (0, _expect.default)(_citation.default.CSL.register.hasTemplate('custom')).to.be(true);
+            (0, _expect.default)(_citation.default.CSL.register.getTemplate('custom')).to.be(customTemplate);
+          },
+          'outputs correctly': [_get.default.simple, 'bibliography', {
+            format: 'html',
+            template: 'custom'
+          }, _get2.default.csl.html.title]
+        },
+        'custom locale': {
+          'registers the template': function registersTheTemplate() {
+            (0, _expect.default)(_citation.default.CSL.register.hasLocale('custom')).to.be(true);
+            (0, _expect.default)(_citation.default.CSL.register.getLocale('custom')).to.be(customLocale);
+          },
+          'outputs correctly': [_get.default.locale, 'bibliography', {
+            format: 'html',
+            lang: 'custom'
+          }, _get2.default.csl.html.locale]
+        },
+        'pre/append': {
+          static: [_get.default.simple, 'bibliography', {
+            format: 'html',
+            template: 'apa',
+            prepend: 'a',
+            append: 'b'
+          }, _get2.default.csl.html.wrappedStatic],
+          dynamic: [_get.default.simple, 'bibliography', {
+            format: 'html',
+            template: 'apa',
+            prepend: function prepend(_ref) {
+              var issue = _ref.issue;
+              return issue;
+            },
+            append: function append(_ref2) {
+              var volume = _ref2.volume;
+              return volume;
+            }
+          }, _get2.default.csl.html.wrappedDynamic]
+        }
+      },
+      'plain text': {
+        'default built-in template': [_get.default.simple, 'bibliography', {
+          template: 'apa'
+        }, _get2.default.csl.apa],
+        'non-default built-in template': [_get.default.simple, 'bibliography', {
+          template: 'vancouver'
+        }, _get2.default.csl.vancouver],
+        'non-existent template': [_get.default.simple, 'bibliography', {
+          template: 'foo'
+        }, _get2.default.csl.apa],
+        'non-existent locale': [_get.default.simple, 'bibliography', {
+          lang: 'foo'
+        }, _get2.default.csl.apa],
+        'custom template': {
+          'registers the template': function registersTheTemplate() {
+            (0, _expect.default)(_citation.default.CSL.register.hasTemplate('custom')).to.be(true);
+            (0, _expect.default)(_citation.default.CSL.register.getTemplate('custom')).to.be(customTemplate);
+          },
+          'outputs correctly': [_get.default.simple, 'bibliography', {
+            template: 'custom'
+          }, _get2.default.csl.title]
+        },
+        'custom locale': {
+          'registers the template': function registersTheTemplate() {
+            (0, _expect.default)(_citation.default.CSL.register.hasLocale('custom')).to.be(true);
+            (0, _expect.default)(_citation.default.CSL.register.getLocale('custom')).to.be(customLocale);
+          },
+          'outputs correctly': [_get.default.locale, 'bibliography', {
+            lang: 'custom'
+          }, _get2.default.csl.locale]
+        }
       }
-    }, {
-      id: '3',
-      type: 'article-journal',
-      title: 'e',
-      author: [{
-        family: 'f',
-        given: 'g'
-      }],
-      issued: {
-        'date-parts': [[2013]]
-      }
-    }]);
-    it('works', function () {
-      var input = data.format('citation', {
+    },
+    citation: {
+      works: [_get.default.citation, 'citation', {
         entry: ['1', '2']
-      });
-      var output = '(“a,” 2011; d & h, 2012)';
-      (0, _expect.default)(input).to.be(output);
-    });
-    it('works for single entries', function () {
-      var input = data.format('citation', {
+      }, '(“a,” 2011; d & h, 2012)'],
+      'works for single entries': [_get.default.citation, 'citation', {
         entry: '2'
-      });
-      var output = '(d & h, 2012)';
-      (0, _expect.default)(input).to.be(output);
-    });
-    it('defaults to all entries', function () {
-      var input = data.format('citation');
-      var output = '(“a,” 2011; d & h, 2012; f, 2013)';
-      (0, _expect.default)(input).to.be(output);
-    });
-  });
-  describe('CSL-JSON', function () {
-    describe('plain text', testCaseGenerator(data, {
-      format: 'string'
-    }, _get.default.csl.simple, {
-      callback: JSON.parse
-    }));
-    describe('object', testCaseGenerator(data, undefined, _get.default.csl.simple));
-  });
-  describe('BibTeX', function () {
-    describe('plain text', testCaseGenerator(data, opts('string', 'string', 'bibtex'), _get2.default.bibtex.plain, {
-      callback: function callback(v) {
-        return v.replace(/\s+/g, ' ');
-      }
-    }));
-    describe('JSON', testCaseGenerator(data, {
-      style: 'bibtex'
-    }, _get2.default.bibtex.json));
-    describe('Bib.TXT', testCaseGenerator(data, opts('string', 'string', 'bibtxt'), _get2.default.bibtex.bibtxt));
-  });
-  describe('RIS', function () {
-    describe('plain text', function () {
-      it('outputs correctly', function () {
-        (0, _expect.default)(data.format('ris')).to.be(_get2.default.ris.simple);
-      });
-    });
-  });
-});
+      }, '(d & h, 2012)'],
+      'defaults to all entries': [_get.default.citation, 'citation', undefined, '(“a,” 2011; d & h, 2012; f, 2013)']
+    }
+  },
+  else: {
+    data: {
+      'plain text': [_get.default.simple, 'data', undefined, JSON.stringify(_get.default.simple, null, 2)],
+      'object': [_get.default.simple, 'data', {
+        format: 'object'
+      }, _get.default.simple]
+    },
+    label: {
+      'normal': [_get.default.simple, 'label', undefined, _defineProperty({}, _get.default.simple[0].id, 'Hall1957Correlation')],
+      'with year-suffix': [_get.default.editor, 'label', undefined, _defineProperty({}, _get.default.editor[0].id, 'Vrandečić2013a')],
+      'with own label': [_get.default.label, 'label', undefined, _defineProperty({}, _get.default.label[0].id, 'foo')]
+    }
+  },
+  bibtex: {
+    bibtex: {
+      'plain text': [_get.default.simple, 'bibtex', undefined, _get2.default.bibtex.plain],
+      'with rich text title': [_get.default.rich, 'bibtex', undefined, _get2.default.bibtex.rich],
+      'with editor': [_get.default.editor, 'bibtex', undefined, _get2.default.bibtex.editor],
+      'with own label': [_get.default.label, 'bibtex', undefined, _get2.default.bibtex.label],
+      'object': [_get.default.simple, 'bibtex', {
+        format: 'object'
+      }, _get2.default.bibtex.json]
+    },
+    bibtxt: [_get.default.simple, 'bibtxt', undefined, _get2.default.bibtex.bibtxt]
+  },
+  ris: {
+    'plain text': [_get.default.simple, 'ris', undefined, _get2.default.ris.simple],
+    'with accessed': [_get.default.editor, 'ris', {
+      format: 'object'
+    }, _get2.default.ris.editor],
+    'object': [_get.default.simple, 'ris', {
+      format: 'object'
+    }, _get2.default.ris.json]
+  }
+};
+describe('output', testCaseGenerator(cases));
 
 },{"./citation":8,"./input/get":12,"./output/get":15,"expect.js":3}],15:[function(require,module,exports){
 module.exports={
@@ -4720,6 +4800,7 @@ module.exports={
     "apa": "Hall, H. K. (1957). Correlation of the Base Strengths of Amines 1. Journal of the American Chemical Society, 79(20), 5441–5444. https://doi.org/10.1021/ja01577a030",
     "vancouver": "1. Hall HK. Correlation of the Base Strengths of Amines 1. Journal of the American Chemical Society. 1957 Jan 1;79(20):5441–4.",
     "title": "Correlation of the Base Strengths of Amines 1",
+    "locale": "(Custom).",
     "html": {
       "apa": "<div class=\"csl-bib-body\">\n  <div data-csl-entry-id=\"Q23571040\" class=\"csl-entry\">Hall, H. K. (1957). Correlation of the Base Strengths of Amines 1. <i>Journal of the American Chemical Society</i>, <i>79</i>(20), 5441–5444. https://doi.org/10.1021/ja01577a030</div>\n</div>",
       "vancouver": "<div class=\"csl-bib-body\">\n  <div data-csl-entry-id=\"Q23571040\" class=\"csl-entry\">\n    <div class=\"csl-left-margin\">1. </div><div class=\"csl-right-inline\">Hall HK. Correlation of the Base Strengths of Amines 1. Journal of the American Chemical Society. 1957 Jan 1;79(20):5441–4.</div>\n   </div>\n</div>",
@@ -4730,7 +4811,10 @@ module.exports={
     }
   },
   "bibtex": {
-    "plain": "@article{Hall1957Correlation, journal={Journal of the American Chemical Society}, doi={10.1021/ja01577a030}, number=20, title={{Correlation of the Base Strengths of Amines 1}}, volume=79, author={Hall, H. K.}, pages={5441--5444}, date={1957-01-01}, year=1957, month=1, day=1, }",
+    "plain": "@article{Hall1957Correlation,\n\tjournal={Journal of the American Chemical Society},\n\tdoi={10.1021/ja01577a030},\n\tnumber=20,\n\ttitle={Correlation of the Base Strengths of Amines 1},\n\tvolume=79,\n\tauthor={Hall, H. K.},\n\tpages={5441--5444},\n\tdate={1957-01-01},\n\tyear=1957,\n\tmonth=1,\n\tday=1,\n}",
+    "rich": "@misc{ibscsupsub,\n\ttitle={\\textit{i}\\textbf{b}\\textsc{sc}\\textsuperscript{sup}\\textsubscript{sub}},\n}\n@misc{sc,\n\ttitle={\\textsc{sc}},\n}\n@misc{sc,\n\ttitle={{sc}},\n}",
+    "label": "@book{foo,\n}",
+    "editor": "@article{Vrandečić2013a,\n\tjournal={IEEE Intelligent Systems},\n\tdoi={10.1109/MIS.2013.119},\n\tnumber=4,\n\tnumpages=6,\n\ttitle={The Rise of Wikidata},\n\tvolume=28,\n\tauthor={Vrandečić, Denny},\n\teditor={Hendler, James and Simperl, Elena},\n\tnote={[Online; accessed 2018-07-21]},\n\tpages={90--95},\n\tdate={2013-01-01},\n\tyear=2013,\n\tmonth=1,\n\tday=1,\n}",
     "json": [
       {
         "label": "Hall1957Correlation",
@@ -4753,7 +4837,36 @@ module.exports={
     "bibtxt": "[Hall1957Correlation]\n\tjournal: Journal of the American Chemical Society\n\tdoi: 10.1021/ja01577a030\n\tnumber: 20\n\ttitle: Correlation of the Base Strengths of Amines 1\n\tvolume: 79\n\tauthor: Hall, H. K.\n\tpages: 5441--5444\n\tdate: 1957-01-01\n\tyear: 1957\n\tmonth: 1\n\tday: 1\n\ttype: article"
   },
   "ris": {
-    "simple": "TY  - JOUR\nAU  - Hall, H. K.\nDA  - 1957/01/01\nPY  - 1957\nDO  - 10.1021/ja01577a030\nIS  - 20\nSP  - 5441-5444\nT2  - Journal of the American Chemical Society\nTI  - Correlation of the Base Strengths of Amines 1\nVL  - 79\nID  - Q23571040\nER  - \n"
+    "simple": "TY  - JOUR\nAU  - Hall, H. K.\nDA  - 1957/01/01\nPY  - 1957\nDO  - 10.1021/ja01577a030\nIS  - 20\nSP  - 5441-5444\nT2  - Journal of the American Chemical Society\nTI  - Correlation of the Base Strengths of Amines 1\nVL  - 79\nID  - Q23571040\nER  -",
+    "editor": [{
+      "TY": "JOUR",
+      "AU": ["Vrandečić, Denny"],
+      "A2": ["Hendler, James", "Simperl, Elena"],
+      "ED": ["Hendler, James", "Simperl, Elena"],
+      "DA": "2013/01/01",
+      "Y2": "2018/07/21",
+      "PY": 2013,
+      "DO": "10.1109/MIS.2013.119",
+      "IS": "4",
+      "SP": "90-95",
+      "T2": "IEEE Intelligent Systems",
+      "TI": "The Rise of Wikidata",
+      "VL": "28",
+      "ID": "Q37108228"
+    }],
+    "json": [{
+      "TY": "JOUR",
+      "AU": ["Hall, H. K."],
+      "DA": "1957/01/01",
+      "PY": "1957",
+      "DO": "10.1021/ja01577a030",
+      "IS": "20",
+      "SP": "5441-5444",
+      "T2": "Journal of the American Chemical Society",
+      "TI": "Correlation of the Base Strengths of Amines 1",
+      "VL": "79",
+      "ID": "Q23571040"
+    }]
   }
 }
 
@@ -4783,7 +4896,7 @@ module.exports={
           {"given": "Robin", "family": "Coope", "_ordinal": 5},
           {"given": "Greg A", "family": "Taylor", "_ordinal": 6},
           {"given": "Macaire Man Saint", "family": "Yuen", "_ordinal": 7},
-          {"given": "Christopher", "family": "Keeling", "_ordinal": 8},
+          {"given": "Christopher I", "family": "Keeling", "_ordinal": 8},
           {"given": "Dana", "family": "Brand", "_ordinal": 9},
           {"given": "Benjamin P", "family": "Vandervalk", "_ordinal": 10},
           {"given": "Heather", "family": "Kirk", "_ordinal": 11},
@@ -4831,7 +4944,7 @@ module.exports={
           {"given": "Diego", "family": "Pedrosa", "_ordinal": 5},
           {"given": "Tomáš", "family": "Pluskal", "_ordinal": 6},
           {"given": "Emma", "family": "Schymanski", "_ordinal": 7},
-          {"given": "Egon", "family": "Willighagen", "_ordinal": 8},
+          {"given": "Egon L", "family": "Willighagen", "_ordinal": 8},
           {"given": "Michael", "family": "Wilson", "_ordinal": 9},
           {"given": "David S", "family": "Wishart", "_ordinal": 10},
           {"given": "Masanori", "family": "Arita", "_ordinal": 11},
@@ -4886,6 +4999,11 @@ module.exports={
         "URL": "http://www.ncbi.nlm.nih.gov/pubmed/12653513",
         "id": "Steinbeck2003"
       }
+    ],
+    "rich": [
+      {"type": "book", "id": "ibscsupsub", "citation-label": "ibscsupsub", "title": "<i>i</i><b>b</b><sc>sc</sc><sup>sup</sup><sub>sub</sub>"},
+      {"type": "book", "id": "sc", "citation-label": "sc", "title": "<sc>sc</sc>"},
+      {"type": "book", "id": "sc", "citation-label": "sc", "title": "<span class=\"nocase\">sc</span>"}
     ],
     "whitespace": [
       {
@@ -5021,41 +5139,50 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
-describe('plugins', function () {
-  var ref = '@test';
-  var type = "".concat(ref, "/foo");
-  var subType = "".concat(ref, "/bar");
-  var data = [{
-    foo: 1
-  }];
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-  var parse = function parse() {
-    return data;
-  };
+var ref = '@test';
+var type = "".concat(ref, "/foo");
+var subType = "".concat(ref, "/bar");
+var data = [{
+  foo: 1
+}];
 
-  var parseAsync = function () {
-    var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              return _context.abrupt("return", data);
+var parse = function parse() {
+  return data;
+};
 
-            case 1:
-            case "end":
-              return _context.stop();
-          }
+var parseAsync = function () {
+  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            return _context.abrupt("return", data);
+
+          case 1:
+          case "end":
+            return _context.stop();
         }
-      }, _callee, this);
-    }));
+      }
+    }, _callee, this);
+  }));
 
-    return function parseAsync() {
-      return _ref.apply(this, arguments);
-    };
-  }();
+  return function parseAsync() {
+    return _ref.apply(this, arguments);
+  };
+}();
 
+var format = function format(data) {
+  return data;
+};
+
+var dict = {
+  foo: ['«<({[', ']})>»']
+};
+describe('plugins', function () {
   afterEach(function () {
     _citation.default.plugins.remove(ref);
   });
@@ -5092,6 +5219,125 @@ describe('plugins', function () {
     (0, _expect.default)(_citation.default.parse.hasDataParser(type)).to.not.be.ok();
     (0, _expect.default)(_citation.default.parse.hasDataParser(type, true)).to.not.be.ok();
     (0, _expect.default)(_citation.default.parse.type('foo')).to.not.be(type);
+  });
+  describe('config', function () {
+    afterEach(function () {
+      _citation.default.plugins.config.remove(ref);
+    });
+    it('works', function () {
+      _citation.default.plugins.config.add(ref, {
+        foo: 1
+      });
+
+      (0, _expect.default)(_citation.default.plugins.config.get(ref)).to.eql({
+        foo: 1
+      });
+    });
+    it('removes', function () {
+      _citation.default.plugins.config.add(ref, {
+        foo: 1
+      });
+
+      _citation.default.plugins.config.remove(ref);
+
+      (0, _expect.default)(_citation.default.plugins.config.get(ref)).to.not.be.ok();
+    });
+  });
+  describe('dict', function () {
+    afterEach(function () {
+      _citation.default.plugins.dict.remove(ref);
+    });
+    it('registers', function () {
+      _citation.default.plugins.dict.add(ref, dict);
+
+      (0, _expect.default)(_citation.default.plugins.dict.has(ref)).to.be.ok();
+    });
+    it('works', function () {
+      _citation.default.plugins.dict.add(ref, dict);
+
+      (0, _expect.default)(_citation.default.plugins.dict.get(ref)).to.eql(dict);
+    });
+    it('removes', function () {
+      _citation.default.plugins.dict.add(ref, dict);
+
+      _citation.default.plugins.dict.remove(ref);
+
+      (0, _expect.default)(_citation.default.plugins.dict.has(ref)).to.not.be.ok();
+      (0, _expect.default)(_citation.default.plugins.dict.get(ref)).to.not.be.ok();
+    });
+    it('lists', function () {
+      _citation.default.plugins.dict.add(ref, dict);
+
+      _citation.default.plugins.dict.add('ref', dict);
+
+      (0, _expect.default)(_citation.default.plugins.dict.list().slice(-2)).to.eql([ref, 'ref']);
+    });
+    describe('validation', function () {
+      it('checks ref', function () {
+        (0, _expect.default)(_citation.default.plugins.dict.add).withArgs(1).to.throwException(function (e) {
+          (0, _expect.default)(e).to.be.a(TypeError);
+        });
+      });
+      it('checks dict', function () {
+        (0, _expect.default)(_citation.default.plugins.dict.add).withArgs(ref, 1).to.throwException(function (e) {
+          (0, _expect.default)(e).to.be.a(TypeError);
+        });
+      });
+      it('checks entries', function () {
+        (0, _expect.default)(_citation.default.plugins.dict.add).withArgs(ref, {
+          foo: 1
+        }).to.throwException(function (e) {
+          (0, _expect.default)(e).to.be.a(TypeError);
+        });
+        (0, _expect.default)(_citation.default.plugins.dict.add).withArgs(ref, {
+          foo: [1]
+        }).to.throwException(function (e) {
+          (0, _expect.default)(e).to.be.a(TypeError);
+        });
+      });
+    });
+  });
+  describe('output', function () {
+    afterEach(function () {
+      _citation.default.plugins.output.remove(ref);
+    });
+    it('registers', function () {
+      _citation.default.plugins.output.add(ref, format);
+
+      (0, _expect.default)(_citation.default.plugins.output.has(ref)).to.be.ok();
+    });
+    it('works', function () {
+      _citation.default.plugins.output.add(ref, format);
+
+      (0, _expect.default)(_citation.default.plugins.output.format(ref, data)).to.eql(data);
+    });
+    it('removes', function () {
+      _citation.default.plugins.output.add(ref, format);
+
+      _citation.default.plugins.output.remove(ref);
+
+      (0, _expect.default)(_citation.default.plugins.output.has(ref)).to.not.be.ok();
+      (0, _expect.default)(_citation.default.plugins.output.format(ref)).to.not.be.ok();
+    });
+    it('lists', function () {
+      _citation.default.plugins.output.add(ref, format);
+
+      _citation.default.plugins.output.add('ref', format);
+
+      (0, _expect.default)(_citation.default.plugins.output.list().slice(-2)).to.eql([ref, 'ref']);
+    });
+    describe('validation', function () {
+      it('checks ref', function () {
+        (0, _expect.default)(_citation.default.plugins.output.add).withArgs(1).to.throwException(function (e) {
+          (0, _expect.default)(e).to.be.a(TypeError);
+        });
+      });
+      it('checks formatter', function () {
+        (0, _expect.default)(_citation.default.plugins.output.add).withArgs(ref, 1).to.throwException(function (e) {
+          (0, _expect.default)(e).to.be.a(TypeError);
+        });
+      });
+    });
   });
   describe('input', function () {
     describe('typeParser', function () {
