@@ -3,21 +3,21 @@
   <head>
     <title>Home - Citation.js</title>
     <meta name="description" content="Citation.js converts formats like BibTeX, Wikidata JSON and ContentMine JSON to CSL-JSON to convert to other formats like APA, Vancouver and back to BibTeX." />
-    
+
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
     <meta name="theme-color" content="#FFC107" />
     <meta name="google-site-verification" content="CzUIXxrEXTZ3WQWM6VysvxyJ1OI1ExZtPqbVwbS5Obk" />
-    
+
     <link rel="shortcut icon" type="image/png" href="favicon.png" />
     <link rel="icon" type="image/png" href="favicon.png" />
-    
+
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" type="text/css" href="https://code.getmdl.io/1.3.0/material.amber-light_blue.min.css" />
     <link rel="stylesheet" type="text/css" href="static/css/style.css" />
-    
+
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script type="text/javascript" src="https://embed.runkit.com" data-element-id="runkit"></script>
@@ -41,7 +41,7 @@
             <a class="mdl-navigation__link" href="api/">Docs</a>
             <a class="mdl-navigation__link" href="#" id="more">More</a>
           </nav>
-          
+
           <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="more">
             <li class="mdl-menu__item">
               <a target="_blank" class="mdl-navigation__link" href="test/">Build test</a>
@@ -52,7 +52,7 @@
           </ul>
         </div>
       </header>
-      
+
       <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Citation.js</span>
         <div class="mdl-navigation">
@@ -62,7 +62,7 @@
           <a target="_blank" class="mdl-navigation__link" href="test/">Build test</a>
         </div>
       </div>
-      
+
       <div class="mdl-layout__content">
         <div class="code"></div>
 
@@ -80,15 +80,18 @@
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Citation.js</h2>
               </div>
-              
+
               <div class="mdl-card__supporting-text">
                 <p>
                   Citation.js (<a href="https://github.com/larsgw/citation.js">GitHub</a>, <a href="https://www.npmjs.org/package/citation-js">NPM</a>)
                   converts formats like BibTeX, Wikidata JSON and ContentMine JSON to CSL-JSON to convert
                   to other formats like APA, Vancouver and back to BibTeX.
                 </p>
+                <p>
+                  Read the preprint "Citation.js: a format-independent, modular bibliography tool for the browser and command line" on <a href="https://peerj.com/preprints/27466/?td=bl">PeerJ Preprints</a>.
+                </p>
               </div>
-              
+
               <div class="mdl-card__actions mdl-card--border">
                 <p>
                   <a class="no-border" href="https://www.npmjs.org/package/citation-js">
@@ -104,13 +107,13 @@
               </div>
             </section>
           </div>
-          
+
           <div class="mdl-cell mdl-cell--6-col">
             <section class="mdl-card mdl-shadow--2dp grey">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Features</h2>
               </div>
-              
+
               <div class="mdl-card__supporting-text">
                 <ul>
                   <li>Conversion from: Wikidata, Wikidata IDs, BibTeX, Bib.TXT and BibJSON</li>
@@ -123,25 +126,25 @@
               </div>
             </section>
           </div>
-          
+
           <div id="citation-js" class="mdl-cell mdl-cell--6-col">
             <img src="static/img/logo.svg" />
             <span>itation.js</span>
           </div>
-          
+
           <div class="mdl-cell mdl-cell--6-col">
           </div>
-          
+
           <div class="mdl-cell mdl-cell--6-col">
             <section class="mdl-card mdl-shadow--2dp">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Related projects</h2>
               </div>
-              
+
               <div class="mdl-card__supporting-text">
                 <ul>
                   <li><a href="https://github.com/Juris-M/citeproc-js">citeproc-js</a>
-                      the implementation of <a href="http://citationstyles.org/">CSL</a> used in 
+                      the implementation of <a href="http://citationstyles.org/">CSL</a> used in
                       <b>Citation.js</b>.</li>
                   <li><a href="https://github.com/larsgw/citation.js-form">citation.js-form</a>
                       (formerly known as jquery.citation.js), a tool to make a webform for a more
@@ -156,13 +159,13 @@
               </div>
             </section>
           </div>
-          
+
           <div class="mdl-cell mdl-cell--6-col">
             <section class="mdl-card mdl-shadow--2dp grey">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Demo</h2>
               </div>
-              
+
               <pre id="runkit">
 const Cite = require('citation-js')
 
