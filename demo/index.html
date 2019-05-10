@@ -57,79 +57,53 @@
       --></div>
     </div>
     <h4>Wikidata/URL:</h4>
-    <p><b style="font-size:12px;">Note that Citation.js parses input via chaining. The data the URL points at is captured an re-parsed, so if the URL points to a text file containing an URL pointing to the first URL, you get an infinite loop. However, URL's pointing to itself are accounted for.</b></p>
     <div id="wiki-in" data-type="url" class="in url" contenteditable="true" spellcheck="false"><!--
       -->https://www.wikidata.org/wiki/Q21972834<!--
     --></div>
     <h4>BibJSON:</h4>
-    <p><b style="font-size:12px;">More coming soon.</b></p>
     <div id="bibj-in" data-type="json" class="in javascript" contenteditable="true" spellcheck="false"><!--
 -->{
-  "publisher": {
-    "value": [
-      "BioMed Central"
-    ]
-  },
+  "title": "Gitksan medicinal plants-cultural choice and efficacy",
+  "link": [
+    {
+      "type": "fulltext_html",
+      "url": "https://ethnobiomed.biomedcentral.com/articles/10.1186/1746-4269-2-29"
+    },
+    {
+      "type": "fulltext_pdf",
+      "url": "https://ethnobiomed.biomedcentral.com/track/pdf/10.1186/1746-4269-2-29"
+    }
+  ],
+  "author": [
+    {
+      "name": "Leslie Main Johnson",
+      "institution": "Centre for Work and Community Studies and Centre for Integrated Studies, Athabasca University, Athabasca, Canada"
+    },
+    {
+      "institution": "Anthropology Department, University of Alberta, Edmonton, Canada"
+    }
+  ],
+  "publisher": { "name": "BioMed Central" },
   "journal": {
-    "value": [
-      "Journal of Ethnobiology and Ethnomedicine"
-    ]
+    "volume": "2",
+    "issue": "1",
+    "firstpage": "29",
+    "name": "Journal of Ethnobiology and Ethnomedicine",
+    "issn": "1746-4269"
   },
-  "title": {
-    "value": [
-      "Gitksan medicinal plants-cultural choice and efficacy"
-    ]
+  "sections": {
+    "abstract": {
+      "text": "The use of plants for healing by any cultural group is integrally related to local concepts of the nature of disease, the nature of plants, and the world view of the culture. The physical and chemical properties of the plants themselves also bear on their selection by people for medicines, as does the array of plants available for people to choose from. I examine use of medicinal plants from a "
+    },
+    "description": {
+      "text": "The use of plants for healing by any cultural group is integrally related to local concepts of the nature of disease, the nature of plants, and the world view of the culture. The physical and chemical properties of the plants themselves also bear on their selection by people for medicines, as does the array of plants available for people to choose from. I examine use of medicinal plants from a "
+    }
   },
-  "authors": {
-    "value": [
-      "Leslie Main Johnson"
-    ]
-  },
-  "date": {
-    "value": [
-      "2006-06-21"
-    ]
-  },
-  "doi": {
-    "value": [
-      "10.1186/1746-4269-2-29"
-    ]
-  },
-  "volume": {
-    "value": [
-      "2"
-    ]
-  },
-  "issue": {
-    "value": [
-      "1"
-    ]
-  },
-  "firstpage": {
-    "value": [
-      "1"
-    ]
-  },
-  "fulltext_html": {
-    "value": [
-      "http://ethnobiomed.biomedcentral.com/articles/10.1186/1746-4269-2-29"
-    ]
-  },
-  "fulltext_pdf": {
-    "value": [
-      "http://ethnobiomed.biomedcentral.com/track/pdf/10.1186/1746-4269-2-29?site=http://ethnobiomed.biomedcentral.com"
-    ]
-  },
-  "license": {
-    "value": [
-      "This article is published under license to BioMed Central Ltd. This is an Open Access article distributed under the terms of the Creative Commons Attribution License (http://creativecommons.org/licenses/by/2.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited."
-    ]
-  },
-  "copyright": {
-    "value": [
-      "2006 Johnson; licensee BioMed Central Ltd."
-    ]
-  }
+  "date": { "published": "2006-06-21T00:00:00+02:00" },
+  "identifier": [ { "type": "doi", "id": "10.1186/1746-4269-2-29" } ],
+  "license": [ { "raw": "This article is published under license to BioMed Central Ltd. This is an Open Access article distributed under the terms of the Creative Commons Attribution License (http://creativecommons.org/licenses/by/2.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited." } ],
+  "copyright": [ "2006 Johnson; licensee BioMed Central Ltd." ],
+  "log": [ { "date": "2018-07-12T18:35:20+02:00", "event": "scraped by quickscrape v0.4.7" } ]
 }<!--
      --></div>
     <h2>Output:</h2>
@@ -204,32 +178,32 @@ $(function(){
       $type = $('select.type'),
       $styl = $('select.style'),
       $lang = $('select.lang')
-  
+
   // Callbacks
   var jsonCb = callbackFactory($('#json-out')),
       bibxCb = callbackFactory($('#bibx-out')),
       wikiCb = callbackFactory($('#wiki-out')),
       bibjCb = callbackFactory($('#bibj-out'))
-  
+
   // Declare function to update the output
   function update() {
     // Get user options
     opt.type = $type.val()
     opt.style = $styl.val()
     opt.lang = $lang.val()
-    
+
     // Set data (explicit parsing only recommended for async) and set html element to get output
     parseAsync($json_in).then(jsonCb)
     parseAsync($bibx_in).then(bibxCb)
     parseAsync($wiki_in).then(wikiCb)
     parseAsync($bibj_in).then(bibjCb)
   }
-  
+
   // Make output update when input is defocussed...
   $('.in').on('blur', update)
   // ... or a select tag has changed
   $('select').on('change', update)
-  
+
   // Trigger update
   update()
 })
@@ -237,11 +211,11 @@ $(function(){
     <script type="text/javascript">
       $(window).on('load',function(){
 	// Insert live code, directly from the script element (!)
-	$('pre code.javascript').html($('.code').html());	
-	
+	$('pre code.javascript').html($('.code').html());
+
 	// Highlight all code
 	$('.javascript,.in').highlight();
-	
+
 	// Remove and re-add highlighting on focus and blur
 	$('.in').focus(function(){$(this).find('span').each(function(){$(this).after(this.textContent);$(this).remove();});});
 	$('.in').blur(function(){$(this).highlight()});
