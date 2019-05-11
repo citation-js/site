@@ -56,7 +56,7 @@
       <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Citation.js</span>
         <div class="mdl-navigation">
-          <a target="_blank" class="mdl-navigation__link" href="https://github.com/larsgw/citation.js/tree/master#starting">Get started</a>
+          <a target="_blank" class="mdl-navigation__link" href="api/tutorial-getting_started.html">Get started</a>
           <a target="_blank" class="mdl-navigation__link" href="demo/">Demo</a>
           <a target="_blank" class="mdl-navigation__link" href="api/">Docs</a>
           <a target="_blank" class="mdl-navigation__link" href="test/">Build test</a>
@@ -67,7 +67,7 @@
         <div class="code"></div>
 
         <footer>
-          &copy; 2017-2018 Lars Willighagen
+          &copy; 2017-2019 Lars Willighagen
           <span style="left:0;right:0;position:absolute;text-align:center">Citation.js</span>
           <span style="right:5px;position:absolute">
             <a href="https://larsgw.github.io">larsgw.github.io</a>
@@ -84,8 +84,8 @@
               <div class="mdl-card__supporting-text">
                 <p>
                   Citation.js (<a href="https://github.com/larsgw/citation.js">GitHub</a>, <a href="https://www.npmjs.org/package/citation-js">NPM</a>)
-                  converts formats like BibTeX, Wikidata JSON and ContentMine JSON to CSL-JSON to convert
-                  to other formats like APA, Vancouver and back to BibTeX.
+                  converts formats like BibTeX, BibJSON, DOI, and Wikidata to CSL-JSON to convert
+                  to styles like APA, Vancouver and to BibTeX and RIS.
                 </p>
                 <p>
                   Read the preprint "Citation.js: a format-independent, modular bibliography tool for the browser and command line" on <a href="https://peerj.com/preprints/27466/?td=bl">PeerJ Preprints</a>.
@@ -97,7 +97,7 @@
                   <a class="no-border" href="https://www.npmjs.org/package/citation-js">
                     <img height="20" src="https://img.shields.io/npm/v/citation-js.svg" alt="NPM version">
                   </a>
-                  <a class="no-border" href="https://npmjs.org/citation-js">
+                  <a class="no-border" href="https://npm-stat.com/charts.html?package=citation-js&from=2016-10-10">
                     <img height="20" src="https://img.shields.io/npm/dt/citation-js.svg" alt="NPM total downloads">
                   </a>
                   <a class="no-border" href="https://travis-ci.org/larsgw/citation.js">
@@ -116,10 +116,10 @@
 
               <div class="mdl-card__supporting-text">
                 <ul>
-                  <li>Conversion from: Wikidata, Wikidata IDs, BibTeX, Bib.TXT and BibJSON</li>
-                  <li>Conversion to: CSL-JSON, BibTeX, Bib.TXT, and formatted citations</li>
-                  <li>Extensive sorting (more coming soon!)</li>
-                  <li>Version control</li>
+                  <li>Conversion from: BibTeX, CFF, DOI, ISBN and Wikidata</li>
+                  <li>Conversion to: CSL-JSON, BibTeX, CFF, RIS</li>
+                  <li><code>citeproc-js</code> support with preloaded styles and locales</li>
+                  <li>Modular approach, pick supported formats</li>
                   <li>Support for Node.js, browser, and has a CLI</li>
                   <li>MIT licensed</li>
                 </ul>
@@ -171,10 +171,9 @@ const Cite = require('citation-js')
 
 const data = await Cite.async('Q30000000')
 
-data.get({
-  format: 'string',
-  type: 'html',
-  style: 'citation-apa',
+data.format('bibliography', {
+  format: 'html',
+  template: 'apa',
   lang: 'en-US'
 })
               </pre>
