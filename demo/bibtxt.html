@@ -69,7 +69,7 @@ $(function () {
     opt.lang = $('select.lang').val()
 
     // Update output
-    cite.set($('#in'))
+    cite.set($('#in').text())
     $('#out').html(cite.get(opt))
   }
   

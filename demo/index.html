@@ -193,10 +193,10 @@ $(function(){
     opt.lang = $lang.val()
 
     // Set data (explicit parsing only recommended for async) and set html element to get output
-    parseAsync($json_in).then(jsonCb)
-    parseAsync($bibx_in).then(bibxCb)
-    parseAsync($wiki_in).then(wikiCb)
-    parseAsync($bibj_in).then(bibjCb)
+    parseAsync($json_in.text()).then(jsonCb)
+    parseAsync($bibx_in.text()).then(bibxCb)
+    parseAsync($wiki_in.text()).then(wikiCb)
+    parseAsync($bibj_in.text()).then(bibjCb)
   }
 
   // Make output update when input is defocussed...
