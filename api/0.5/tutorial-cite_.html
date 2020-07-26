@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Tutorial: Cite - Docs - Citation.js</title>
+        <meta name="theme-color" content="#FFC107">
+        <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+        <link rel="icon" type="image/png" href="../favicon.png"/>
+
+        <script src="scripts/prettify/prettify.js"></script>
+        <script src="scripts/prettify/lang-css.js"></script>
+        <!--[if lt IE 9]>
+          <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+        <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    </head>
+    <body>
+        <nav>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-@citation-js_core.html">@citation-js/core</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-@citation-js_core.plugins.html">plugins</a></li><li><a href="module-@citation-js_core.plugins.config.html">config</a></li><li><a href="module-@citation-js_core.plugins.dict.html">dict</a></li><li><a href="module-@citation-js_core.plugins.input.html">input</a></li><li><a href="module-@citation-js_core.plugins.input.util.html">util</a></li><li><a href="module-@citation-js_core.plugins.output.html">output</a></li><li><a href="module-@citation-js_core.util.html">util</a></li></ul><h3>Classes</h3><ul><li><a href="module-@citation-js_core.Cite.html">Cite</a></li><li><a href="module-@citation-js_core.plugins.input.util.DataParser.html">DataParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.FormatParser.html">FormatParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.TypeParser.html">TypeParser</a></li><li><a href="module-@citation-js_core.util.Grammar.html">Grammar</a></li><li><a href="module-@citation-js_core.util.Register.html">Register</a></li><li><a href="module-@citation-js_core.util.TokenStack.html">TokenStack</a></li><li><a href="module-@citation-js_core.util.Translator.html">Translator</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-cite_.html">Cite</a></li><li><a href="tutorial-input.html">Input</a></li><li><a href="tutorial-output.html">Output</a></li><li><a href="tutorial-plugins.html">Plugins</a></li></ul>
+        </nav>
+
+        <div id="main">
+            
+            <h1 class="page-title">Tutorial: Cite</h1>
+            
+
+            <section>
+
+<header>
+    
+    <ul>
+        <li><a href="tutorial-cite_constructor.html">Cite Constructor</a></li>
+    
+        <li><a href="tutorial-cite_data.html">Cite Data Methods</a></li>
+    
+        <li><a href="tutorial-cite_output.html">Cite Output Methods</a></li>
+    </ul>
+    
+
+    <h2>Cite</h2>
+</header>
+
+<article>
+    <p>Central to Citation.js is the <code>Cite</code> constructor. This document explains how to use it.</p>
+<pre class="prettyprint source lang-js"><code>const example = new Cite(data, options)
+</code></pre>
+<p><code>data</code> can be any of the input types listed in input_formats. Some of the main ones:</p>
+<ul>
+<li>DOIs, lists of DOIs, a file with DOIs, or a <code>doi.org</code> URL</li>
+<li>Wikidata IDs, lists of IDs, a file with IDs, a Wikidata API URL, Wikidata JSON response</li>
+<li>BibTeX entries, JSON representations of BibTeX, Bib.TXT entries</li>
+<li>BibJSON</li>
+<li>CSL-JSON</li>
+<li>Serialized JSON, an array with mixed contents, a plain URL, a jQuery element, a DOM element</li>
+</ul>
+<p><code>options</code> is an object with the input options listed in <a href="tutorial-input_options.html">Input Options</a>. These are usually not needed.</p>
+<blockquote>
+<p>A more in-depth read on the <code>Cite</code> constructor and how to use it can be found in <a href="tutorial-cite_constructor.html">Cite Constructor</a></p>
+</blockquote>
+<h2 id="data-methods">Data Methods</h2>
+<blockquote>
+<p>Read more on <a href="tutorial-cite_data.html">Cite Data Methods</a></p>
+</blockquote>
+<p><code>Cite</code> instances have some more functions:</p>
+<ul>
+<li><code>Cite#add(&lt;data&gt;)</code>: Add data</li>
+<li><code>Cite#reset()</code>: Remove all data and options</li>
+<li><code>Cite#set(&lt;data&gt;)</code>: Replace all data with new data</li>
+<li><code>Cite#set()</code> and <code>Cite#get()</code> also have async variants (<code>Cite#setAsync()</code> and <code>Cite#addAsync()</code>), which return Promises</li>
+</ul>
+<p>These functions change the internal data of the references managed in that <code>Cite</code> instance.</p>
+<pre class="prettyprint source lang-js"><code>const example = new Cite({title: 'Thing A'})
+
+console.log(example.data)
+// [{title: 'Thing A'}]
+
+example.add([{title: 'Thing B'}, {title: 'Thing C'}])
+
+console.log(example.data)
+// [{title: 'Thing A'}, {title: 'Thing B'}, {title: 'Thing C'}]
+
+example.set({title: 'Thing D'})
+
+console.log(example.data)
+// [{title: 'Thing D'}]
+
+example.reset()
+
+console.log(example.data)
+// []
+</code></pre>
+<h2 id="version-control-methods">Version Control Methods</h2>
+<ul>
+<li><code>Cite#currentVersion()</code>: Get current version number</li>
+<li><code>Cite#retrieveVersion(&lt;version number&gt;)</code>: Retrieve a certain version of the object</li>
+<li><code>Cite#retrieveLastVersion()</code>: Retrieve the last saved version of the object</li>
+<li><code>Cite#undo(&lt;number&gt;)</code>: Restore the n to last version (default: <code>1</code>)</li>
+<li><code>Cite#save()</code>: Save the current object</li>
+</ul>
+<p>These functions are a limited, opt-in version control.</p>
+<pre class="prettyprint source lang-js"><code>const example = new Cite({id: 1})
+
+example.add({id: 2})
+
+console.log(example.data)
+// [{id: 1}, {id: 2}]
+
+// oops, let's revert that
+const new_example = example.undo()
+
+console.log(new_example.data)
+// [{id: 1}]
+
+console.log(example.data)
+// [{id: 1}, {id: 2}]
+</code></pre>
+<h2 id="configuration-methods">Configuration Methods</h2>
+<ul>
+<li><code>Cite#options(&lt;options&gt;)</code>: Change default options</li>
+</ul>
+<p>This function changes the default output_options.</p>
+<pre class="prettyprint source lang-js"><code>const example = new Cite('Q30000000', {
+  // Default options: BibTeX JSON
+  output: {
+    style: 'bibtex'
+  }
+})
+
+console.log(example.get())
+// [{label: 'Miccadei2002Synergistic', type: 'article', properties: { ... }]
+
+// Change default output options
+example.options({
+  type: 'string',
+  style: 'bibtex'
+})
+
+console.log(example.get())
+// @article{Miccadei2002Synergistic,
+//   journal={Molecular Endocrinology},
+//   doi={10.1210/MEND.16.4.0808},
+//   number=4,
+//   pmid=11923479,
+//   title={{The Synergistic Activity of Thyroid Transcription Factor 1 and Pax 8 Relies on the Promoter/Enhancer Interplay}},
+//   volume=16,
+//   author={Miccadei, Stefania and De Leo, Rossana and Zammarchi, Enrico and Natali, Pier Giorgio and Civitareale, Donato},
+//   pages={837--846},
+//   date={2002-01-01},
+//   year=2002,
+//   month=1,
+//   day=1,
+// }
+</code></pre>
+<h2 id="sorting-methods">Sorting Methods</h2>
+<ul>
+<li><code>Cite#sort()</code>: Sort all entries on basis of their BibTeX label</li>
+</ul>
+<p>This function sorts the entries, either by:</p>
+<ol>
+<li>a custom callback function @Cite~sort</li>
+<li>a list of CSL-JSON props to compare</li>
+<li>a label based on the last name of the first author, the year and the first non-noise word</li>
+</ol>
+<pre class="prettyprint source lang-js"><code>const example = new Cite([{id: 1}, {id: 2}])
+
+console.log(example.data)
+// [{id: 1}, {id: 2}]
+
+example.sort(function (entryA, entryB) {
+  return entryB.id - entryA.id
+})
+
+console.log(example.data)
+// [{id: 2}, {id: 1}]
+
+example.sort(['id'])
+
+console.log(example.data)
+// [{id: 1}, {id: 2}]
+</code></pre>
+<blockquote>
+<p>Be carefull with the order of <code>entryA</code> and <code>entryB</code>; there seems to be something wrong with it</p>
+</blockquote>
+<h2 id="output-methods">Output Methods</h2>
+<blockquote>
+<p>Read more on <a href="tutorial-cite_output.html">Cite Output Methods</a></p>
+</blockquote>
+<p>To format data in a <code>Cite</code> instance, you use the <code>Cite#format()</code> method. First, let's create the <code>Cite</code> instance itself:</p>
+<pre class="prettyprint source lang-js"><code>let example = new Cite('10.5281/zenodo.1005176')
+</code></pre>
+<p>Now, we can choose different output_formats output options as a parameter to <code>Cite#format()</code>. For example, to get output in HTML in APA-style:</p>
+<pre class="prettyprint source lang-js"><code>> example.format('bibliography', {
+    format: 'html',
+    template: 'apa'
+  })
+
+&lt; &lt;div class=&quot;csl-bib-body&quot;>
+    &lt;div data-csl-entry-id=&quot;https://doi.org/10.5281/zenodo.1005176&quot; class=&quot;csl-entry&quot;>Willighagen, L., &#38; Willighagen, E. (2017, October 9). Larsgw/Citation.Js V0.3.3. Zenodo. https://doi.org/10.5281/zenodo.1005176&lt;/div>
+  &lt;/div>
+</code></pre>
+</article>
+
+</section>
+
+        </div>
+
+        <br class="clear">
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a>
+             on Sun Jul 26 2020 18:40:54 GMT+0200 (Central European Summer Time)
+        </footer>
+
+        <script> prettyPrint(); </script>
+        <script src="scripts/linenumber.js"> </script>
+    </body>
+</html>

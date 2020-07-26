@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Source: plugins/dict.js - Docs - Citation.js</title>
+        <meta name="theme-color" content="#FFC107">
+        <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+        <link rel="icon" type="image/png" href="../favicon.png"/>
+
+        <script src="scripts/prettify/prettify.js"></script>
+        <script src="scripts/prettify/lang-css.js"></script>
+        <!--[if lt IE 9]>
+          <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+        <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    </head>
+    <body>
+        <nav>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-@citation-js_core.html">@citation-js/core</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-@citation-js_core.plugins.html">plugins</a></li><li><a href="module-@citation-js_core.plugins.config.html">config</a></li><li><a href="module-@citation-js_core.plugins.dict.html">dict</a></li><li><a href="module-@citation-js_core.plugins.input.html">input</a></li><li><a href="module-@citation-js_core.plugins.input.util.html">util</a></li><li><a href="module-@citation-js_core.plugins.output.html">output</a></li><li><a href="module-@citation-js_core.util.html">util</a></li></ul><h3>Classes</h3><ul><li><a href="module-@citation-js_core.Cite.html">Cite</a></li><li><a href="module-@citation-js_core.plugins.input.util.DataParser.html">DataParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.FormatParser.html">FormatParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.TypeParser.html">TypeParser</a></li><li><a href="module-@citation-js_core.util.Grammar.html">Grammar</a></li><li><a href="module-@citation-js_core.util.Register.html">Register</a></li><li><a href="module-@citation-js_core.util.TokenStack.html">TokenStack</a></li><li><a href="module-@citation-js_core.util.Translator.html">Translator</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-cite_.html">Cite</a></li><li><a href="tutorial-input.html">Input</a></li><li><a href="tutorial-output.html">Output</a></li><li><a href="tutorial-plugins.html">Plugins</a></li></ul>
+        </nav>
+
+        <div id="main">
+            
+            <h1 class="page-title">Source: plugins/dict.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @namespace dict
+ * @memberof module:@citation-js/core.plugins
+ */
+
+import Register from '../util/register'
+
+/**
+ * @typedef module:@citation-js/core.plugins.dict~dictName
+ * @type String
+ */
+
+/**
+ * @typedef module:@citation-js/core.plugins.dict~dict
+ * @type Object&lt;module:@citation-js/core.plugins.dict~entryName,module:@citation-js/core.plugins.dict~dictEntry>
+ */
+
+/**
+ * @typedef module:@citation-js/core.plugins.dict~entryName
+ * @type String
+ */
+
+/**
+ * @typedef module:@citation-js/core.plugins.dict~dictEntry
+ * @type Array&lt;String>
+ */
+
+/**
+ * Validate input arguments
+ *
+ * @access private
+ * @memberof module:@citation-js/core.plugins.dict
+ *
+ * @param {module:@citation-js/core.plugins.dict~dictName} name - output format name
+ * @param {module:@citation-js/core.plugins.dict~dict} formatter - outputting function
+ * @throws {TypeError} Invalid output format name
+ * @throws {TypeError} Invalid formatter
+ */
+const validate = (name, dict) => {
+  if (typeof name !== 'string') {
+    throw new TypeError(`Invalid dict name, expected string, got ${typeof name}`)
+  } else if (typeof dict !== 'object') {
+    throw new TypeError(`Invalid dict, expected object, got ${typeof dict}`)
+  }
+
+  for (const entryName in dict) {
+    const entry = dict[entryName]
+    if (!Array.isArray(entry) || entry.some(part => typeof part !== 'string')) {
+      throw new TypeError(`Invalid dict entry "${entryName}", expected array of strings`)
+    }
+  }
+}
+
+/**
+ * @access public
+ * @memberof module:@citation-js/core.plugins.dict
+ * @constant register
+ *
+ * @type module:@citation-js/core.util.Register
+ */
+export const register = new Register({
+  html: {
+    bibliographyContainer: ['&lt;div class="csl-bib-body">', '&lt;/div>'],
+    entry: ['&lt;div class="csl-entry">', '&lt;/div>'],
+    list: ['&lt;ul style="list-style-type:none">', '&lt;/ul>'],
+    listItem: ['&lt;li>', '&lt;/li>']
+  },
+  text: {
+    bibliographyContainer: ['', '\n'],
+    entry: ['', '\n'],
+    list: ['\n', ''],
+    listItem: ['\t', '\n']
+  }
+})
+
+/**
+ * Add dictionary to register. Can be used by output plugins.
+ *
+ * @todo docs
+ *
+ * @access public
+ * @memberof module:@citation-js/core.plugins.dict
+ * @method add
+ *
+ * @param {module:@citation-js/core.plugins.dict~dictName} name - dictionary name
+ * @param {module:@citation-js/core.plugins.dict~dict} dict - dictionary data
+ * @throws {TypeError} argument validation error
+ */
+export const add = (name, dict) => {
+  validate(name, dict)
+  register.set(name, dict)
+}
+
+/**
+ * Remove dictionary.
+ *
+ * @access public
+ * @memberof module:@citation-js/core.plugins.dict
+ * @method remove
+ *
+ * @param {module:@citation-js/core.plugins.dict~dictName} name - output format name
+ */
+export const remove = (name) => {
+  register.remove(name)
+}
+
+/**
+ * Check if dictionary plugin exists.
+ *
+ * @access public
+ * @memberof module:@citation-js/core.plugins.dict
+ * @method has
+ *
+ * @param {module:@citation-js/core.plugins.dict~dictName} name - output format name
+ * @return {Boolean} register has plugin
+ */
+export const has = (name) => {
+  return register.has(name)
+}
+
+/**
+ * List dictionary plugins.
+ *
+ * @access public
+ * @memberof module:@citation-js/core.plugins.dict
+ * @method list
+ *
+ * @return {Array&lt;String>} list of plugins
+ */
+export const list = () => {
+  return register.list()
+}
+
+/**
+ * Get dictionary data.
+ *
+ * @access public
+ * @memberof module:@citation-js/core.plugins.dict
+ * @method get
+ *
+ * @param {module:@citation-js/core.plugins.dict~dictName} name - output format name
+ * @return {module:@citation-js/core.plugins.dict~dict} dictionary data
+ */
+export const get = (name) => {
+  if (!register.has(name)) {
+    throw new Error(`Dict "${name}" unavailable`)
+  }
+  return register.get(name)
+}
+
+/**
+ * Object containing HTML strings for building JSON and BibTeX. Made to match citeproc, for compatibility.
+ *
+ * @access protected
+ * @memberof module:@citation-js/core.plugins.dict
+ * @deprecated use the new formatting dicts: {@link module:@citation-js/core.plugins.dict}
+ */
+export const htmlDict = {
+  wr_start: '&lt;div class="csl-bib-body">',
+  wr_end: '&lt;/div>',
+  en_start: '&lt;div class="csl-entry">',
+  en_end: '&lt;/div>',
+  ul_start: '&lt;ul style="list-style-type:none">',
+  ul_end: '&lt;/ul>',
+  li_start: '&lt;li>',
+  li_end: '&lt;/li>'
+}
+
+/**
+ * Object containing text strings for building JSON and BibTeX. Made to match citeproc, for compatibility.
+ *
+ * @access protected
+ * @memberof module:@citation-js/core.plugins.dict
+ * @deprecated use the new formatting dicts: {@link module:@citation-js/core.plugins.dict}
+ */
+export const textDict = {
+  wr_start: '',
+  wr_end: '\n',
+  en_start: '',
+  en_end: '\n',
+  ul_start: '\n',
+  ul_end: '',
+  li_start: '\t',
+  li_end: '\n'
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+
+        <br class="clear">
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a>
+             on Sun Jul 26 2020 18:40:54 GMT+0200 (Central European Summer Time)
+        </footer>
+
+        <script> prettyPrint(); </script>
+        <script src="scripts/linenumber.js"> </script>
+    </body>
+</html>

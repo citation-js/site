@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Source: Cite/sort.js - Docs - Citation.js</title>
+        <meta name="theme-color" content="#FFC107">
+        <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+        <link rel="icon" type="image/png" href="../favicon.png"/>
+
+        <script src="scripts/prettify/prettify.js"></script>
+        <script src="scripts/prettify/lang-css.js"></script>
+        <!--[if lt IE 9]>
+          <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+        <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    </head>
+    <body>
+        <nav>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-@citation-js_core.html">@citation-js/core</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-@citation-js_core.plugins.html">plugins</a></li><li><a href="module-@citation-js_core.plugins.config.html">config</a></li><li><a href="module-@citation-js_core.plugins.dict.html">dict</a></li><li><a href="module-@citation-js_core.plugins.input.html">input</a></li><li><a href="module-@citation-js_core.plugins.input.util.html">util</a></li><li><a href="module-@citation-js_core.plugins.output.html">output</a></li><li><a href="module-@citation-js_core.util.html">util</a></li></ul><h3>Classes</h3><ul><li><a href="module-@citation-js_core.Cite.html">Cite</a></li><li><a href="module-@citation-js_core.plugins.input.util.DataParser.html">DataParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.FormatParser.html">FormatParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.TypeParser.html">TypeParser</a></li><li><a href="module-@citation-js_core.util.Grammar.html">Grammar</a></li><li><a href="module-@citation-js_core.util.Register.html">Register</a></li><li><a href="module-@citation-js_core.util.TokenStack.html">TokenStack</a></li><li><a href="module-@citation-js_core.util.Translator.html">Translator</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-cite_.html">Cite</a></li><li><a href="tutorial-input.html">Input</a></li><li><a href="tutorial-output.html">Output</a></li><li><a href="tutorial-plugins.html">Plugins</a></li></ul>
+        </nav>
+
+        <div id="main">
+            
+            <h1 class="page-title">Source: Cite/sort.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { getLabel } from '../plugin-common/output/label'
+import { format as getName } from '@citation-js/name'
+
+/**
+ * @callback module:@citation-js/core.Cite#sort~sort
+ * @param {module:@citation-js/core~CSL} a - element a
+ * @param {module:@citation-js/core~CSL} b - element b
+ * @return {Number} positive for a > b, negative for b > a, zero for a = b
+ */
+
+/**
+ * Get value for comparing
+ *
+ * @access private
+ * @method getComparisonValue
+ *
+ * @param {module:@citation-js/core~CSL} obj - obj
+ * @param {String} prop - The prop in question
+ * @param {Boolean} label - Prop is label
+ *
+ * @return {String|Number} something to compare
+ */
+const getComparisonValue = function (obj, prop, label = prop === 'label') {
+  let value = label ? getLabel(obj) : obj[prop]
+
+  switch (prop) {
+    case 'author':
+    case 'editor':
+      return value.map(name => name.literal || name.family || getName(name))
+
+    case 'accessed':
+    case 'issued':
+      return value['date-parts'][0]
+
+    case 'page':
+      return value.split('-').map(num => parseInt(num))
+
+    case 'edition':
+    case 'issue':
+    case 'volume':
+      value = parseInt(value)
+      return !isNaN(value) ? value : -Infinity
+
+    default:
+      return value || -Infinity
+  }
+}
+
+/**
+ * Compares props
+ *
+ * @access private
+ * @method compareProp
+ *
+ * @param {module:@citation-js/core~CSL} entryA
+ * @param {module:@citation-js/core~CSL} entryB
+ * @param {String} prop - The prop in question. Prepend ! to sort the other way around.
+ * @param {Boolean} flip - Override flip
+ *
+ * @return {Number} positive for a > b, negative for b > a, zero for a = b (flips if prop has !)
+ */
+const compareProp = function (entryA, entryB, prop, flip = /^!/.test(prop)) {
+  prop = prop.replace(/^!/, '')
+  const a = getComparisonValue(entryA, prop)
+  const b = getComparisonValue(entryB, prop)
+
+  return (flip ? -1 : 1) * (a > b ? 1 : a &lt; b ? -1 : 0)
+}
+
+/**
+ * Generates a sorting callback based on props.
+ *
+ * @access private
+ * @method getSortCallback
+ *
+ * @param {...String} props - How to sort
+ *
+ * @return {module:@citation-js/core.Cite#sort~sort} sorting callback
+ */
+const getSortCallback = function (...props) {
+  return (a, b) => {
+    const keys = props.slice()
+    let output = 0
+
+    while (!output &amp;&amp; keys.length) {
+      output = compareProp(a, b, keys.shift())
+    }
+
+    return output
+  }
+}
+
+/**
+ * Sort the dataset
+ *
+ * @memberof module:@citation-js/core.Cite#
+ *
+ * @param {module:@citation-js/core.Cite#sort~sort|Array&lt;String>} [method=[]] - How to sort
+ * @param {Boolean} [log=false] - Show this call in the log
+ *
+ * @return {module:@citation-js/core.Cite} The updated parent object
+ */
+const sort = function (method = [], log) {
+  if (log) {
+    this.save()
+  }
+
+  this.data.sort(typeof method === 'function' ? method : getSortCallback(...method, 'label'))
+
+  return this
+}
+
+export { sort }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+
+        <br class="clear">
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a>
+             on Sun Jul 26 2020 18:40:54 GMT+0200 (Central European Summer Time)
+        </footer>
+
+        <script> prettyPrint(); </script>
+        <script src="scripts/linenumber.js"> </script>
+    </body>
+</html>

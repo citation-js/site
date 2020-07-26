@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Source: Cite/set.js - Docs - Citation.js</title>
+        <meta name="theme-color" content="#FFC107">
+        <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+        <link rel="icon" type="image/png" href="../favicon.png"/>
+
+        <script src="scripts/prettify/prettify.js"></script>
+        <script src="scripts/prettify/lang-css.js"></script>
+        <!--[if lt IE 9]>
+          <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+        <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    </head>
+    <body>
+        <nav>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-@citation-js_core.html">@citation-js/core</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-@citation-js_core.plugins.html">plugins</a></li><li><a href="module-@citation-js_core.plugins.config.html">config</a></li><li><a href="module-@citation-js_core.plugins.dict.html">dict</a></li><li><a href="module-@citation-js_core.plugins.input.html">input</a></li><li><a href="module-@citation-js_core.plugins.input.util.html">util</a></li><li><a href="module-@citation-js_core.plugins.output.html">output</a></li><li><a href="module-@citation-js_core.util.html">util</a></li></ul><h3>Classes</h3><ul><li><a href="module-@citation-js_core.Cite.html">Cite</a></li><li><a href="module-@citation-js_core.plugins.input.util.DataParser.html">DataParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.FormatParser.html">FormatParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.TypeParser.html">TypeParser</a></li><li><a href="module-@citation-js_core.util.Grammar.html">Grammar</a></li><li><a href="module-@citation-js_core.util.Register.html">Register</a></li><li><a href="module-@citation-js_core.util.TokenStack.html">TokenStack</a></li><li><a href="module-@citation-js_core.util.Translator.html">Translator</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-cite_.html">Cite</a></li><li><a href="tutorial-input.html">Input</a></li><li><a href="tutorial-output.html">Output</a></li><li><a href="tutorial-plugins.html">Plugins</a></li></ul>
+        </nav>
+
+        <div id="main">
+            
+            <h1 class="page-title">Source: Cite/set.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { chain as parseInput, chainAsync as parseInputAsync } from '../plugins/input/'
+import fetchId from '../util/fetchId'
+
+/**
+ * Add an object to the array of objects
+ *
+ * @memberof module:@citation-js/core.Cite#
+ *
+ * @param {module:@citation-js/core~InputData} data - The data to add to your object
+ * @param {module:@citation-js/core~InputOptions} [options] - Options
+ * @param {Boolean} [log=false] - Show this call in the log
+ *
+ * @return {module:@citation-js/core.Cite} The updated parent object
+ */
+const add = function (data, options = {}, log = false) {
+  if (options === true || log === true) {
+    this.save()
+  }
+
+  this.data.push(...parseInput(data, options))
+
+  this.data
+    .filter(entry => !Object.prototype.hasOwnProperty.call(entry, 'id'))
+    .forEach(entry => {
+      entry.id = fetchId(this.getIds(), 'temp_id_')
+    })
+
+  return this
+}
+
+/**
+ * Add an object to the array of objects
+ *
+ * @memberof module:@citation-js/core.Cite#
+ *
+ * @param {module:@citation-js/core~InputData} data - The data to add to your object
+ * @param {module:@citation-js/core~InputOptions} [options] - Options
+ * @param {Boolean} [log=false] - Show this call in the log
+ *
+ * @return {Promise&lt;module:@citation-js/core.Cite>} The updated parent object
+ */
+const addAsync = async function (data, options = {}, log = false) {
+  if (options === true || log === true) {
+    this.save()
+  }
+
+  this.data.push(...await parseInputAsync(data, options))
+
+  this.data
+    .filter(entry => !Object.prototype.hasOwnProperty.call(entry, 'id'))
+    .forEach(entry => {
+      entry.id = fetchId(this.getIds(), 'temp_id_')
+    })
+
+  return this
+}
+
+/**
+ * Recreate a `Cite` object with almost any kind of data, and manipulate it with its default methods.
+ *
+ * @memberof module:@citation-js/core.Cite#
+ *
+ * @param {module:@citation-js/core~InputData} data - Replacement data
+ * @param {module:@citation-js/core~InputOptions} [options] - Options
+ * @param {Boolean} [log=false] - Show this call in the log
+ *
+ * @return {module:@citation-js/core.Cite} The updated parent object
+ */
+const set = function (data, options = {}, log = false) {
+  if (options === true || log === true) {
+    this.save()
+  }
+
+  this.data = []
+  return typeof options !== 'boolean' ? this.add(data, options) : this.add(data)
+}
+
+/**
+ * Recreate a `Cite` object with almost any kind of data, and manipulate it with its default methods.
+ *
+ * @memberof module:@citation-js/core.Cite#
+ *
+ * @param {module:@citation-js/core~InputData} data - Replacement data
+ * @param {module:@citation-js/core~InputOptions} [options] - Options
+ * @param {Boolean} [log=false] - Show this call in the log
+ *
+ * @return {Promise&lt;module:@citation-js/core.Cite>} The updated parent object
+ */
+const setAsync = async function (data, options = {}, log = false) {
+  if (options === true || log === true) {
+    this.save()
+  }
+
+  this.data = []
+  return typeof options !== 'boolean' ? this.addAsync(data, options) : this.addAsync(data)
+}
+
+/**
+ * Reset a `Cite` object.
+ *
+ * @memberof module:@citation-js/core.Cite#
+ *
+ * @param {Boolean} [log=false] - Show this call in the log
+ *
+ * @return {module:@citation-js/core.Cite} The updated, empty parent object (except the log, the log lives)
+ */
+const reset = function (log) {
+  if (log) {
+    this.save()
+  }
+
+  this.data = []
+  this._options = {}
+
+  return this
+}
+
+export { add, addAsync, set, setAsync, reset }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+
+        <br class="clear">
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a>
+             on Sun Jul 26 2020 18:40:54 GMT+0200 (Central European Summer Time)
+        </footer>
+
+        <script> prettyPrint(); </script>
+        <script src="scripts/linenumber.js"> </script>
+    </body>
+</html>

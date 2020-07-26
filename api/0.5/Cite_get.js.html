@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Source: Cite/get.js - Docs - Citation.js</title>
+        <meta name="theme-color" content="#FFC107">
+        <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+        <link rel="icon" type="image/png" href="../favicon.png"/>
+
+        <script src="scripts/prettify/prettify.js"></script>
+        <script src="scripts/prettify/lang-css.js"></script>
+        <!--[if lt IE 9]>
+          <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+        <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    </head>
+    <body>
+        <nav>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-@citation-js_core.html">@citation-js/core</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-@citation-js_core.plugins.html">plugins</a></li><li><a href="module-@citation-js_core.plugins.config.html">config</a></li><li><a href="module-@citation-js_core.plugins.dict.html">dict</a></li><li><a href="module-@citation-js_core.plugins.input.html">input</a></li><li><a href="module-@citation-js_core.plugins.input.util.html">util</a></li><li><a href="module-@citation-js_core.plugins.output.html">output</a></li><li><a href="module-@citation-js_core.util.html">util</a></li></ul><h3>Classes</h3><ul><li><a href="module-@citation-js_core.Cite.html">Cite</a></li><li><a href="module-@citation-js_core.plugins.input.util.DataParser.html">DataParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.FormatParser.html">FormatParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.TypeParser.html">TypeParser</a></li><li><a href="module-@citation-js_core.util.Grammar.html">Grammar</a></li><li><a href="module-@citation-js_core.util.Register.html">Register</a></li><li><a href="module-@citation-js_core.util.TokenStack.html">TokenStack</a></li><li><a href="module-@citation-js_core.util.Translator.html">Translator</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-cite_.html">Cite</a></li><li><a href="tutorial-input.html">Input</a></li><li><a href="tutorial-output.html">Output</a></li><li><a href="tutorial-plugins.html">Plugins</a></li></ul>
+        </nav>
+
+        <div id="main">
+            
+            <h1 class="page-title">Source: Cite/get.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { validateOutputOptions as validate } from './static'
+import { format as formatData } from '../plugins/output'
+import { clean as parseCsl } from '../plugins/input/csl'
+
+/**
+ * Get a list of the data entry IDs, in the order of that list
+ *
+ * @access public
+ * @method getIds
+ * @memberof module:@citation-js/core.Cite#
+ *
+ * @return {Array&lt;String>} List of IDs
+ */
+export function getIds () {
+  return this.data.map(entry => entry.id)
+}
+
+/**
+ * Get formatted data from your object.
+ *
+ * @access public
+ * @method format
+ * @memberof module:@citation-js/core.Cite#
+ *
+ * @param {String} format - format module name
+ * @param {...*} options - module options (see relevant documentation)
+ *
+ * @return {String|Array&lt;Object>} formatted data
+ */
+export function format (format, ...options) {
+  return formatData(format, parseCsl(this.data), ...options)
+}
+
+/**
+ * Get formatted data from your object.
+ *
+ * @access public
+ * @method get
+ * @memberof module:@citation-js/core.Cite#
+ * @tutorial output
+ * @deprecated use {@link module:@citation-js/core.Cite#format}
+ *
+ * @param {module:@citation-js/core~OutputOptions} [options={}] - Output options
+ *
+ * @return {String|Array&lt;Object>} The formatted data
+ */
+/* istanbul ignore next: deprecated */
+export function get (options = {}) {
+  validate(options)
+
+  const parsedOptions = Object.assign({}, this.defaultOptions, this._options.output, options)
+
+  const { type, style } = parsedOptions
+  const [styleType, styleFormat] = style.split('-')
+  const newStyle = styleType === 'citation' ? 'bibliography' : styleType === 'csl' ? 'data' : styleType
+  const newType = type === 'string' ? 'text' : type === 'json' ? 'object' : type
+
+  let formatOptions
+
+  switch (newStyle) {
+    case 'bibliography': {
+      const { lang, append, prepend } = parsedOptions
+      formatOptions = { template: styleFormat, lang, format: newType, append, prepend }
+      break
+    }
+
+    case 'data':
+    case 'bibtex':
+    case 'bibtxt':
+    case 'ndjson':
+    case 'ris':
+      formatOptions = { type: newType }
+      break
+
+    default:
+      throw new Error(`Invalid style "${newStyle}"`)
+  }
+
+  const result = this.format(newStyle, Object.assign(formatOptions, options._newOptions))
+
+  const { format } = parsedOptions
+  if (format === 'real' &amp;&amp; newType === 'html' &amp;&amp; typeof document !== 'undefined' &amp;&amp; typeof document.createElement === 'function') {
+    const tmp = document.createElement('div')
+    tmp.innerHTML = result
+    return tmp.firstChild
+  } else if (format === 'string' &amp;&amp; typeof result === 'object') {
+    return JSON.stringify(result)
+  } else {
+    return result
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+
+        <br class="clear">
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a>
+             on Sun Jul 26 2020 18:40:54 GMT+0200 (Central European Summer Time)
+        </footer>
+
+        <script> prettyPrint(); </script>
+        <script src="scripts/linenumber.js"> </script>
+    </body>
+</html>

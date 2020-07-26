@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Source: Cite/validate.js - Docs - Citation.js</title>
+        <meta name="theme-color" content="#FFC107">
+        <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+        <link rel="icon" type="image/png" href="../favicon.png"/>
+
+        <script src="scripts/prettify/prettify.js"></script>
+        <script src="scripts/prettify/lang-css.js"></script>
+        <!--[if lt IE 9]>
+          <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+        <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    </head>
+    <body>
+        <nav>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-@citation-js_core.html">@citation-js/core</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-@citation-js_core.plugins.html">plugins</a></li><li><a href="module-@citation-js_core.plugins.config.html">config</a></li><li><a href="module-@citation-js_core.plugins.dict.html">dict</a></li><li><a href="module-@citation-js_core.plugins.input.html">input</a></li><li><a href="module-@citation-js_core.plugins.input.util.html">util</a></li><li><a href="module-@citation-js_core.plugins.output.html">output</a></li><li><a href="module-@citation-js_core.util.html">util</a></li></ul><h3>Classes</h3><ul><li><a href="module-@citation-js_core.Cite.html">Cite</a></li><li><a href="module-@citation-js_core.plugins.input.util.DataParser.html">DataParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.FormatParser.html">FormatParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.TypeParser.html">TypeParser</a></li><li><a href="module-@citation-js_core.util.Grammar.html">Grammar</a></li><li><a href="module-@citation-js_core.util.Register.html">Register</a></li><li><a href="module-@citation-js_core.util.TokenStack.html">TokenStack</a></li><li><a href="module-@citation-js_core.util.Translator.html">Translator</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-cite_.html">Cite</a></li><li><a href="tutorial-input.html">Input</a></li><li><a href="tutorial-output.html">Output</a></li><li><a href="tutorial-plugins.html">Plugins</a></li></ul>
+        </nav>
+
+        <div id="main">
+            
+            <h1 class="page-title">Source: Cite/validate.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const formats = ['real', 'string']
+const types = ['json', 'html', 'string', 'rtf']
+const styles = ['csl', 'bibtex', 'bibtxt', 'citation-*', 'ris', 'ndjson']
+const wrapperTypes = ['string', 'function']
+
+/**
+ * @access public
+ * @method validateOutputOptions
+ * @memberof module:@citation-js/core.Cite
+ *
+ * @deprecated
+ * @param {module:@citation-js/core~OutputOptions} - options
+ *
+ * @return {Boolean} true (if valid)
+ * @throws {TypeError} Options not an object
+ * @throws {TypeError} Invalid options
+ * @throws {Error} Invalid options combination
+ *
+ * @todo check registers if styles and langs are present
+ */
+/* istanbul ignore next: deprecated */
+export function validateOutputOptions (options) {
+  if (typeof options !== 'object') {
+    throw new TypeError('Options not an object!')
+  }
+
+  const { format, type, style, lang, append, prepend } = options
+
+  if (format &amp;&amp; !formats.includes(format)) {
+    throw new TypeError(`Option format ("${format}") should be one of: ${formats}`)
+  } else if (type &amp;&amp; !types.includes(type)) {
+    throw new TypeError(`Option type ("${type}") should be one of: ${types}`)
+  } else if (style &amp;&amp; !styles.includes(style) &amp;&amp; !/^citation/.test(style)) {
+    throw new TypeError(`Option style ("${style}") should be one of: ${styles}`)
+  } else if (lang &amp;&amp; typeof lang !== 'string') {
+    throw new TypeError(`Option lang should be a string, but is a ${typeof lang}`)
+  } else if (prepend &amp;&amp; !wrapperTypes.includes(typeof prepend)) {
+    throw new TypeError(`Option prepend should be a string or a function, but is a ${typeof prepend}`)
+  } else if (append &amp;&amp; !wrapperTypes.includes(typeof append)) {
+    throw new TypeError(`Option append should be a string or a function, but is a ${typeof append}`)
+  }
+
+  if (/^citation/.test(style) &amp;&amp; type === 'json') {
+    throw new Error(`Combination type/style of json/citation-* is not valid: ${type}/${style}`)
+  }
+
+  return true
+}
+
+/**
+ * @access public
+ * @method valdiateOptions
+ * @memberof module:@citation-js/core.Cite
+ *
+ * @param {module:@citation-js/core~InputOptions} - options
+ *
+ * @return {Boolean} true (if valid)
+ * @throws {TypeError} Options not an object
+ * @throws {TypeError} Invalid options
+ *
+ * @todo check registers if type is present
+ */
+export function validateOptions (options) {
+  if (typeof options !== 'object') {
+    throw new TypeError('Options should be an object')
+  }
+
+  /* istanbul ignore if: deprecated */
+  if (options.output) {
+    validateOutputOptions(options.output)
+  } else if (options.maxChainLength &amp;&amp; typeof options.maxChainLength !== 'number') {
+    throw new TypeError('Option maxChainLength should be a number')
+  } else if (options.forceType &amp;&amp; typeof options.forceType !== 'string') {
+    throw new TypeError('Option forceType should be a string')
+  } else if (options.generateGraph != null &amp;&amp; typeof options.generateGraph !== 'boolean') {
+    throw new TypeError('Option generateGraph should be a boolean')
+  } else if (options.strict != null &amp;&amp; typeof options.strict !== 'boolean') {
+    throw new TypeError('Option strict should be a boolean')
+  } else if (options.target != null &amp;&amp; typeof options.target !== 'string') {
+    throw new TypeError('Option target should be a boolean')
+  }
+
+  return true
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+
+        <br class="clear">
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a>
+             on Sun Jul 26 2020 18:40:54 GMT+0200 (Central European Summer Time)
+        </footer>
+
+        <script> prettyPrint(); </script>
+        <script src="scripts/linenumber.js"> </script>
+    </body>
+</html>

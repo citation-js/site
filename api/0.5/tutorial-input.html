@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Tutorial: Input - Docs - Citation.js</title>
+        <meta name="theme-color" content="#FFC107">
+        <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+        <link rel="icon" type="image/png" href="../favicon.png"/>
+
+        <script src="scripts/prettify/prettify.js"></script>
+        <script src="scripts/prettify/lang-css.js"></script>
+        <!--[if lt IE 9]>
+          <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+        <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    </head>
+    <body>
+        <nav>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-@citation-js_core.html">@citation-js/core</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-@citation-js_core.plugins.html">plugins</a></li><li><a href="module-@citation-js_core.plugins.config.html">config</a></li><li><a href="module-@citation-js_core.plugins.dict.html">dict</a></li><li><a href="module-@citation-js_core.plugins.input.html">input</a></li><li><a href="module-@citation-js_core.plugins.input.util.html">util</a></li><li><a href="module-@citation-js_core.plugins.output.html">output</a></li><li><a href="module-@citation-js_core.util.html">util</a></li></ul><h3>Classes</h3><ul><li><a href="module-@citation-js_core.Cite.html">Cite</a></li><li><a href="module-@citation-js_core.plugins.input.util.DataParser.html">DataParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.FormatParser.html">FormatParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.TypeParser.html">TypeParser</a></li><li><a href="module-@citation-js_core.util.Grammar.html">Grammar</a></li><li><a href="module-@citation-js_core.util.Register.html">Register</a></li><li><a href="module-@citation-js_core.util.TokenStack.html">TokenStack</a></li><li><a href="module-@citation-js_core.util.Translator.html">Translator</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-cite_.html">Cite</a></li><li><a href="tutorial-input.html">Input</a></li><li><a href="tutorial-output.html">Output</a></li><li><a href="tutorial-plugins.html">Plugins</a></li></ul>
+        </nav>
+
+        <div id="main">
+            
+            <h1 class="page-title">Tutorial: Input</h1>
+            
+
+            <section>
+
+<header>
+    
+    <ul>
+        <li><a href="tutorial-input_options.html">Input Options</a></li>
+    
+        <li><a href="tutorial-input_plugins.html">Input Plugins</a></li>
+    </ul>
+    
+
+    <h2>Input</h2>
+</header>
+
+<article>
+    <p>With Citation.js, you can parse input in a number of different ways:</p>
+<ol>
+<li>You can pass the data to the <code>Cite</code> constructor <a href="tutorial-cite_constructor.html">Cite Constructor</a></li>
+<li>You can create a <code>Cite</code> instance asynchronously with <code>Cite.async()</code> <a href="tutorial-cite_constructor.html">Cite Constructor</a></li>
+<li>You can pass the data to the <code>Cite#add()</code> and <code>Cite#set()</code> methods, returning the modified <code>Cite</code> instance. See <a href="tutorial-cite_data.html">Cite Data Methods</a></li>
+<li>You can pass the data to <code>Cite.input()</code> and <code>Cite.inputAsync()</code>, returning CSL-JSON. See below</li>
+</ol>
+<p>The available formats are documented in input_formats. To add your own formats, see <a href="tutorial-input_plugins.html">Input Plugins</a>.</p>
+<h2 id="cite.input%5Basync%5D()"><code>Cite.input[Async]()</code></h2>
+<p>You can parse input data with <code>Cite.input()</code>, which returns CSL-JSON:</p>
+<pre class="prettyprint source lang-js"><code>let json = Cite.input('10.5281/zenodo.1005176')
+
+> json
+&lt; [{title: 'Citation.js', DOI: '10.5281/zenodo.1005176', ...}]
+</code></pre>
+<p>There is also an async variant, <code>Cite.parseAsync()</code>, that returns a <code>Promise</code>.</p>
+<pre class="prettyprint source lang-js"><code>let json = await Cite.inputAsync('10.5281/zenodo.1005176')
+
+> json
+&lt; [{title: 'Citation.js', DOI: '10.5281/zenodo.1005176', ...}]
+</code></pre>
+<p>Input parsing in Citation.js works by:</p>
+<ol>
+<li>Determining the input format (this can be bypassed with input_options <code>forceType</code>)</li>
+<li>If it's CSL-JSON, you're done. Else, proceed.</li>
+<li>Parse the input. Go back to step 1. (this step is limited by the input_options <code>maxChainLength</code> option.</li>
+</ol>
+<p>This repetition of parsing is called a &quot;chain&quot;. There are also functions to parse only a single chainlink. These are currently accessible as <code>Cite.plugins.input.chainLink[Async]()</code>, and work similarly. Note that the conversion of <code>@else/list+object</code> (i.e. a &quot;miscellaneous&quot; array) to <code>@csl/list+object</code> (i.e. the end product) is considered <em>one</em> step.</p>
+</article>
+
+</section>
+
+        </div>
+
+        <br class="clear">
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a>
+             on Sun Jul 26 2020 18:40:54 GMT+0200 (Central European Summer Time)
+        </footer>
+
+        <script> prettyPrint(); </script>
+        <script src="scripts/linenumber.js"> </script>
+    </body>
+</html>
