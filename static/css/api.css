@@ -15,6 +15,9 @@
 #main section article h4 a {
   color: #00aaff;
 }
+#main section article h4 code {
+    color: #4d4e53;
+}
 
 code {
   font-size: 0.875em;
