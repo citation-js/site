@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Source: plugin-wikidata/src/prop.js - Docs - Citation.js</title>
+        <meta name="theme-color" content="#FFC107">
+        <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+        <link rel="icon" type="image/png" href="../favicon.png"/>
+
+        <script src="scripts/prettify/prettify.js"></script>
+        <!-- <script src="scripts/prettify/lang-css.js"></script> -->
+        <!--[if lt IE 9]>
+          <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+        <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    </head>
+    <body>
+        <nav>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-@citation-js_core.html">@citation-js/core</a></li><li><a href="module-@citation-js_plugin-bibjson.html">@citation-js/plugin-bibjson</a></li><li><a href="module-@citation-js_plugin-bibtex.html">@citation-js/plugin-bibtex</a></li><li><a href="module-@citation-js_plugin-csl.html">@citation-js/plugin-csl</a></li><li><a href="module-@citation-js_plugin-doi.html">@citation-js/plugin-doi</a></li><li><a href="module-@citation-js_plugin-ris.html">@citation-js/plugin-ris</a></li><li><a href="module-@citation-js_plugin-wikidata.html">@citation-js/plugin-wikidata</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-@citation-js_core.plugins.html">plugins</a></li><li><a href="module-@citation-js_core.plugins.config.html">config</a></li><li><a href="module-@citation-js_core.plugins.dict.html">dict</a></li><li><a href="module-@citation-js_core.plugins.input.html">input</a></li><li><a href="module-@citation-js_core.plugins.input.util.html">util</a></li><li><a href="module-@citation-js_core.plugins.output.html">output</a></li><li><a href="module-@citation-js_core.util.html">util</a></li><li><a href="module-@citation-js_plugin-bibjson.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-bibjson.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-bibjson.parsers.json.html">json</a></li><li><a href="module-@citation-js_plugin-bibtex.config.html">config</a></li><li><a href="module-@citation-js_plugin-bibtex.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-bibtex.output.html">output</a></li><li><a href="module-@citation-js_plugin-csl.config.html">config</a></li><li><a href="module-@citation-js_plugin-csl.output.html">output</a></li><li><a href="module-@citation-js_plugin-doi.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-doi.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-doi.parsers.api.html">api</a></li><li><a href="module-@citation-js_plugin-doi.parsers.id.html">id</a></li><li><a href="module-@citation-js_plugin-doi.parsers.json.html">json</a></li><li><a href="module-@citation-js_plugin-doi.parsers.type.html">type</a></li><li><a href="module-@citation-js_plugin-ris.config.html">config</a></li><li><a href="module-@citation-js_plugin-ris.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-ris.output.html">output</a></li><li><a href="module-@citation-js_plugin-wikidata.config.html">config</a></li><li><a href="module-@citation-js_plugin-wikidata.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.api.html">api</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.entity.html">entity</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.id.html">id</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.prop.html">prop</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.url.html">url</a></li></ul><h3>Classes</h3><ul><li><a href="module-@citation-js_core.Cite.html">Cite</a></li><li><a href="module-@citation-js_core.plugins.input.util.DataParser.html">DataParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.FormatParser.html">FormatParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.TypeParser.html">TypeParser</a></li><li><a href="module-@citation-js_core.util.Grammar.html">Grammar</a></li><li><a href="module-@citation-js_core.util.Register.html">Register</a></li><li><a href="module-@citation-js_core.util.TokenStack.html">TokenStack</a></li><li><a href="module-@citation-js_core.util.Translator.html">Translator</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-cite_.html">Cite</a></li><li><a href="tutorial-input.html">Input</a></li><li><a href="tutorial-output.html">Output</a></li><li><a href="tutorial-plugins.html">Plugins</a></li></ul>
+        </nav>
+
+        <div id="main">
+            
+            <h1 class="page-title">Source: plugin-wikidata/src/prop.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { logger } from '@citation-js/core'
+import { parse as parseNameString } from '@citation-js/name'
+import { parse as parseDate } from '@citation-js/date'
+
+import config from './config'
+
+/**
+ * CSL mappings for Wikidata instances.
+ * @access private
+ * @constant types
+ * @memberof module:@citation-js/plugin-wikidata.parsers.prop
+ */
+import types from './types'
+
+/**
+ * Get series ordinal from qualifiers object
+ *
+ * @access private
+ * @memberof module:@citation-js/plugin-wikidata.parsers.prop
+ * @param {Object} qualifiers
+ * @return {Number} series ordinal or -1
+ */
+const getSeriesOrdinal = ({ P1545 }) => P1545 ? parseInt(P1545[0]) : -1
+
+/**
+ * Some name fields have, in addition to a Wikidata ID, a qualifier stating
+ * how the name is actually represented. That's what we want to cite.
+ *
+ * @access private
+ * @memberof module:@citation-js/plugin-wikidata.parsers.prop
+ * @param {Object} qualifiers
+ * @return {Array&lt;String>} names
+ */
+const getStatedAs = qualifiers => [].concat(...[
+  qualifiers.P1932,
+  qualifiers.P1810
+].filter(Boolean))
+
+/**
+ * Get a single name
+ *
+ * @access private
+ * @memberof module:@citation-js/plugin-wikidata.parsers.prop
+ * @param {Object} claim - name claim
+ * @return {Object} Name object
+ */
+const parseName = ({ value, qualifiers }) => {
+  let [name] = getStatedAs(qualifiers)
+  if (!name) {
+    name = typeof value === 'string' ? value : getLabel(value)
+  }
+  name = name ? parseNameString(name) : { literal: name }
+  name._ordinal = getSeriesOrdinal(qualifiers)
+  return name
+}
+
+/**
+ * Get names
+ *
+ * @access private
+ * @memberof module:@citation-js/plugin-wikidata.parsers.prop
+ * @param {Array&lt;Object>} values
+ * @return {Array&lt;Object>} Array with name objects
+ */
+const parseNames = (values) => {
+  return values
+    .map(parseName)
+    .sort((a, b) => a._ordinal - b._ordinal)
+}
+
+/**
+ * Get place name from (publisher) entity.
+ *
+ * @access private
+ * @memberof module:@citation-js/plugin-wikidata.parsers.prop
+ * @param {Object} value
+ * @return {String} Place name + country
+ */
+const getPlace = value => {
+  const country = value.claims.P17[0].value
+  // only short names that are not an instance of (P31) emoji flag seqs. (Q28840786)
+  const shortNames = country.claims.P1813.filter(({ qualifiers: { P31 } }) => !P31 || P31[0] !== 'Q28840786')
+  return getLabel(value) + ', ' + (shortNames[0] || country.claims.P1448[0]).value
+}
+
+/**
+ * Get title either from explicit statement or from label.
+ *
+ * @access private
+ * @memberof module:@citation-js/plugin-wikidata.parsers.prop
+ * @param {Object} value
+ * @return {String} Title
+ */
+const getTitle = value => {
+  return value.claims.P1476
+    ? value.claims.P1476[0].value
+    : getLabel(value)
+}
+
+/**
+ * Turn array of entities into comma-separated list of labels.
+ *
+ * @access private
+ * @memberof module:@citation-js/plugin-wikidata.parsers.prop
+ * @param {Array&lt;Object>} values
+ * @return {String} Labels
+ */
+const parseKeywords = values => {
+  return values
+    .map(({ value }) => getLabel(value))
+    .join(',')
+}
+
+/**
+ * Get date parts from multiple statements.
+ *
+ * @access private
+ * @memberof module:@citation-js/plugin-wikidata.parsers.prop
+ * @param {Array&lt;Object>} values
+ * @return {Array&lt;Array&lt;Number>>} Array of date-parts
+ */
+const parseDateRange = dates => ({
+  'date-parts': dates
+    .map(date => parseDate(date.value))
+    .filter(date => date &amp;&amp; date['date-parts'])
+    .map(date => date['date-parts'][0])
+})
+
+/**
+ * Transform property and value from Wikidata format to CSL.
+ *
+ * Returns additional _ordinal property on authors.
+ *
+ * @access protected
+ * @method parse
+ * @memberof module:@citation-js/plugin-wikidata.parsers.prop
+ *
+ * @param {String} prop
+ * @param {Array|String} values
+ * @param {Object} entity
+ *
+ * @return {String|Array&lt;Object>} CSL value
+ */
+export function parseProp (prop, value, entity) {
+  switch (prop) {
+    case 'type':
+      return parseType(value)
+
+    case 'author':
+    case 'director':
+    case 'container-author':
+    case 'collection-editor':
+    case 'composer':
+    case 'editor':
+    case 'illustrator':
+    case 'original-author':
+    case 'recipient':
+    case 'reviewed-author':
+    case 'translator':
+      return parseNames(value)
+
+    case 'issued':
+    case 'original-date':
+      return parseDate(value)
+
+    case 'event-date':
+      return parseDateRange(value)
+
+    case 'keyword':
+      return parseKeywords(value)
+
+    case 'container-title':
+    case 'collection-title':
+    case 'event':
+    case 'medium':
+    case 'publisher':
+    case 'original-publisher':
+      return getTitle(value)
+
+    case 'event-place':
+    case 'original-publisher-place':
+    case 'publisher-place':
+      return getPlace(value)
+
+    case 'collection-number':
+      return getSeriesOrdinal(value[0].qualifiers)
+
+    case 'number-of-volumes':
+      return value.length
+
+    default:
+      return value
+  }
+}
+
+/**
+ * @access protected
+ * @memberof module:@citation-js/plugin-wikidata.parsers.prop
+ * @param {String} type - P31 Wikidata ID value
+ * @return {String} CSL type
+ */
+export function parseType (type) {
+  if (!types[type]) {
+    logger.unmapped('[plugin-wikidata]', 'publication type', type)
+    return 'book'
+  }
+
+  return types[type]
+}
+
+/**
+ * Get the labels of objects
+ *
+ * @access protected
+ * @memberof module:@citation-js/plugin-wikidata.parsers.prop
+ * @param {Object} entity - Wikidata API response
+ * @return {String} label
+ */
+export function getLabel (entity) {
+  if (!entity) {
+    return undefined
+  }
+
+  const lang = config.langs.find(lang => entity.labels[lang])
+  return entity.labels[lang]
+}
+
+export {
+  parseProp as parse,
+  parseProp as default
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+
+        <br class="clear">
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a>
+             on Thu Apr 01 2021 23:28:11 GMT+0200 (Central European Summer Time)
+        </footer>
+
+        <script> prettyPrint(); </script>
+        <script src="scripts/linenumber.js"> </script>
+    </body>
+</html>

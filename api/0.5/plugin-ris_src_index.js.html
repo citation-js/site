@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Source: plugin-ris/src/index.js - Docs - Citation.js</title>
+        <meta name="theme-color" content="#FFC107">
+        <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+        <link rel="icon" type="image/png" href="../favicon.png"/>
+
+        <script src="scripts/prettify/prettify.js"></script>
+        <!-- <script src="scripts/prettify/lang-css.js"></script> -->
+        <!--[if lt IE 9]>
+          <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+        <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    </head>
+    <body>
+        <nav>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-@citation-js_core.html">@citation-js/core</a></li><li><a href="module-@citation-js_plugin-bibjson.html">@citation-js/plugin-bibjson</a></li><li><a href="module-@citation-js_plugin-bibtex.html">@citation-js/plugin-bibtex</a></li><li><a href="module-@citation-js_plugin-csl.html">@citation-js/plugin-csl</a></li><li><a href="module-@citation-js_plugin-doi.html">@citation-js/plugin-doi</a></li><li><a href="module-@citation-js_plugin-ris.html">@citation-js/plugin-ris</a></li><li><a href="module-@citation-js_plugin-wikidata.html">@citation-js/plugin-wikidata</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-@citation-js_core.plugins.html">plugins</a></li><li><a href="module-@citation-js_core.plugins.config.html">config</a></li><li><a href="module-@citation-js_core.plugins.dict.html">dict</a></li><li><a href="module-@citation-js_core.plugins.input.html">input</a></li><li><a href="module-@citation-js_core.plugins.input.util.html">util</a></li><li><a href="module-@citation-js_core.plugins.output.html">output</a></li><li><a href="module-@citation-js_core.util.html">util</a></li><li><a href="module-@citation-js_plugin-bibjson.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-bibjson.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-bibjson.parsers.json.html">json</a></li><li><a href="module-@citation-js_plugin-bibtex.config.html">config</a></li><li><a href="module-@citation-js_plugin-bibtex.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-bibtex.output.html">output</a></li><li><a href="module-@citation-js_plugin-csl.config.html">config</a></li><li><a href="module-@citation-js_plugin-csl.output.html">output</a></li><li><a href="module-@citation-js_plugin-doi.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-doi.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-doi.parsers.api.html">api</a></li><li><a href="module-@citation-js_plugin-doi.parsers.id.html">id</a></li><li><a href="module-@citation-js_plugin-doi.parsers.json.html">json</a></li><li><a href="module-@citation-js_plugin-doi.parsers.type.html">type</a></li><li><a href="module-@citation-js_plugin-ris.config.html">config</a></li><li><a href="module-@citation-js_plugin-ris.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-ris.output.html">output</a></li><li><a href="module-@citation-js_plugin-wikidata.config.html">config</a></li><li><a href="module-@citation-js_plugin-wikidata.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.api.html">api</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.entity.html">entity</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.id.html">id</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.prop.html">prop</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.url.html">url</a></li></ul><h3>Classes</h3><ul><li><a href="module-@citation-js_core.Cite.html">Cite</a></li><li><a href="module-@citation-js_core.plugins.input.util.DataParser.html">DataParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.FormatParser.html">FormatParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.TypeParser.html">TypeParser</a></li><li><a href="module-@citation-js_core.util.Grammar.html">Grammar</a></li><li><a href="module-@citation-js_core.util.Register.html">Register</a></li><li><a href="module-@citation-js_core.util.TokenStack.html">TokenStack</a></li><li><a href="module-@citation-js_core.util.Translator.html">Translator</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-cite_.html">Cite</a></li><li><a href="tutorial-input.html">Input</a></li><li><a href="tutorial-output.html">Output</a></li><li><a href="tutorial-plugins.html">Plugins</a></li></ul>
+        </nav>
+
+        <div id="main">
+            
+            <h1 class="page-title">Source: plugin-ris/src/index.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * ## Formats
+ *
+ * For a full list, check out {@link module:@citation-js/plugin-ris.formats}.
+ *
+ * ## Configuration
+ *
+ * Check out {@link module:@citation-js/plugin-ris.config}.
+ *
+ * @module module:@citation-js/plugin-ris
+ */
+
+import { plugins } from '@citation-js/core'
+import config from './config'
+import { parse, parseNew, parseOld, parseMixed, format } from './ris'
+
+const oldProps = ['A1', 'AV', 'BT', 'CP', 'ED', 'EP', 'ID', 'J1', 'JA', 'JF', 'JO', 'L2', 'L3', 'N2', 'T1', 'U1', 'U2', 'U3', 'U4', 'U5', 'U6', 'Y1']
+const newProps = ['A4', 'AD', 'AN', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'CA', 'CN', 'DA', 'DB', 'DO', 'DP', 'ET', 'LA', 'LB', 'NV', 'OP', 'PY', 'RI', 'RN', 'SE', 'ST', 'SV', 'TA', 'TT']
+
+plugins.add('@ris', {
+  /**
+   * @namespace formats
+   * @type Object&lt;module:@citation-js/core.plugins.input~format,module:@citation-js/core.plugins.input~parsers>
+   * @memberof module:@citation-js/plugin-ris
+   */
+  input: {
+    /**
+     * RIS file.
+     *
+     * @type module:@citation-js/core.plugins.input~parsers
+     * @memberof module:@citation-js/plugin-ris.formats
+     * @property {module:@citation-js/core.plugins.input~dataParser} parse
+     * @property {module:@citation-js/core.plugins.input~typeParser} parseType
+     */
+    '@ris/file': {
+      parse,
+      parseType: {
+        dataType: 'String',
+        predicate: /^TY {2}- /m
+      }
+    },
+
+    /**
+     * A single RIS record.
+     *
+     * @type module:@citation-js/core.plugins.input~parsers
+     * @memberof module:@citation-js/plugin-ris.formats
+     * @property {module:@citation-js/core.plugins.input~dataParser} parse
+     * @property {module:@citation-js/core.plugins.input~typeParser} parseType
+     */
+    '@ris/record': {
+      parse: parseMixed,
+      parseType: {
+        dataType: 'SimpleObject',
+        propertyConstraint: {
+          props: ['TY']
+        }
+      }
+    },
+
+    /**
+     * A single RIS record, specifically in the new format.
+     *
+     * @type module:@citation-js/core.plugins.input~parsers
+     * @memberof module:@citation-js/plugin-ris.formats
+     * @property {module:@citation-js/core.plugins.input~dataParser} parse
+     * @property {module:@citation-js/core.plugins.input~typeParser} parseType
+     */
+    '@ris/new+record': {
+      parse: parseNew,
+      parseType: {
+        extends: '@ris/record',
+        propertyConstraint: [
+          { props: newProps, match: 'some' },
+          { props: oldProps, match: 'none' }
+        ]
+      }
+    },
+
+    /**
+     * A single RIS record, specifically in the old format.
+     *
+     * @type module:@citation-js/core.plugins.input~parsers
+     * @memberof module:@citation-js/plugin-ris.formats
+     * @property {module:@citation-js/core.plugins.input~dataParser} parse
+     * @property {module:@citation-js/core.plugins.input~typeParser} parseType
+     */
+    '@ris/old+record': {
+      parse: parseOld,
+      parseType: {
+        extends: '@ris/record',
+        propertyConstraint: [
+          { props: oldProps, match: 'some' },
+          { props: newProps, match: 'none' }
+        ]
+      }
+    }
+  },
+
+  /**
+   * Which specification to use when producing output.
+   *
+   * @deprecated Use the `spec` option of {@link module:@citation-js/plugin-ris.output.ris} instead.
+   * @var {String} [outputSpec="mixed"]
+   * @memberof module:@citation-js/plugin-ris.config
+   */
+
+  /**
+   * @namespace config
+   * @memberof module:@citation-js/plugin-ris
+   */
+  config,
+
+  /**
+   * @namespace output
+   * @memberof module:@citation-js/plugin-ris
+   */
+  output: {
+    /**
+     * @function
+     * @implements module:@citation-js/core.plugins.output~formatter
+     * @memberof module:@citation-js/plugin-ris.output
+     * @param {Array&lt;module:@citation-js/core~CSL>} data
+     * @param {Object} [opts]
+     * @param {String} [opts.spec='mixed'] - RIS specification (`mixed`, `new` or `old`)
+     * @param {module:@citation-js/core.plugins.dict~dictName|String} [opts.format='text'] - Output dict name or `'object'` for a representation
+     * @return {String|Array&lt;Object>}
+     */
+    ris: format
+  }
+})
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+
+        <br class="clear">
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a>
+             on Thu Apr 01 2021 23:28:11 GMT+0200 (Central European Summer Time)
+        </footer>
+
+        <script> prettyPrint(); </script>
+        <script src="scripts/linenumber.js"> </script>
+    </body>
+</html>

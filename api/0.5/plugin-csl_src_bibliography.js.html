@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Source: plugin-csl/src/bibliography.js - Docs - Citation.js</title>
+        <meta name="theme-color" content="#FFC107">
+        <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+        <link rel="icon" type="image/png" href="../favicon.png"/>
+
+        <script src="scripts/prettify/prettify.js"></script>
+        <!-- <script src="scripts/prettify/lang-css.js"></script> -->
+        <!--[if lt IE 9]>
+          <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+        <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    </head>
+    <body>
+        <nav>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-@citation-js_core.html">@citation-js/core</a></li><li><a href="module-@citation-js_plugin-bibjson.html">@citation-js/plugin-bibjson</a></li><li><a href="module-@citation-js_plugin-bibtex.html">@citation-js/plugin-bibtex</a></li><li><a href="module-@citation-js_plugin-csl.html">@citation-js/plugin-csl</a></li><li><a href="module-@citation-js_plugin-doi.html">@citation-js/plugin-doi</a></li><li><a href="module-@citation-js_plugin-ris.html">@citation-js/plugin-ris</a></li><li><a href="module-@citation-js_plugin-wikidata.html">@citation-js/plugin-wikidata</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-@citation-js_core.plugins.html">plugins</a></li><li><a href="module-@citation-js_core.plugins.config.html">config</a></li><li><a href="module-@citation-js_core.plugins.dict.html">dict</a></li><li><a href="module-@citation-js_core.plugins.input.html">input</a></li><li><a href="module-@citation-js_core.plugins.input.util.html">util</a></li><li><a href="module-@citation-js_core.plugins.output.html">output</a></li><li><a href="module-@citation-js_core.util.html">util</a></li><li><a href="module-@citation-js_plugin-bibjson.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-bibjson.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-bibjson.parsers.json.html">json</a></li><li><a href="module-@citation-js_plugin-bibtex.config.html">config</a></li><li><a href="module-@citation-js_plugin-bibtex.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-bibtex.output.html">output</a></li><li><a href="module-@citation-js_plugin-csl.config.html">config</a></li><li><a href="module-@citation-js_plugin-csl.output.html">output</a></li><li><a href="module-@citation-js_plugin-doi.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-doi.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-doi.parsers.api.html">api</a></li><li><a href="module-@citation-js_plugin-doi.parsers.id.html">id</a></li><li><a href="module-@citation-js_plugin-doi.parsers.json.html">json</a></li><li><a href="module-@citation-js_plugin-doi.parsers.type.html">type</a></li><li><a href="module-@citation-js_plugin-ris.config.html">config</a></li><li><a href="module-@citation-js_plugin-ris.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-ris.output.html">output</a></li><li><a href="module-@citation-js_plugin-wikidata.config.html">config</a></li><li><a href="module-@citation-js_plugin-wikidata.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.api.html">api</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.entity.html">entity</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.id.html">id</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.prop.html">prop</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.url.html">url</a></li></ul><h3>Classes</h3><ul><li><a href="module-@citation-js_core.Cite.html">Cite</a></li><li><a href="module-@citation-js_core.plugins.input.util.DataParser.html">DataParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.FormatParser.html">FormatParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.TypeParser.html">TypeParser</a></li><li><a href="module-@citation-js_core.util.Grammar.html">Grammar</a></li><li><a href="module-@citation-js_core.util.Register.html">Register</a></li><li><a href="module-@citation-js_core.util.TokenStack.html">TokenStack</a></li><li><a href="module-@citation-js_core.util.Translator.html">Translator</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-cite_.html">Cite</a></li><li><a href="tutorial-input.html">Input</a></li><li><a href="tutorial-output.html">Output</a></li><li><a href="tutorial-plugins.html">Plugins</a></li></ul>
+        </nav>
+
+        <div id="main">
+            
+            <h1 class="page-title">Source: plugin-csl/src/bibliography.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import prepareEngine from './engines'
+import { getPrefixedEntry } from './attr.js'
+
+/**
+ * Get a rendered affix
+ *
+ * @access private
+ *
+ * @param {CSL} source - source element
+ * @param {String|Cite~wrapper} affix
+ *
+ * @return {String} Rendered affixs
+ */
+const getAffix = (source, affix) => typeof affix === 'function' ? affix(source) : affix || ''
+
+/**
+ * This plugin adds the output format `bibliography`, and accepts the following specific options:
+ *
+ *   * `prepend` (`String`, `Function`): prepend static or dynamic text to each entry
+ *   * `append` (`String`, `Function`): append static or dynamic text to each entry
+ *   * `nosort` (`Boolean`, default: `false`): do not sort according to the style-defined rules
+ *   * `asEntryArray` (`Boolean`, default: `false`): return an array of entries consisting of an id and the output for that individual entry
+ *
+ * Here's an example for `prepend` and `append`:
+ *
+ * ```js
+ * let cite = new Cite({ id: 'a', title: 'Item A' })
+ *
+ * cite.format('bibliography', { append: ' [foobar]' })
+ * // 'Item A. (n.d.). [foobar]\n'
+ *
+ * cite.format('bibliography', { prepend (entry) { return `${entry.id}: ` } })
+ * // 'a: Item A. (n.d.).\n'
+ * ```
+ *
+ * And here's another example, possibly more realistic:
+ *
+ * ```js
+ * let cite = new Cite('Q30000000')
+ *
+ * let date = (new Date()).toLocaleDateString()
+ *
+ * cite.format('bibliography', {
+ *   format: 'html',
+ *   template: 'apa',
+ *   prepend (entry) {
+ *     return `[${entry.id}]: `
+ *   },
+ *   append: ` [Retrieved on ${date}]`
+ * })
+ *
+ * // `&lt;div class="csl-bib-body">
+ * //   &lt;div data-csl-entry-id="Q30000000" class="csl-entry">
+ * //     [Q30000000]: Miccadei, S., De Leo, R., Zammarchi, E., Natali, P. G., &amp;#38; Civitareale, D. (2002). The Synergistic Activity of Thyroid Transcription Factor 1 and Pax 8 Relies on the Promoter/Enhancer Interplay. &lt;i>Molecular Endocrinology&lt;/i>, &lt;i>16&lt;/i>(4), 837–846. https://doi.org/10.1210/MEND.16.4.0808 [Retrieved on 2018-7-10]
+ * //   &lt;/div>
+ * // &lt;/div>`
+ * ```
+ *
+ * This prepends `[$ID]: ` to each entry, where `$ID` is the ID of that entry, and appends ` [Retrieved on $DATE]`, where `$DATE` is today (constant for all entries).
+ *
+ * Here's an example for `asEntryArray`:
+ *
+ * ```js
+ * const cite = new Cite([
+ *   { id: 'a', title: 'Item A', issued: { literal: 2021 } },
+ *   { id: 'b', title: 'Item B', issued: { literal: 2021 } }
+ * ])
+ *
+ * cite.format('bibliography', { asEntryArray: true })
+ * // [
+ * //   [
+ * //     "a"
+ * //     "Item A. (2021).\n"
+ * //   ],
+ * //   [
+ * //     "b"
+ * //     "Item B. (2021).\n"
+ * //   ]
+ * // ]
+ * ```
+ *
+ * @memberof module:@citation-js/plugin-csl.output
+ * @implements module:@citation-js/core.plugins.output~formatter
+ * @method bibliography
+ *
+ * @param {Array&lt;CSL>} data
+ * @param {Object} [options={}]
+ * @param {String} [options.template='apa']
+ * @param {String} [options.lang='en-US']
+ * @param {String} [options.format='text']
+ * @param {Booolean} [options.asEntryArray=false]
+ * @param {Booolean} [options.nosort=false]
+ * @param {String|Array&lt;String>} [options.entry]
+ * @param {Cite~wrapper} [options.prepend]
+ * @param {Cite~wrapper} [options.append]
+ *
+ * @return {String} output
+ */
+export default function bibliography (data, options = {}) {
+  const { template = 'apa', lang = 'en-US', format = 'text', nosort = false } = options
+  const ids = options.entry ? [].concat(options.entry) : data.map(({ id }) => id)
+
+  const citeproc = prepareEngine(data, template, lang, format)
+  const sortedIds = citeproc.updateItems(ids, nosort)
+
+  if (options.append || options.prepend) {
+    const items = data.reduce((items, entry) => { items[entry.id] = entry; return items }, {})
+
+    citeproc.sys.wrapBibliographyEntry = function (id) {
+      const entry = items[id]
+      return [
+        getAffix(entry, options.prepend),
+        getAffix(entry, options.append)
+      ]
+    }
+  } else {
+    citeproc.sys.wrapBibliographyEntry = () => ['', '']
+  }
+
+  const bibliography = citeproc.makeBibliography()
+  const [{ bibstart, bibend }, bibBody] = bibliography
+  const entries = bibBody.map((element, index) => getPrefixedEntry(element, sortedIds[index]))
+
+  if (options.asEntryArray) {
+    return entries.map((element, index) => [sortedIds[index], element])
+  }
+
+  return bibstart + entries.join('') + bibend
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+
+        <br class="clear">
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a>
+             on Thu Apr 01 2021 23:28:11 GMT+0200 (Central European Summer Time)
+        </footer>
+
+        <script> prettyPrint(); </script>
+        <script src="scripts/linenumber.js"> </script>
+    </body>
+</html>

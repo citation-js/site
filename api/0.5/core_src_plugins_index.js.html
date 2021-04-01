@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Source: core/src/plugins/index.js - Docs - Citation.js</title>
+        <meta name="theme-color" content="#FFC107">
+        <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+        <link rel="icon" type="image/png" href="../favicon.png"/>
+
+        <script src="scripts/prettify/prettify.js"></script>
+        <!-- <script src="scripts/prettify/lang-css.js"></script> -->
+        <!--[if lt IE 9]>
+          <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+        <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    </head>
+    <body>
+        <nav>
+            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-@citation-js_core.html">@citation-js/core</a></li><li><a href="module-@citation-js_plugin-bibjson.html">@citation-js/plugin-bibjson</a></li><li><a href="module-@citation-js_plugin-bibtex.html">@citation-js/plugin-bibtex</a></li><li><a href="module-@citation-js_plugin-csl.html">@citation-js/plugin-csl</a></li><li><a href="module-@citation-js_plugin-doi.html">@citation-js/plugin-doi</a></li><li><a href="module-@citation-js_plugin-ris.html">@citation-js/plugin-ris</a></li><li><a href="module-@citation-js_plugin-wikidata.html">@citation-js/plugin-wikidata</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-@citation-js_core.plugins.html">plugins</a></li><li><a href="module-@citation-js_core.plugins.config.html">config</a></li><li><a href="module-@citation-js_core.plugins.dict.html">dict</a></li><li><a href="module-@citation-js_core.plugins.input.html">input</a></li><li><a href="module-@citation-js_core.plugins.input.util.html">util</a></li><li><a href="module-@citation-js_core.plugins.output.html">output</a></li><li><a href="module-@citation-js_core.util.html">util</a></li><li><a href="module-@citation-js_plugin-bibjson.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-bibjson.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-bibjson.parsers.json.html">json</a></li><li><a href="module-@citation-js_plugin-bibtex.config.html">config</a></li><li><a href="module-@citation-js_plugin-bibtex.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-bibtex.output.html">output</a></li><li><a href="module-@citation-js_plugin-csl.config.html">config</a></li><li><a href="module-@citation-js_plugin-csl.output.html">output</a></li><li><a href="module-@citation-js_plugin-doi.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-doi.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-doi.parsers.api.html">api</a></li><li><a href="module-@citation-js_plugin-doi.parsers.id.html">id</a></li><li><a href="module-@citation-js_plugin-doi.parsers.json.html">json</a></li><li><a href="module-@citation-js_plugin-doi.parsers.type.html">type</a></li><li><a href="module-@citation-js_plugin-ris.config.html">config</a></li><li><a href="module-@citation-js_plugin-ris.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-ris.output.html">output</a></li><li><a href="module-@citation-js_plugin-wikidata.config.html">config</a></li><li><a href="module-@citation-js_plugin-wikidata.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.api.html">api</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.entity.html">entity</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.id.html">id</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.prop.html">prop</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.url.html">url</a></li></ul><h3>Classes</h3><ul><li><a href="module-@citation-js_core.Cite.html">Cite</a></li><li><a href="module-@citation-js_core.plugins.input.util.DataParser.html">DataParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.FormatParser.html">FormatParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.TypeParser.html">TypeParser</a></li><li><a href="module-@citation-js_core.util.Grammar.html">Grammar</a></li><li><a href="module-@citation-js_core.util.Register.html">Register</a></li><li><a href="module-@citation-js_core.util.TokenStack.html">TokenStack</a></li><li><a href="module-@citation-js_core.util.Translator.html">Translator</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-cite_.html">Cite</a></li><li><a href="tutorial-input.html">Input</a></li><li><a href="tutorial-output.html">Output</a></li><li><a href="tutorial-plugins.html">Plugins</a></li></ul>
+        </nav>
+
+        <div id="main">
+            
+            <h1 class="page-title">Source: core/src/plugins/index.js</h1>
+            
+
+            
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @namespace plugins
+ * @memberof module:@citation-js/core
+ */
+
+import * as input from './input/'
+import * as output from './output'
+import * as dict from './dict'
+import * as config from './config'
+
+const registers = {
+  input,
+  output,
+  dict,
+  config
+}
+
+const indices = {}
+
+/**
+ * @access public
+ * @method add
+ * @memberof module:@citation-js/core.plugins
+ * @param {module:@citation-js/core.plugins~pluginRef} ref - plugin reference/name
+ * @param {module:@citation-js/core.plugins~plugins} [plugins={}]
+ */
+export const add = (ref, plugins = {}) => {
+  const mainIndex = indices[ref] = {}
+
+  for (const type in plugins) {
+    if (type === 'config') {
+      mainIndex.config = { [ref]: plugins.config }
+      registers.config.add(ref, plugins.config)
+      continue
+    }
+
+    const typeIndex = mainIndex[type] = {}
+    const typePlugins = plugins[type]
+
+    for (const name in typePlugins) {
+      const typePlugin = typePlugins[name]
+
+      typeIndex[name] = true
+      registers[type].add(name, typePlugin)
+    }
+  }
+}
+
+/**
+ * @access public
+ * @method remove
+ * @memberof module:@citation-js/core.plugins
+ * @param {module:@citation-js/core.plugins~pluginRef} ref - plugin reference/name
+ */
+export const remove = (ref) => {
+  const mainIndex = indices[ref]
+
+  for (const type in mainIndex) {
+    const typeIndex = mainIndex[type]
+
+    for (const name in typeIndex) {
+      registers[type].remove(name)
+    }
+  }
+
+  delete indices[ref]
+}
+
+/**
+ * @access public
+ * @method has
+ * @memberof module:@citation-js/core.plugins
+ * @param {module:@citation-js/core.plugins~pluginRef} ref - plugin reference/name
+ * @returns {Boolean} plugin is registered
+ */
+export const has = (ref) => ref in indices
+
+/**
+ * @access public
+ * @method list
+ * @memberof module:@citation-js/core.plugins
+ * @returns {Array&lt;module:@citation-js/core.plugins~pluginRef>} list of registered plugins
+ */
+export const list = () => Object.keys(indices)
+
+/**
+ * @typedef {String} module:@citation-js/core.plugins~pluginRef
+ */
+
+/**
+ * @typedef {Object} module:@citation-js/core.plugins~plugins
+ * @property {Object&lt;module:@citation-js/core.plugins.input~format,module:@citation-js/core.plugins.input~parsers>} input
+ * @property {Object&lt;module:@citation-js/core.plugins.output~formatterName,module:@citation-js/core.plugins.output~formatter>} output
+ * @property {Object&lt;module:@citation-js/core.plugins.dict~dictName,module:@citation-js/core.plugins.dict~dict>} dict
+ * @property {Object} config
+ */
+
+export { input, output, dict, config }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+        </div>
+
+        <br class="clear">
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a>
+             on Thu Apr 01 2021 23:28:11 GMT+0200 (Central European Summer Time)
+        </footer>
+
+        <script> prettyPrint(); </script>
+        <script src="scripts/linenumber.js"> </script>
+    </body>
+</html>
