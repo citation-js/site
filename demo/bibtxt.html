@@ -10,6 +10,7 @@
   </head>
   <body>
     <h1>Citation.js - demo</h1>
+    <p>Running Citation.js version v<span id="info-version">...</span> with plugins <span id="info-plugins">...</span>.</p>
     <h2>Input:</h2>
     <h4><a href="http://bibtxt.github.io">Bib.TXT</a>:</h4>
     <div id="in" class="in" contenteditable="true" spellcheck="false"><!--
@@ -72,7 +73,7 @@ $(function () {
     cite.set($('#in').text())
     $('#out').html(cite.get(opt))
   }
-  
+
   $('.in').on('blur', update)
   $('select').on('change', update)
   update()
@@ -80,12 +81,17 @@ $(function () {
     </script>
     <script type="text/javascript">
       $(window).on('load',function(){
+        // Display info
+        var Cite = require('citation-js')
+        $('#info-version').html(Cite.version.cite);
+        $('#info-plugins').html(Cite.plugins.list().join(', '));
+
         // Insert live code, directly from the script element (!)
-        $('pre code.javascript').html($('.code').html());       
-        
+        $('pre code.javascript').html($('.code').html());
+
         // Highlight all code
         $('.javascript,.in').highlight();
-        
+
         // Remove and re-add highlighting on focus and blur
         $('.in').focus(function(){$(this).find('span').each(function(){$(this).after(this.textContent);$(this).remove();});});
         $('.in').blur(function(){$(this).highlight()});

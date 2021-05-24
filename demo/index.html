@@ -10,6 +10,7 @@
   </head>
   <body>
     <h1>Citation.js - demo</h1>
+    <p>Running Citation.js version v<span id="info-version">...</span> with plugins <span id="info-plugins">...</span>.</p>
     <h2>Input:</h2>
     <p><b style="font-size:12px;">Note that the inputs are interchangable. You could, for example, paste a URL in the JSON box. The syntax won't be coloured, but the output will be correct.</b></p>
     <h4>JSON:</h4>
@@ -210,15 +211,20 @@ $(function(){
     </script>
     <script type="text/javascript">
       $(window).on('load',function(){
-	// Insert live code, directly from the script element (!)
-	$('pre code.javascript').html($('.code').html());
+        // Display info
+        var Cite = require('citation-js')
+        $('#info-version').html(Cite.version.cite);
+        $('#info-plugins').html(Cite.plugins.list().join(', '));
 
-	// Highlight all code
-	$('.javascript,.in').highlight();
+        // Insert live code, directly from the script element (!)
+        $('pre code.javascript').html($('.code').html());
 
-	// Remove and re-add highlighting on focus and blur
-	$('.in').focus(function(){$(this).find('span').each(function(){$(this).after(this.textContent);$(this).remove();});});
-	$('.in').blur(function(){$(this).highlight()});
+        // Highlight all code
+        $('.javascript,.in').highlight();
+
+        // Remove and re-add highlighting on focus and blur
+        $('.in').focus(function(){$(this).find('span').each(function(){$(this).after(this.textContent);$(this).remove();});});
+        $('.in').blur(function(){$(this).highlight()});
       });
     </script>
   </body>
