@@ -4,15 +4,23 @@
 
 html {
   font-family: Roboto;
+  height: 100%;
 }
 
 body {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
   margin: 0;
   overflow-x: hidden;
 }
 
 body > * {
   position: relative;
+}
+
+body > :not(nav):not(footer) {
+  flex-grow: 1;
 }
 
 body > * > .background {
