@@ -126,6 +126,10 @@ blockquote {
   padding-left: 1em;
 }
 
+fieldset {
+  border: 3px solid #333;
+}
+
 pre {
   max-width: 100%;
   overflow-x: auto;
