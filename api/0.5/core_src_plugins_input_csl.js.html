@@ -6,29 +6,38 @@
 
         <title>Source: core/src/plugins/input/csl.js - Docs - Citation.js</title>
         <meta name="theme-color" content="#FFC107">
-        <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
-        <link rel="icon" type="image/png" href="../favicon.png"/>
+        <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+        <link rel="icon" type="image/png" href="/favicon.png"/>
 
         <script src="scripts/prettify/prettify.js"></script>
-        <!-- <script src="scripts/prettify/lang-css.js"></script> -->
         <!--[if lt IE 9]>
           <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 
         <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-        <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+        <link type="text/css" rel="stylesheet" href="/static/css/style.css">
+        <link type="text/css" rel="stylesheet" href="/static/css/jsdoc.css">
     </head>
     <body>
         <nav>
-            <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-@citation-js_core.html">@citation-js/core</a></li><li><a href="module-@citation-js_plugin-bibjson.html">@citation-js/plugin-bibjson</a></li><li><a href="module-@citation-js_plugin-bibtex.html">@citation-js/plugin-bibtex</a></li><li><a href="module-@citation-js_plugin-csl.html">@citation-js/plugin-csl</a></li><li><a href="module-@citation-js_plugin-doi.html">@citation-js/plugin-doi</a></li><li><a href="module-@citation-js_plugin-ris.html">@citation-js/plugin-ris</a></li><li><a href="module-@citation-js_plugin-wikidata.html">@citation-js/plugin-wikidata</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-@citation-js_core.plugins.html">plugins</a></li><li><a href="module-@citation-js_core.plugins.config.html">config</a></li><li><a href="module-@citation-js_core.plugins.dict.html">dict</a></li><li><a href="module-@citation-js_core.plugins.input.html">input</a></li><li><a href="module-@citation-js_core.plugins.input.util.html">util</a></li><li><a href="module-@citation-js_core.plugins.output.html">output</a></li><li><a href="module-@citation-js_core.util.html">util</a></li><li><a href="module-@citation-js_plugin-bibjson.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-bibjson.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-bibjson.parsers.json.html">json</a></li><li><a href="module-@citation-js_plugin-bibtex.config.html">config</a></li><li><a href="module-@citation-js_plugin-bibtex.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-bibtex.output.html">output</a></li><li><a href="module-@citation-js_plugin-csl.config.html">config</a></li><li><a href="module-@citation-js_plugin-csl.output.html">output</a></li><li><a href="module-@citation-js_plugin-doi.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-doi.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-doi.parsers.api.html">api</a></li><li><a href="module-@citation-js_plugin-doi.parsers.id.html">id</a></li><li><a href="module-@citation-js_plugin-doi.parsers.json.html">json</a></li><li><a href="module-@citation-js_plugin-doi.parsers.type.html">type</a></li><li><a href="module-@citation-js_plugin-ris.config.html">config</a></li><li><a href="module-@citation-js_plugin-ris.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-ris.output.html">output</a></li><li><a href="module-@citation-js_plugin-wikidata.config.html">config</a></li><li><a href="module-@citation-js_plugin-wikidata.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.api.html">api</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.entity.html">entity</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.id.html">id</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.prop.html">prop</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.url.html">url</a></li></ul><h3>Classes</h3><ul><li><a href="module-@citation-js_core.Cite.html">Cite</a></li><li><a href="module-@citation-js_core.plugins.input.util.DataParser.html">DataParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.FormatParser.html">FormatParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.TypeParser.html">TypeParser</a></li><li><a href="module-@citation-js_core.util.Grammar.html">Grammar</a></li><li><a href="module-@citation-js_core.util.Register.html">Register</a></li><li><a href="module-@citation-js_core.util.TokenStack.html">TokenStack</a></li><li><a href="module-@citation-js_core.util.Translator.html">Translator</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-cite_.html">Cite</a></li><li><a href="tutorial-input.html">Input</a></li><li><a href="tutorial-output.html">Output</a></li><li><a href="tutorial-plugins.html">Plugins</a></li></ul>
+          <div class="background"></div>
+
+          <div>
+            <a href="/">Home</a>
+            <a href="/blog/">Blog</a>
+            <a href="/demo/">Demo</a>
+            <a href="/api/0.5">Docs</a>
+          </div>
         </nav>
 
-        <div id="main">
-            
-            <h1 class="page-title">Source: core/src/plugins/input/csl.js</h1>
-            
+        <div>
+            <div>
+                <main>
+                    
+                        <h1 class="page-title">Source: core/src/plugins/input/csl.js</h1>
+                    
 
-            
+                    
 
 
 
@@ -121,20 +130,34 @@ const entryTypes = {
  */
 const fieldTypes = {
   author: NAME_LIST,
+  chair: NAME_LIST,
   'collection-editor': NAME_LIST,
+  compiler: NAME_LIST,
   composer: NAME_LIST,
   'container-author': NAME_LIST,
+  contributor: NAME_LIST,
+  curator: NAME_LIST,
+  director: NAME_LIST,
   editor: NAME_LIST,
   'editorial-director': NAME_LIST,
-  director: NAME_LIST,
+  'executive-producer': NAME_LIST,
+  guest: NAME_LIST,
+  host: NAME_LIST,
   interviewer: NAME_LIST,
   illustrator: NAME_LIST,
+  narrator: NAME_LIST,
+  organizer: NAME_LIST,
   'original-author': NAME_LIST,
+  performer: NAME_LIST,
+  producer: NAME_LIST,
   'reviewed-author': NAME_LIST,
   recipient: NAME_LIST,
+  'script-writer': NAME_LIST,
+  'series-creator': NAME_LIST,
   translator: NAME_LIST,
 
   accessed: DATE,
+  'available-date': DATE,
   container: DATE,
   'event-date': DATE,
   issued: DATE,
@@ -144,6 +167,7 @@ const fieldTypes = {
   type: TYPE,
 
   categories: 'object', // TODO Array&lt;String>
+  custom: 'object',
 
   id: ['string', 'number'],
   language: 'string',
@@ -152,21 +176,25 @@ const fieldTypes = {
   abstract: 'string',
   annote: 'string',
   archive: 'string',
+  archive_collection: 'string',
   archive_location: 'string',
   'archive-place': 'string',
   authority: 'string',
   'call-number': 'string',
   'chapter-number': 'string',
   'citation-number': 'string',
+  'citation-key': 'string',
   'citation-label': 'string',
   'collection-number': 'string',
   'collection-title': 'string',
   'container-title': 'string',
   'container-title-short': 'string',
   dimensions: 'string',
+  division: 'string',
   DOI: 'string',
   edition: ['string', 'number'],
-  event: 'string',
+  event: 'string', // deprecated
+  'event-title': 'string',
   'event-place': 'string',
   'first-reference-note-number': 'string',
   genre: 'string',
@@ -186,21 +214,28 @@ const fieldTypes = {
   'original-title': 'string',
   page: 'string',
   'page-first': 'string',
+  'part-number': ['string', 'number'],
+  'part-title': 'string',
   PMCID: 'string',
   PMID: 'string',
+  printing: 'string',
   publisher: 'string',
   'publisher-place': 'string',
   references: 'string',
   'reviewed-title': 'string',
+  'reviewed-genre': 'string',
   scale: 'string',
   section: 'string',
   source: 'string',
   status: 'string',
+  supplement: ['string', 'number'],
   title: 'string',
   'title-short': 'string',
   URL: 'string',
   version: 'string',
   volume: ['string', 'number'],
+  'volume-title': 'string',
+  'volume-title-short': 'string',
   'year-suffix': 'string'
 }
 
@@ -215,7 +250,7 @@ const fieldTypes = {
  *
  * @return {Object} returns the (corrected) value if possible, otherwise undefined
  */
-const correctName = function (name, bestGuessConversions) {
+function correctName (name, bestGuessConversions) {
   if (typeof name === 'object' &amp;&amp; name !== null &amp;&amp; (name.literal || (name.given || name.family))) {
     return name
   } else if (!bestGuessConversions) {
@@ -236,7 +271,7 @@ const correctName = function (name, bestGuessConversions) {
  *
  * @return {Array&lt;Object>|undefined} returns the (corrected) value if possible, otherwise undefined
  */
-const correctNameList = function (nameList, bestGuessConversions) {
+function correctNameList (nameList, bestGuessConversions) {
   if (nameList instanceof Array) {
     const names = nameList.map(name => correctName(name, bestGuessConversions)).filter(Boolean)
     return names.length ? names : undefined
@@ -254,7 +289,7 @@ const correctNameList = function (nameList, bestGuessConversions) {
  *
  * @return {Array&lt;Number>|undefined}
  */
-const correctDateParts = function (dateParts, bestGuessConversions) {
+function correctDateParts (dateParts, bestGuessConversions) {
   if (dateParts.every(part => typeof part === 'number')) {
     return dateParts
   } else if (!bestGuessConversions || dateParts.some(part => isNaN(parseInt(part)))) {
@@ -275,7 +310,7 @@ const correctDateParts = function (dateParts, bestGuessConversions) {
  *
  * @return {Array&lt;Object>|undefined} returns the (corrected) value if possible, otherwise undefined
  */
-const correctDate = function (date, bestGuessConversions) {
+function correctDate (date, bestGuessConversions) {
   const dp = 'date-parts'
 
   if (typeof date !== 'object' || date === null) {
@@ -315,7 +350,7 @@ const correctDate = function (date, bestGuessConversions) {
  *
  * @return {String|undefined} returns the (corrected) value if possible, otherwise undefined
  */
-const correctType = function (type, bestGuessConversions) {
+function correctType (type, bestGuessConversions) {
   // Also anything that can be converted to a string. Taking `language` as a field
   // with similar string constraints, as fields like `title` might take HTML into
   // account in the future.
@@ -342,7 +377,7 @@ const correctType = function (type, bestGuessConversions) {
  *
  * @return {*|undefined} returns the (corrected) value if possible, otherwise undefined
  */
-const correctField = function (fieldName, value, bestGuessConversions) {
+function correctField (fieldName, value, bestGuessConversions) {
   const fieldType = [].concat(fieldTypes[fieldName])
 
   switch (fieldTypes[fieldName]) {
@@ -357,10 +392,8 @@ const correctField = function (fieldName, value, bestGuessConversions) {
       return correctType(value, bestGuessConversions)
   }
 
-  if (/^_/.test(fieldName)) {
-    return value
-  } else if (bestGuessConversions) {
-    if (typeof value === 'string' &amp;&amp; fieldType.includes('number') &amp;&amp; !isNaN(+value)) {
+  if (bestGuessConversions) {
+    if (typeof value === 'string' &amp;&amp; fieldType.includes('number') &amp;&amp; !fieldType.includes('string') &amp;&amp; !isNaN(+value)) {
       return parseFloat(value)
     } else if (typeof value === 'number' &amp;&amp; fieldType.includes('string') &amp;&amp; !fieldType.includes('number')) {
       return value.toString()
@@ -386,7 +419,7 @@ const correctField = function (fieldName, value, bestGuessConversions) {
  *
  * @return {Array&lt;module:@citation-js/core~CSL>} Array of clean CSL
  */
-const parseCsl = function (data, bestGuessConversions = true) {
+function parseCsl (data, bestGuessConversions = true) {
   return data.map(function (entry) {
     const clean = {}
 
@@ -409,13 +442,25 @@ export { parseCsl as clean }
 
 
 
+                </main>
+                <aside>
+                    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-@citation-js_core.html">@citation-js/core</a></li><li><a href="module-@citation-js_plugin-bibjson.html">@citation-js/plugin-bibjson</a></li><li><a href="module-@citation-js_plugin-bibtex.html">@citation-js/plugin-bibtex</a></li><li><a href="module-@citation-js_plugin-csl.html">@citation-js/plugin-csl</a></li><li><a href="module-@citation-js_plugin-doi.html">@citation-js/plugin-doi</a></li><li><a href="module-@citation-js_plugin-ris.html">@citation-js/plugin-ris</a></li><li><a href="module-@citation-js_plugin-wikidata.html">@citation-js/plugin-wikidata</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-@citation-js_core.plugins.html">plugins</a></li><li><a href="module-@citation-js_core.plugins.config.html">config</a></li><li><a href="module-@citation-js_core.plugins.dict.html">dict</a></li><li><a href="module-@citation-js_core.plugins.input.html">input</a></li><li><a href="module-@citation-js_core.plugins.input.util.html">util</a></li><li><a href="module-@citation-js_core.plugins.output.html">output</a></li><li><a href="module-@citation-js_core.util.html">util</a></li><li><a href="module-@citation-js_plugin-bibjson.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-bibjson.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-bibjson.parsers.json.html">json</a></li><li><a href="module-@citation-js_plugin-bibtex.config.html">config</a></li><li><a href="module-@citation-js_plugin-bibtex.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-bibtex.output.html">output</a></li><li><a href="module-@citation-js_plugin-csl.config.html">config</a></li><li><a href="module-@citation-js_plugin-csl.output.html">output</a></li><li><a href="module-@citation-js_plugin-doi.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-doi.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-doi.parsers.api.html">api</a></li><li><a href="module-@citation-js_plugin-doi.parsers.id.html">id</a></li><li><a href="module-@citation-js_plugin-doi.parsers.json.html">json</a></li><li><a href="module-@citation-js_plugin-doi.parsers.type.html">type</a></li><li><a href="module-@citation-js_plugin-ris.config.html">config</a></li><li><a href="module-@citation-js_plugin-ris.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-ris.output.html">output</a></li><li><a href="module-@citation-js_plugin-wikidata.config.html">config</a></li><li><a href="module-@citation-js_plugin-wikidata.formats.html">formats</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.html">parsers</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.api.html">api</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.entity.html">entity</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.id.html">id</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.prop.html">prop</a></li><li><a href="module-@citation-js_plugin-wikidata.parsers.url.html">url</a></li></ul><h3>Classes</h3><ul><li><a href="module-@citation-js_core.Cite.html">Cite</a></li><li><a href="module-@citation-js_core.plugins.input.util.DataParser.html">DataParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.FormatParser.html">FormatParser</a></li><li><a href="module-@citation-js_core.plugins.input.util.TypeParser.html">TypeParser</a></li><li><a href="module-@citation-js_core.util.Grammar.html">Grammar</a></li><li><a href="module-@citation-js_core.util.Register.html">Register</a></li><li><a href="module-@citation-js_core.util.TokenStack.html">TokenStack</a></li><li><a href="module-@citation-js_core.util.Translator.html">Translator</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-cite_.html">Cite</a></li><li><a href="tutorial-input.html">Input</a></li><li><a href="tutorial-output.html">Output</a></li><li><a href="tutorial-plugins.html">Plugins</a></li></ul>
+                </aside>
+            </div>
         </div>
 
-        <br class="clear">
-
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a>
-             on Thu Apr 01 2021 23:28:11 GMT+0200 (Central European Summer Time)
+            <div class="background"></div>
+
+            <div>
+                Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a>
+                 on Tue May 24 2022 21:52:19 GMT+0200 (Central European Summer Time)
+            </div>
+            <div>
+                <span>&copy; 2017-2022 Lars Willighagen</span>
+                <span>Citation.js</span>
+                <a href="https://larsgw.github.io">larsgw.github.io</a>
+            </div>
         </footer>
 
         <script> prettyPrint(); </script>

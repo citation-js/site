@@ -1,0 +1,13 @@
+aside {
+  left: 100%;
+  position: absolute;
+  top: 0;
+  width: 20em;
+}
+
+h4 {
+  background: #333;
+  color: white;
+  padding: 0.75em;
+  margin: 0;
+}
