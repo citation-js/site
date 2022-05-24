@@ -1,0 +1,36 @@
+form > * {
+  vertical-align: middle;
+}
+
+#content header > p > span {
+  line-height: 2em;
+  margin: 0 1em;
+  white-space: nowrap;
+}
+#content header > p .material-icons {
+  color: #666;
+}
+
+#content p {
+  line-height: 1.5em;
+}
+#content p > img {
+  max-width: 100%;
+  max-height: 50%;
+}
+
+#paginatePrev:not([href^=http]),
+#paginateNext:not([href^=http]) {
+  display: none;
+}
+
+#sidebar {
+  left: 100%;
+  position: absolute;
+  top: 0;
+  width: 20em;
+}
+
+body > main:empty {
+  height: 1000px;
+}
