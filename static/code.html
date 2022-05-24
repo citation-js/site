@@ -1,6 +1,5 @@
-<pre>
-<section><code data-type="js">
 /** 
+<pre><code data-type="js">
  * @file Citation-0.2.js
  * 
  * @projectname Citationjs
@@ -72,6 +71,7 @@ var varRegex = {
   ]
 , name: / (?=(?:[a-z]+ )*(?:[A-Z][a-z]*[-])*(?:[A-Z][a-z]*)$)/
 }
+</code><code data-type="js">
 
 /**
  * Mapping of BibTeX syntax chars to BibTeX Escaped Chars.
@@ -138,6 +138,7 @@ var varBibTeXTokens = {
   "{\\quotedblbase}":"\u201E",          "{\\textdagger}":"\u2020",              "{\\textdaggerdbl}":"\u2021",           "{\\textbullet}":"\u2022",
   "{\\textellipsis}":"\u2026",          "{\\textperthousand}":"\u2030"
 }
+</code><code data-type="js">
 
 /**
  * Object containing a list of Wikidata Instances and its corresponding name as specified by the docs
@@ -204,6 +205,7 @@ var getDate = function ( date ) {
   
   return res
 }
+</code><code data-type="js">
 
 /**
  * Convert epoch to CSL date
@@ -254,9 +256,6 @@ var getName = function ( obj ) {
   
   return res
 }
-</code>
-</section>
-<section><code data-type="js">
 /**
  * Get CSL from name
  * 
@@ -767,5 +766,4 @@ var fetchFile = function ( url ) {
   else
     return result
 }
-</code></section>
-</pre>
+</code></pre>

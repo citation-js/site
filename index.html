@@ -10,17 +10,14 @@
     <meta name="theme-color" content="#FFC107" />
     <meta name="google-site-verification" content="CzUIXxrEXTZ3WQWM6VysvxyJ1OI1ExZtPqbVwbS5Obk" />
 
-    <link rel="shortcut icon" type="image/png" href="favicon.png" />
-    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
 
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" />
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <link rel="stylesheet" type="text/css" href="https://code.getmdl.io/1.3.0/material.amber-light_blue.min.css" />
-    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,bolditalic&amp;lang=en" />
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script type="text/javascript" src="https://embed.runkit.com" data-element-id="runkit"></script>
+    <!-- <script type="text/javascript" src="https://embed.runkit.com" data-element-id="runkit"></script> -->
     <script type="text/javascript" src="static/js/highlight.js"></script>
     <script>$(function(){
       $('.code').load('static/code.html', function () {
@@ -29,143 +26,89 @@
     })</script>
   </head>
   <body>
+    <nav>
+      <div class="background" style="background-color: #FFCA28;"></div>
 
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Citation.js</span>
-          <div class="mdl-layout-spacer"></div>
-          <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="api/0.5/tutorial-getting_started.html">Get started</a>
-            <a class="mdl-navigation__link" href="demo/">Demo</a>
-            <a class="mdl-navigation__link" href="#" id="docs">Docs</a>
-          </nav>
-
-          <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="docs">
-            <li class="mdl-menu__item">
-              <a target="_blank" class="mdl-navigation__link" href="api/0.5">0.5</a>
-            </li>
-            <li class="mdl-menu__item">
-              <a target="_blank" class="mdl-navigation__link" href="api/0.3">0.3</a>
-            </li>
-          </ul>
-        </div>
-      </header>
-
-      <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Citation.js</span>
-        <div class="mdl-navigation">
-          <a target="_blank" class="mdl-navigation__link" href="api/0.5/tutorial-getting_started.html">Get started</a>
-          <a target="_blank" class="mdl-navigation__link" href="demo/">Demo</a>
-          <a target="_blank" class="mdl-navigation__link" href="api/0.5">Docs</a>
-          <a target="_blank" class="mdl-navigation__link" href="disc/">Build disc</a>
-        </div>
+      <div>
+        <span>Citation.js</span>
+        <a href="/api/0.5/tutorial-getting_started.html">Get started</a>
+        <a href="/demo/">Demo</a>
+        <a href="/api/0.5">Docs</a>
       </div>
+    </nav>
 
-      <div class="mdl-layout__content">
-        <div class="code"></div>
+    <header>
+      <div class="background code" role="presentation"></div>
 
-        <footer>
-          &copy; 2017-2021 Lars Willighagen
-          <span style="left:0;right:0;position:absolute;text-align:center">Citation.js</span>
-          <span style="right:5px;position:absolute">
-            <a href="https://larsgw.github.io">larsgw.github.io</a>
-          </span>
-        </footer>
+      <h1>
+        <img src="/static/img/banner-full.png" width="502" />
+      </h1>
+      <section>
+        <p>
+          Citation.js (<a href="https://github.com/citation-js/citation-js">GitHub</a>, <a href="https://www.npmjs.org/package/@citation-js/core">NPM</a>)
+          converts formats like BibTeX, BibJSON, DOI, and Wikidata to CSL-JSON to convert
+          to styles like APA, Vancouver and to BibTeX and RIS.
+        </p>
+        <p>
+          Read the paper <a href="https://peerj.com/articles/cs-214/?td=bl">
+            <i>Citation.js: a format-independent, modular bibliography tool for the browser and command line</i>
+            <img src="https://img.shields.io/badge/DOI-10.7717%2Fpeerj--cs.214-blue"
+                 alt="DOI 10.7717/peerj-cs.214"
+                 style="vertical-align: middle;" />
+          </a>
+          .
+        </p>
 
-        <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--6-col">
-            <section class="mdl-card mdl-shadow--2dp">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Citation.js</h2>
-              </div>
+        <p>
+          <a class="badge" href="https://www.npmjs.org/package/@citation-js/core">
+            <img height="20" src="https://img.shields.io/npm/v/@citation-js/core.svg" alt="NPM version">
+          </a>
+          <a class="badge" href="https://npm-stat.com/charts.html?package=@citation-js/core&from=2016-10-10">
+            <img height="20" src="https://img.shields.io/npm/dt/@citation-js/core.svg" alt="NPM total downloads">
+          </a>
+          <a class="badge" href="https://github.com/citation-js/citation-js/actions?query=workflow%3Abuild">
+            <img height="20" src="https://img.shields.io/github/workflow/status/citation-js/citation-js/build" alt="Build Status">
+          </a>
+        </p>
+      </section>
+    </header>
 
-              <div class="mdl-card__supporting-text">
-                <p>
-                  Citation.js (<a href="https://github.com/larsgw/citation.js">GitHub</a>, <a href="https://www.npmjs.org/package/citation-js">NPM</a>)
-                  converts formats like BibTeX, BibJSON, DOI, and Wikidata to CSL-JSON to convert
-                  to styles like APA, Vancouver and to BibTeX and RIS.
-                </p>
-                <p>
-                  Read the paper "Citation.js: a format-independent, modular bibliography tool for the browser and command line" on <a href="https://peerj.com/articles/cs-214/?td=bl">PeerJ Computer Science</a>.
-                </p>
-              </div>
+    <article>
+      <section>
+        <h2>Features</h2>
 
-              <div class="mdl-card__actions mdl-card--border">
-                <p>
-                  <a class="no-border" href="https://www.npmjs.org/package/citation-js">
-                    <img height="20" src="https://img.shields.io/npm/v/citation-js.svg" alt="NPM version">
-                  </a>
-                  <a class="no-border" href="https://npm-stat.com/charts.html?package=citation-js&from=2016-10-10">
-                    <img height="20" src="https://img.shields.io/npm/dt/citation-js.svg" alt="NPM total downloads">
-                  </a>
-                  <a class="no-border" href="https://travis-ci.org/larsgw/citation.js">
-                    <img height="20" src="https://travis-ci.com/larsgw/citation.js.svg?branch=master" alt="Build Status">
-                  </a>
-                </p>
-              </div>
-            </section>
-          </div>
+        <ul>
+          <li>Conversion from: BibTeX, CFF, DOI, ISBN and Wikidata</li>
+          <li>Conversion to: CSL-JSON, BibTeX, CFF, RIS</li>
+          <li><code>citeproc-js</code> support with preloaded styles and locales</li>
+          <li>Modular approach, pick supported formats</li>
+          <li>Support for Node.js, browser, and has a CLI</li>
+          <li>MIT licensed</li>
+        </ul>
+      </section>
 
-          <div class="mdl-cell mdl-cell--6-col">
-            <section class="mdl-card mdl-shadow--2dp grey">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Features</h2>
-              </div>
+      <section>
+        <h2>Related projects</h2>
 
-              <div class="mdl-card__supporting-text">
-                <ul>
-                  <li>Conversion from: BibTeX, CFF, DOI, ISBN and Wikidata</li>
-                  <li>Conversion to: CSL-JSON, BibTeX, CFF, RIS</li>
-                  <li><code>citeproc-js</code> support with preloaded styles and locales</li>
-                  <li>Modular approach, pick supported formats</li>
-                  <li>Support for Node.js, browser, and has a CLI</li>
-                  <li>MIT licensed</li>
-                </ul>
-              </div>
-            </section>
-          </div>
+        <ul>
+          <li><a href="https://github.com/Juris-M/citeproc-js">citeproc-js</a>
+              the implementation of <a href="http://citationstyles.org/">CSL</a> used in
+              <b>Citation.js</b>.</li>
+          <li><a href="https://github.com/larsgw/citation.js-form">citation.js-form</a>
+              (formerly known as jquery.citation.js), a tool to make a webform for a more
+              human-friendly use of citation.js.</li>
+          <li><a href="https://github.com/larsgw/citation.js-showdown">citation.js-showdown</a>
+              , an extension to the <a href="https://github.com/showdownjs/showdown">Showdown</a>
+              markdown parser.</li>
+          <li><a href="https://github.com/larsgw/citation.js-replacer">citation.js-replacer</a>
+              , a simple HTML API for <b>Citation.js</b>, to use citation.js to format citations
+              on your page as easy as possible.</li>
+        </ul>
+      </section>
 
-          <div id="citation-js" class="mdl-cell mdl-cell--6-col">
-            <img src="static/img/logo.svg" />
-            <span>itation.js</span>
-          </div>
-
-          <div class="mdl-cell mdl-cell--6-col">
-          </div>
-
-          <div class="mdl-cell mdl-cell--6-col">
-            <section class="mdl-card mdl-shadow--2dp">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Related projects</h2>
-              </div>
-
-              <div class="mdl-card__supporting-text">
-                <ul>
-                  <li><a href="https://github.com/Juris-M/citeproc-js">citeproc-js</a>
-                      the implementation of <a href="http://citationstyles.org/">CSL</a> used in
-                      <b>Citation.js</b>.</li>
-                  <li><a href="https://github.com/larsgw/citation.js-form">citation.js-form</a>
-                      (formerly known as jquery.citation.js), a tool to make a webform for a more
-                      human-friendly use of citation.js.</li>
-                  <li><a href="https://github.com/larsgw/citation.js-showdown">citation.js-showdown</a>
-                      , an extension to the <a href="https://github.com/showdownjs/showdown">Showdown</a>
-                      markdown parser.</li>
-                  <li><a href="https://github.com/larsgw/citation.js-replacer">citation.js-replacer</a>
-                      , a simple HTML API for <b>Citation.js</b>, to use citation.js to format citations
-                      on your page as easy as possible.</li>
-                </ul>
-              </div>
-            </section>
-          </div>
-
-          <div class="mdl-cell mdl-cell--6-col">
-            <section class="mdl-card mdl-shadow--2dp grey">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Demo</h2>
-              </div>
-
-              <pre id="runkit">
+      <section>
+        <h2>Demo</h2>
+        <pre id="runkit">
 const Cite = require('citation-js')
 
 const data = await Cite.async('Q30000000')
@@ -175,12 +118,18 @@ data.format('bibliography', {
   template: 'apa',
   lang: 'en-US'
 })
-              </pre>
-            </section>
-          </div>
-        </div>
-      </div>
-    </div>
+        </pre>
+      </section>
+    </article>
 
+    <footer>
+      <div class="background" style="background-color: #111111;"></div>
+
+      <div>
+        <span>&copy; 2017-2021 Lars Willighagen</span>
+        <span>Citation.js</span>
+        <a href="https://larsgw.github.io">larsgw.github.io</a>
+      </div>
+    </footer>
   </body>
 </html>
