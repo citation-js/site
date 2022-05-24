@@ -14,10 +14,11 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,bolditalic&amp;lang=en" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <!-- <script type="text/javascript" src="https://embed.runkit.com" data-element-id="runkit"></script> -->
+    <script type="text/javascript" src="https://embed.runkit.com" data-element-id="runkit"></script>
     <script type="text/javascript" src="/static/js/highlight.js"></script>
     <script>$(function(){
       $('.code').load('/static/code.html', function () {
@@ -30,8 +31,8 @@
       <div class="background"></div>
 
       <div>
-        <span>Citation.js</span>
-        <a href="/api/0.5/tutorial-getting_started.html">Get started</a>
+        <a href="/">Citation.js</a>
+        <a href="/blog/">Blog</a>
         <a href="/demo/">Demo</a>
         <a href="/api/0.5">Docs</a>
       </div>
@@ -45,7 +46,8 @@
       </h1>
       <section>
         <p>
-          Citation.js (<a href="https://github.com/citation-js/citation-js">GitHub</a>, <a href="https://www.npmjs.org/package/@citation-js/core">NPM</a>)
+          Citation.js (<a href="https://github.com/citation-js/citation-js">GitHub</a>,
+          <a href="https://www.npmjs.org/package/@citation-js/core">NPM</a>)
           converts formats like BibTeX, BibJSON, DOI, and Wikidata to CSL-JSON to convert
           to styles like APA, Vancouver and to BibTeX and RIS.
         </p>
@@ -55,8 +57,7 @@
             <img src="https://img.shields.io/badge/DOI-10.7717%2Fpeerj--cs.214-blue"
                  alt="DOI 10.7717/peerj-cs.214"
                  style="vertical-align: middle;" />
-          </a>
-          .
+          </a>.
         </p>
 
         <p>
@@ -74,41 +75,235 @@
     </header>
 
     <article>
-      <section>
-        <h2>Features</h2>
+      <div>
+        <section id="features">
+          <h2>Features</h2>
 
-        <ul>
-          <li>Conversion from: BibTeX, CFF, DOI, ISBN and Wikidata</li>
-          <li>Conversion to: CSL-JSON, BibTeX, CFF, RIS</li>
-          <li><code>citeproc-js</code> support with preloaded styles and locales</li>
-          <li>Modular approach, pick supported formats</li>
-          <li>Support for Node.js, browser, and has a CLI</li>
-          <li>MIT licensed</li>
-        </ul>
-      </section>
+          <ul>
+            <li><a href="#supported-formats">
+              Modular approach: select which formats to include
+            </a></li>
+            <li>Convenient wrapper some of the most common modules</li>
+            <li>Preloaded styles and locales for formatted references</li>
+            <li>Support for Node.js and the browser</li>
+            <li>A command-line interface (CLI)</li>
+            <li>MIT licensed</li>
+          </ul>
+        </section>
 
-      <section>
-        <h2>Related projects</h2>
+        <section id="supported-formats">
+          <h2>Supported input and output</h2>
 
-        <ul>
-          <li><a href="https://github.com/Juris-M/citeproc-js">citeproc-js</a>
-              the implementation of <a href="http://citationstyles.org/">CSL</a> used in
-              <b>Citation.js</b>.</li>
-          <li><a href="https://github.com/larsgw/citation.js-form">citation.js-form</a>
-              (formerly known as jquery.citation.js), a tool to make a webform for a more
-              human-friendly use of citation.js.</li>
-          <li><a href="https://github.com/larsgw/citation.js-showdown">citation.js-showdown</a>
-              , an extension to the <a href="https://github.com/showdownjs/showdown">Showdown</a>
-              markdown parser.</li>
-          <li><a href="https://github.com/larsgw/citation.js-replacer">citation.js-replacer</a>
-              , a simple HTML API for <b>Citation.js</b>, to use citation.js to format citations
-              on your page as easy as possible.</li>
-        </ul>
-      </section>
+          <h3>Identifiers</h3>
+          <div class="table-container">
+            <table>
+              <thead align="left">
+                <th>Plugin</th>
+                <th>Formats</th>
+                <th>Resolver</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-doi">@citation-js/plugin-doi</a></td>
+                  <td><a href="https://en.wikipedia.org/wiki/Digital_object_identifier">DOIs (Digital Object Identifiers)</a></td>
+                  <td><a href="https://citation.crosscite.org/docs.html">DOI Content Negotiation</a></td>
+                </tr>
+                <tr>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-isbn">@citation-js/plugin-isbn</a></td>
+                  <td><a href="https://en.wikipedia.org/wiki/ISBN">ISBNs</a></td>
+                  <td>
+                    <a href="https://developers.google.com/books/docs/v1/reference/volumes/get">Google Books API</a>,
+                    <a href="https://openlibrary.org/dev/docs/api/books">OpenLibrary API</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-pubmed">@citation-js/plugin-pubmed</a></td>
+                  <td>
+                    <a href="https://en.wikipedia.org/wiki/PubMed_ID">PubMed</a> and
+                    <a href="https://en.wikipedia.org/wiki/PMCID">PMC</a> identifiers
+                  </td>
+                  <td><a href="https://api.ncbi.nlm.nih.gov/lit/ctxp">NCBI's Literature Citation Explorer</a></td>
+                </tr>
+                <tr>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-wikidata">@citation-js/plugin-wikidata</a></td>
+                  <td><a href="https://en.wikipedia.org/wiki/Wikidata">Wikidata QIDs</a></td>
+                  <td><a href="https://www.wikidata.org/w/api.php">Wikidata MediaWiki API</a></td>
+                </tr>
+                <tr>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-software-formats">@citation-js/plugin-software-formats</a></td>
+                  <td>
+                    <a href="https://github.com">GitHub</a> repository URLs and
+                    <a href="https://npmjs.com">npm</a> package URLs
+                  </td>
+                  <td>
+                    <a href="https://docs.github.com/en/rest">GitHub v3 API</a> and
+                    <a href="https://docs.npmjs.com/cli/v8/using-npm/registry">npm registry</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-      <section>
-        <h2>Demo</h2>
-        <pre id="runkit">
+          <h3>File formats</h3>
+          <div class="table-container">
+            <table>
+              <thead align="left">
+                <th>Formats</th>
+                <th>Plugin</th>
+                <th>Input</th>
+                <th>Output</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>&mdash;</td>
+                  <td>
+                    JSON,
+                    <a href="https://github.com/citation-style-language/schema/blob/master/schemas/input/csl-data.json">CSL-JSON</a>
+                  </td>
+                  <td><i class="material-icons">check_circle</i></td>
+                  <td><i class="material-icons">check_circle</i></td>
+                </tr>
+                <tr>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-bibjson">@citation-js/plugin-bibjson</a></td>
+                  <td><a href="https://okfnlabs.org/bibjson/">BibJSON</a></td>
+                  <td><i class="material-icons">check_circle</i></td>
+                  <td><i class="material-icons">highlight_off</i></td>
+                </tr>
+                <tr>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-csl">@citation-js/plugin-csl</a></td>
+                  <td>
+                    Formatted bibliographies and citations with
+                    <a href="https://citationstyles.org/">CSL</a> and
+                    <a href="https://github.com/Juris-M/citeproc-js">citeproc-js</a>
+                  </td>
+                  <td><i class="material-icons">highlight_off</i></td>
+                  <td><i class="material-icons">check_circle</i></td>
+                </tr>
+                <tr>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-bibtex">@citation-js/plugin-bibtex</a></td>
+                  <td>
+                    <a href="https://en.wikipedia.org/wiki/BibTeX">BibTeX</a>,
+                    <a href="https://en.wikipedia.org/wiki/Biber_(LaTeX)">BibLaTeX</a>,
+                    <a href="https://bibtxt.github.io/">Bib.TXT</a>
+                  </td>
+                  <td><i class="material-icons">check_circle</i></td>
+                  <td><i class="material-icons">check_circle</i></td>
+                </tr>
+                <tr>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-ris">@citation-js/plugin-ris</a></td>
+                  <td><a href="https://en.wikipedia.org/wiki/RIS_(file_format)">RIS</a> (1st and 2nd version)</td>
+                  <td><i class="material-icons">check_circle</i></td>
+                  <td><i class="material-icons">check_circle</i></td>
+                </tr>
+                <tr>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-refer">@citation-js/plugin-refer</a></td>
+                  <td><a href="https://en.wikipedia.org/wiki/Refer_(software)">refer</a> file format</td>
+                  <td><i class="material-icons">check_circle</i></td>
+                  <td><i class="material-icons">check_circle</i></td>
+                </tr>
+                <tr>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-refworks">@citation-js/plugin-refworks</a></td>
+                  <td><a href="https://en.wikipedia.org/wiki/RefWorks">RefWorks</a> tagged format</td>
+                  <td><i class="material-icons">check_circle</i></td>
+                  <td><i class="material-icons">check_circle</i></td>
+                </tr>
+                <tr>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-software-formats">@citation-js/plugin-software-formats</a></td>
+                  <td>
+                    <a href="https://citation-file-format.github.io/">CFF (Citation File Format)</a>,
+                    <a href="https://developers.zenodo.org/#depositions">Zenodo Deposit JSON</a>
+                  </td>
+                  <td><i class="material-icons">check_circle</i></td>
+                  <td><i class="material-icons">check_circle</i></td>
+                </tr>
+                <tr>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-quickstatements">@citation-js/plugin-quickstatements</a></td>
+                  <td><a href="https://www.wikidata.org/wiki/Help:QuickStatements#Command_sequence_syntax">QuickStatements v1</a></td>
+                  <td><i class="material-icons">highlight_off</i></td>
+                  <td><i class="material-icons">check_circle</i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h2>Usage</h2>
+
+          <ul>
+            <li>
+              <a href="https://github.com/citation-js/replacer">@citation-js/replacer</a>,
+              a simple HTML API for <b>Citation.js</b>, to format citations
+              on your page as easily as possible.
+            </li>
+            <li>
+              <a href="https://github.com/citation-js/isaac-chrome-extension">ISAAC Chrome Extension</a>,
+              a web extension to aid the entry of data regarding publications
+              on the Dutch NWO ISAAC platform.
+            </li>
+            <li>
+              <a href="https://citation-js.github.io/bibtex-generator/">BibTeX generator</a>,
+              easily generate a BiTeX file from various inputs.
+            </li>
+          </ul>
+
+          <h3>In the wild</h3>
+          <ul>
+            <li>
+              <a href="https://github.com/pubpub/pubpub">PubPub</a>, a platform for
+              open publishing.
+            </li>
+            <li>
+              <a href="https://scholia.toolforge.org/">Scholia</a>, an interface
+              that displays and augments data from Wikidata.
+            </li>
+            <li>
+              <a href="https://github.com/wikicite/wcite">wcite</a>, a CLI for
+              fetching and managing bibliographic records from Wikidata.
+            </li>
+            <li>
+              <a href="https://github.com/rmzelle/ref-extractor">Reference Extractor</a>,
+              an online tool to extract references from Microsoft Word and LibreOffice documents.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Related projects & alternatives</h2>
+
+          <ul>
+            <li>
+              <a href="https://github.com/Juris-M/citeproc-js">citeproc-js</a>,
+              the implementation of <a href="https://citationstyles.org/">CSL</a> used in
+              <b>@citation-js/plugin-csl</b>.
+            </li>
+            <li>
+              <a href="https://zotero.org">Zotero</a>, a manager application for
+              references and associated files, with an extensive set of parsers and
+              scrapers.
+            </li>
+            <li>
+              <a href="https://github.com/dsifford/astrocite/">astrocite</a>, a collection
+              of parsers that output CSL-JSON.
+            </li>
+            <li>
+              <a href="https://github.com/retorquere/bibtex-parser/">Better BibTeX' bibtex-parser</a>,
+              an impressively extensive Bib(La)TeX parser.
+            </li>
+            <li>
+              <a href="https://www.jabref.org/">JabRef</a>, a BibTeX-based reference manager.
+            </li>
+            <li>
+              The <a href="https://github.com/fiduswriter/biblatex-csl-converter">Bib(La)TeX to CSL converter</a>
+              from <a href="https://fiduswriter.org/">Fidus Writer</a>.
+            </li>
+          </ul>
+        </section>
+
+        <aside>
+          <section>
+            <h2>Demo</h2>
+            <pre id="runkit">
 const Cite = require('citation-js')
 
 const data = await Cite.async('Q30000000')
@@ -118,17 +313,19 @@ data.format('bibliography', {
   template: 'apa',
   lang: 'en-US'
 })
-        </pre>
-      </section>
+            </pre>
+          </section>
+        </aside>
+      </div>
     </article>
 
     <footer>
       <div class="background"></div>
 
       <div>
-        <span>&copy; 2017-2021 Lars Willighagen</span>
+        <span>&copy; 2017-2022 <a href="https://larsgw.github.io">Lars Willighagen</a></span>
         <span>Citation.js</span>
-        <a href="https://larsgw.github.io">larsgw.github.io</a>
+        <a href="https://github.com/citation-js/site">Edit on GitHub</a>
       </div>
     </footer>
   </body>

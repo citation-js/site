@@ -65,6 +65,15 @@ body > header .background pre {
   white-space: pre;
 }
 
+@media (min-width: 1640px) {
+  aside {
+    left: 100%;
+    position: absolute;
+    top: 0;
+    width: 20em;
+  }
+}
+
 section {
   padding: 0.1em 1.5em;
   background: white;

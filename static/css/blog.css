@@ -24,13 +24,6 @@ form > * {
   display: none;
 }
 
-#sidebar {
-  left: 100%;
-  position: absolute;
-  top: 0;
-  width: 20em;
-}
-
 body > main:empty {
   height: 1000px;
 }
