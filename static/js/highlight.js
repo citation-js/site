@@ -35,8 +35,8 @@ jQuery.fn.highlight = function() {
                       'digit'
                     :
                       'string';
-                    
-                    return `${p1+p2+p5+p8+p11}<span class="${string}">${p3+p6+p9+p12+p14}</span>${p4+p7+p10+p13}`//
+
+                    return p1+p2+p5+p8+p11+'<span class="'+string+'">'+p3+p6+p9+p12+p14+'</span>'+p4+p7+p10+p13
                   })
           .replace(/(\@)([^\@\{]+)(\{)(\w+)(\,)/gi,'$1<span class="entrytype">$2</span>$3<span class="label">$4</span><span class="default">$5</span>')
           .replace(/(\w+)\s*(\=)(\s|[^\'\"\w]+)/gi,'<span class="property">$1</span> $2 ')

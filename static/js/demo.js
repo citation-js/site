@@ -25,14 +25,14 @@ $(window).on('load', function () {
     }
 
     if (text !== old.text || type !== old.type) {
-      try {
-        data = Cite(text, options)
+      old = { text: text, type: type }
+      Cite.async(text, options).then(function (result) {
+        data = result
         $('#input-error').text('')
         updateOutput()
-      } catch (error) {
+      }).catch(function (error) {
         $('#input-error').text(error.message)
-      }
-      old = { text: text, type: type }
+      })
     }
   }
 
@@ -74,7 +74,9 @@ $(window).on('load', function () {
   $('#info-plugins').html(Cite.plugins.list().join(', '))
   var types = Cite.plugins.input.list()
   for (var i = 0; i < types.length; i++) {
-    var [scope, type] = types[i].split('/')
+    var parts = types[i].split('/')
+    var scope = parts[0]
+    var type = parts[1]
     var optgroup
     while (!(optgroup = $('#input-type optgroup[label="' + scope + '"]')).length) {
       $('#input-type').append('<optgroup label="' + scope + '"></optgroup>')
