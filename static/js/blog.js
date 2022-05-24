@@ -26,75 +26,105 @@ function canonical (links) {
 
 var templates = {
   feed: function (items) {
-    return map(items, templates.feedItem).join('')
+    return items.map(templates.feedItem).join('')
   },
   feedItem: function (item) {
     var id = item.id.$t.replace(/^.*\.post-(\d+)$/, '$1')
     var content = item.content.$t
       .replace(/^[\s\S]*<div class="stackedit__html">([\s\S]*)<\/div>[\s\S]*$/, '$1')
-      .replace(/<(\/?)h([1-6])/g, function (match, slash, level) {
-        if (+level > 4) {
-          return '<' + slash + 'b'
+      .replace(/<(\/?)table/g, function (match, slash) {
+        if (slash) {
+          return '</table></div'
         } else {
-          return '<' + slash + 'h' + (+level + 2)
+          return '<div class="table-container"><table'
         }
       })
 
-    return '<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">' +
-      '<div class="mdl-card__title">' +
-        '<h2 class="mdl-card__title-text">' +
-          '<a href="?post=' + id + '">' + item.title.$t + '</a>' +
-        '</h2>' +
-      '</div>' +
-      '<div class="mdl-card__supporting-text mdl-card--border">' +
-        '<p>' +
-          '<span><i class="material-icons">edit</i> ' +
-            templates.author(item.author[0]) +
-          '</span>' +
-          '<span><i class="material-icons">access_time</i> ' +
-            formatDate(item.updated.$t) +
-          '</span>' +
-          '<span><i class="material-icons">link</i> <a href="' +
-            canonical(item.link) +
-          '">Original post</a></span>' +
-        '</p>' +
-        '<p>' +
-          '<span><i class="material-icons">bookmark</i> ' +
-            map(item.category, templates.tag).join(' ') +
-          '</span>' +
-        '</p>' +
-      '</div>' +
-      '<div class="mdl-card__supporting-text">' +
-        content +
-      '</div>' +
-    '</div>'
+    var highestLevel = content.match(/<h[1-6]/g)
+    if (highestLevel) {
+      highestLevel = Math.min.apply(null, highestLevel.map(function (header) {
+        return parseInt(header.slice(2, 3))
+      }))
+    }
+
+    content = content.replace(/<(\/?)h([1-6])/g, function (match, slash, level) {
+      return '<' + slash + 'h' + (parseInt(level) - highestLevel + 3)
+    })
+
+    var metadata = '<h2><a href="?post=' + id + '">' + item.title.$t + '</a></h2>' +
+    '<p>' +
+      '<span><i class="material-icons">edit</i> ' +
+        templates.author(item.author[0]) +
+      '</span>' +
+      '<span><i class="material-icons">access_time</i> ' +
+        formatDate(item.updated.$t) +
+      '</span>' +
+      '<span><i class="material-icons">link</i> <a href="' +
+        canonical(item.link) +
+      '">Original post</a></span>' +
+    '</p>'
+
+    if (item.category.length > 1) {
+      metadata += '<p>' +
+        '<span><i class="material-icons">bookmark</i> ' +
+          item.category.map(templates.tag).join(' ') +
+        '</span>' +
+      '</p>'
+    }
+
+    return '<section id="' + item.id.$t + '">' +
+      '<header>' + metadata + '</header>' +
+      content +
+    '</section>'
   },
   tag: function (tag) {
     if (tag.term === 'Citation.js') {
       return ''
     }
 
-    return '<span class="mdl-chip">' +
-      '<a href="?tag=' + tag.term + '">' +
-        '<span class="mdl-chip__text">' + tag.term + '</span>' +
-      '</a>' +
+    var text = tag.term
+    if (tag.count !== undefined) {
+      text += ' (' + tag.count + ')'
+    }
+
+    return '<span class="chip">' +
+      '<a href="?tag=' + tag.term + '">' + text + '</a>' +
     '</span>'
   },
   author: function (author) {
-    return '<span class="mdl-chip mdl-chip--contact">' +
-      '<img class="mdl-chip__contact" src="' + author.gd$image.src + '"></img>' +
-      '<a href="' + author.uri.$t + '">' +
-        '<span class="mdl-chip__text">' + author.name.$t + '</span>' +
-      '</a>' +
+    return '<span class="chip">' +
+      '<img src="' + author.gd$image.src + '"></img>' +
+      '<a href="' + author.uri.$t + '">' + author.name.$t + '</a>' +
     '</span>'
+  },
+  sidebar: function (items) {
+    var html = ''
+    var currentYear
+
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i]
+      var year = (new Date(item.published.$t)).getFullYear()
+      if (year !== currentYear) {
+        if (currentYear) {
+          html += '</section>'
+        }
+        html += '<section>'
+        html += '<h2><a href="#' + item.id.$t + '">' + year + '</a></h2>'
+        currentYear = year
+      }
+      html += '<p><a href="#' + item.id.$t + '">' + item.title.$t + '</a></p>'
+    }
+
+    return html + '</section>'
   }
 }
 
 function cb (data) {
+  var content = document.getElementById('content')
   content.innerHTML = data.feed ? templates.feed(data.feed.entry) : templates.feedItem(data.entry)
 
-  // pagination
   if (data.feed) {
+    // pagination
     var href = location.href
     var hasIndex = href.indexOf('start-index') > -1
     var hasParams = href.indexOf('?') > -1
@@ -113,6 +143,35 @@ function cb (data) {
       var url = hasIndex ? href.replace(indexPattern, next) : href + (hasParams ? '&' : '?') + next
       paginateNext.setAttribute('href', url)
     }
+
+    // tags
+    var tags = []
+    var tagCounts = {}
+    for (var i = 0; i < data.feed.entry.length; i++) {
+      var entry = data.feed.entry[i]
+      for (var j = 0; j < entry.category.length; j++) {
+        var tag = entry.category[j]
+        if (tag.term in tagCounts) {
+          tagCounts[tag.term]++
+        } else if (tag.term !== 'Citation.js') {
+          tagCounts[tag.term] = 1
+          tags.push(tag)
+        }
+      }
+    }
+    tags.sort(function (a, b) {
+      return tagCounts[b.term] - tagCounts[a.term]
+    })
+
+    document.getElementById('tags').innerHTML = tags.map(function (tag) {
+      return templates.tag({
+        term: tag.term,
+        count: tagCounts[tag.term]
+      })
+    }).join(' ')
+
+    // sidebar
+    document.getElementById('sidebar').innerHTML = templates.sidebar(data.feed.entry)
   }
 }
 
@@ -122,11 +181,15 @@ function load (url) {
 
 window.onload = function () {
   var params = {}
-  
+
   location.search.slice(1).split('&').map(function (pair) {
     pair = pair.split('=')
     params[pair[0]] = pair[1]
   })
+
+  if (params.post || params.tag || params.query) {
+    document.getElementById('clear-filters').removeAttribute('hidden')
+  }
 
   var url
 

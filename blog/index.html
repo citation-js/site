@@ -3,112 +3,116 @@
   <head>
     <title>Blog - Citation.js</title>
     <meta name="description" content="Citation.js converts formats like BibTeX, Wikidata JSON and ContentMine JSON to CSL-JSON to convert to other formats like APA, Vancouver and back to BibTeX." />
-    
+
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
     <meta name="theme-color" content="#FFC107" />
-    
-    <link rel="shortcut icon" type="image/png" href="../favicon.png" />
-    <link rel="icon" type="image/png" href="../favicon.png" />
-    
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" />
+
+    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,bolditalic&amp;lang=en" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <link rel="stylesheet" type="text/css" href="https://code.getmdl.io/1.3.0/material.amber-light_blue.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-tomorrow.min.css">
-    
-    <script type="text/javascript" src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/highlight.js"></script>
+    <script>$(function(){
+      $('.code').load('/static/code.html', function () {
+        $('.code pre code').highlight()
+      })
+    })</script>
+
     <style>
-      .mdl-layout__content {
-        background: #333;
-      }
-      .mdl-layout__content > .mdl-grid {
-        max-width: 800px;
-      }
-      .mdl-card__title a, .mdl-chip a {
-        border-bottom: 0;
-        color: inherit;
-      }
-      footer {
-        padding: 5px;
-        background: #111;
-        color: #ccc;
-        font-size: 12px;
-      }
       form > * {
         vertical-align: middle;
       }
-      #content blockquote {
-        font-size: inherit;
+
+      #content header > p > span {
+        line-height: 2em;
+        margin: 0 1em;
+        white-space: nowrap;
+      }
+      #content header > p .material-icons {
+        color: #666;
+      }
+
+      #content p {
+        line-height: 1.5em;
       }
       #content p > img {
         max-width: 100%;
+        max-height: 50%;
       }
-      #content .mdl-card__title + .mdl-card__supporting-text > p > span {
-        display: inline-block;
-      }
-      #content .mdl-card__title + .mdl-card__supporting-text > p > span > * {
-        vertical-align: middle;
-      }
-      #content .mdl-card__title + .mdl-card__supporting-text i {
-        margin: 0 .25em 0 1em;
-      }
-      #paginatePrev:not([href^=http]), #paginateNext:not([href^=http]) {
+
+      #paginatePrev:not([href^=http]),
+      #paginateNext:not([href^=http]) {
         display: none;
+      }
+
+      #sidebar {
+        left: 100%;
+        position: absolute;
+        top: 0;
+        width: 20em;
+      }
+
+      body > main:empty {
+        height: 1000px;
       }
     </style>
   </head>
   <body>
+    <nav>
+      <div class="background"></div>
 
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Citation.js Blog</span>
-        </div>
-      </header>
-      
-      <div class="mdl-layout__content">
-        <div class="mdl-grid">
-          <div class="mdl-card mdl-cell mdl-cell--12-col">
-            <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">Citation.js Blog</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-              Blogposts about Citation.js from <a href="https://larsgw.blogspot.com">Syntaxus baccata</a>.
-              <a href=".">Clear filters</a>.
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <form action="" method="get">
-                <i class="material-icons">search</i>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" name="query">
-                  <label class="mdl-textfield__label" for="sample1">Search</label>
-                </div>
-              </form>
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <a id="paginatePrev" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                Previous
-              </a>
-              <a id="paginateNext" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                Next
-              </a>
-            </div>
-          </div>
-          <div id="content" class="mdl-grid mdl-cell mdl-cell--12-col"></div>
-        </div>
+      <div>
+        <span>Citation.js</span>
+        <a href="/api/0.5/tutorial-getting_started.html">Get started</a>
+        <a href="/demo/">Demo</a>
+        <a href="/api/0.5">Docs</a>
+      </div>
+    </nav>
 
-        <footer>
-          &copy; 2017-2018 Lars Willighagen
-          <span style="left:0;right:0;position:absolute;text-align:center">Citation.js</span>
-          <span style="right:5px;position:absolute">
-            <a href="https://larsgw.github.io">larsgw.github.io</a>
-          </span>
-        </footer>
+    <header>
+      <div class="background code" role="presentation"></div>
+
+      <section>
+        <h1>Citation.js Blog</h1>
+        <p>
+          Blogposts about Citation.js from <a href="https://larsgw.blogspot.com">Syntaxus baccata</a>.
+          <a id="clear-filters" href="." hidden>Clear filters.</a>
+
+          <form action="" method="get">
+            <input id="search" type="text" name="query">
+            <i class="material-icons">search</i>
+            <label for="search">Search</label>
+          </form>
+        </p>
+        <p id="tags">
+        </p>
+      </section>
+    </header>
+
+    <div>
+      <div>
+        <main id="content"></main>
+        <aside id="sidebar"></aside>
       </div>
     </div>
 
-    <script src="../static/js/blog.js"></script>
+    <footer>
+      <div class="background"></div>
+
+      <div>
+        <span>&copy; 2017-2021 Lars Willighagen</span>
+        <span>Citation.js</span>
+        <a href="https://larsgw.github.io">larsgw.github.io</a>
+      </div>
+    </footer>
+
+    <script src="/static/js/blog.js"></script>
     <script id="loader"></script>
   </body>
 </html>
