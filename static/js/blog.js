@@ -1,8 +1,19 @@
 function map (array, mapper) {
+  var result = []
   for (var i = 0; i < array.length; i++) {
-    array[i] = mapper(array[i], i, array)
+    result.push(mapper(array[i], i, array))
   }
-  return array
+  return result
+}
+
+function filter (array, predicate) {
+  var result = []
+  for (var i = 0; i < array.length; i++) {
+    if (predicate(array[i], i, array)) {
+      result.push(array[i])
+    }
+  }
+  return result
 }
 
 function find (array, predicate) {
@@ -26,7 +37,7 @@ function canonical (links) {
 
 var templates = {
   feed: function (items) {
-    return items.map(templates.feedItem).join('')
+    return map(items, templates.feedItem).join('')
   },
   feedItem: function (item) {
     var id = item.id.$t.replace(/^.*\.post-(\d+)$/, '$1')
@@ -42,7 +53,7 @@ var templates = {
 
     var highestLevel = content.match(/<h[1-6]/g)
     if (highestLevel) {
-      highestLevel = Math.min.apply(null, highestLevel.map(function (header) {
+      highestLevel = Math.min.apply(null, map(highestLevel, function (header) {
         return parseInt(header.slice(2, 3))
       }))
     }
@@ -67,7 +78,7 @@ var templates = {
     if (item.category.length > 1) {
       metadata += '<p>' +
         '<span><i class="material-icons">bookmark</i> ' +
-          item.category.map(templates.tag).join(' ') +
+          map(item.category, templates.tag).join(' ') +
         '</span>' +
       '</p>'
     }
@@ -121,71 +132,81 @@ var templates = {
 
 function cb (data) {
   var content = document.getElementById('content')
-  content.innerHTML = data.feed ? templates.feed(data.feed.entry) : templates.feedItem(data.entry)
 
-  if (data.feed) {
-    // pagination
-    var href = location.href
-    var hasIndex = href.indexOf('start-index') > -1
-    var hasParams = href.indexOf('?') > -1
-    var indexPattern = /start-index=(\d+)/
-
-    var pages = Math.ceil(data.feed.openSearch$totalResults.$t / data.feed.openSearch$itemsPerPage.$t)
-    if (pages > 1) {
-      var paginate = document.getElementById('pagination')
-
-      var paginatePrev = document.createElement('a')
-      var prev = find(data.feed.link, function (link) { return link.rel === 'previous' })
-      if (prev) {
-        prev = 'start-index=' + prev.href.match(indexPattern)[1]
-        var url = hasIndex ? href.replace(indexPattern, prev) : href + (hasParams ? '?' : '') + prev
-        paginatePrev.setAttribute('href', url)
-      }
-      paginatePrev.setAttribute('class', 'material-icons')
-      paginatePrev.textContent = 'navigate_before'
-      paginate.appendChild(paginatePrev)
-
-      var paginateNext = document.createElement('a')
-      var next = find(data.feed.link, function (link) { return link.rel === 'next' })
-      if (next) {
-        next = 'start-index=' + next.href.match(indexPattern)[1]
-        var url = hasIndex ? href.replace(indexPattern, next) : href + (hasParams ? '&' : '?') + next
-        paginateNext.setAttribute('href', url)
-      }
-      paginateNext.setAttribute('class', 'material-icons')
-      paginateNext.textContent = 'navigate_next'
-      paginate.appendChild(paginateNext)
-    }
-
-    // tags
-    var tags = []
-    var tagCounts = {}
-    for (var i = 0; i < data.feed.entry.length; i++) {
-      var entry = data.feed.entry[i]
-      for (var j = 0; j < entry.category.length; j++) {
-        var tag = entry.category[j]
-        if (tag.term in tagCounts) {
-          tagCounts[tag.term]++
-        } else if (tag.term !== 'Citation.js') {
-          tagCounts[tag.term] = 1
-          tags.push(tag)
-        }
-      }
-    }
-    tags.sort(function (a, b) {
-      return tagCounts[b.term] - tagCounts[a.term]
-    })
-
-    document.getElementById('tags').innerHTML = tags.map(function (tag) {
-      return templates.tag({
-        term: tag.term,
-        count: tagCounts[tag.term]
-      })
-    }).join(' ')
-
-    // sidebar
-    document.getElementById('sidebar').innerHTML = templates.sidebar(data.feed.entry)
+  if (!data.feed) {
+    content.innerHTML = templates.feedItem(data.entry)
+    return
   }
+
+  var feed = filter(data.feed.entry, function (item) {
+    return item.category && find(item.category, function (category) {
+      return category.term === 'Citation.js'
+    })
+  })
+
+  content.innerHTML = templates.feed(feed)
+
+  // pagination
+  var href = location.href
+  var hasIndex = href.indexOf('start-index') > -1
+  var hasParams = href.indexOf('?') > -1
+  var indexPattern = /start-index=(\d+)/
+
+  var pages = Math.ceil(data.feed.openSearch$totalResults.$t / data.feed.openSearch$itemsPerPage.$t)
+  if (pages > 1) {
+    var paginate = document.getElementById('pagination')
+
+    var paginatePrev = document.createElement('a')
+    var prev = find(data.feed.link, function (link) { return link.rel === 'previous' })
+    if (prev) {
+      prev = 'start-index=' + prev.href.match(indexPattern)[1]
+      var url = hasIndex ? href.replace(indexPattern, prev) : href + (hasParams ? '?' : '') + prev
+      paginatePrev.setAttribute('href', url)
+    }
+    paginatePrev.setAttribute('class', 'material-icons')
+    paginatePrev.textContent = 'navigate_before'
+    paginate.appendChild(paginatePrev)
+
+    var paginateNext = document.createElement('a')
+    var next = find(data.feed.link, function (link) { return link.rel === 'next' })
+    if (next) {
+      next = 'start-index=' + next.href.match(indexPattern)[1]
+      var url = hasIndex ? href.replace(indexPattern, next) : href + (hasParams ? '&' : '?') + next
+      paginateNext.setAttribute('href', url)
+    }
+    paginateNext.setAttribute('class', 'material-icons')
+    paginateNext.textContent = 'navigate_next'
+    paginate.appendChild(paginateNext)
+  }
+
+  // tags
+  var tags = []
+  var tagCounts = {}
+  for (var i = 0; i < feed.length; i++) {
+    var entry = feed[i]
+    for (var j = 0; j < entry.category.length; j++) {
+      var tag = entry.category[j]
+      if (tag.term in tagCounts) {
+        tagCounts[tag.term]++
+      } else if (tag.term !== 'Citation.js') {
+        tagCounts[tag.term] = 1
+        tags.push(tag)
+      }
+    }
+  }
+  tags.sort(function (a, b) {
+    return tagCounts[b.term] - tagCounts[a.term]
+  })
+
+  document.getElementById('tags').innerHTML = map(tags, function (tag) {
+    return templates.tag({
+      term: tag.term,
+      count: tagCounts[tag.term]
+    })
+  }).join(' ')
+
+  // sidebar
+  document.getElementById('sidebar').innerHTML = templates.sidebar(feed)
 }
 
 function load (url) {
@@ -195,7 +216,7 @@ function load (url) {
 window.onload = function () {
   var params = {}
 
-  location.search.slice(1).split('&').map(function (pair) {
+  map(location.search.slice(1).split('&'), function (pair) {
     pair = pair.split('=')
     params[pair[0]] = pair[1]
   })
