@@ -130,18 +130,31 @@ function cb (data) {
     var hasParams = href.indexOf('?') > -1
     var indexPattern = /start-index=(\d+)/
 
-    var prev = find(data.feed.link, function (link) { return link.rel === 'previous' })
-    if (prev) {
-      prev = 'start-index=' + prev.href.match(indexPattern)[1]
-      var url = hasIndex ? href.replace(indexPattern, prev) : href + (hasParams ? '?' : '') + prev
-      paginatePrev.setAttribute('href', url)
-    }
+    var pages = Math.ceil(data.feed.openSearch$totalResults.$t / data.feed.openSearch$itemsPerPage.$t)
+    if (pages > 1) {
+      var paginate = document.getElementById('pagination')
 
-    var next = find(data.feed.link, function (link) { return link.rel === 'next' })
-    if (next) {
-      next = 'start-index=' + next.href.match(indexPattern)[1]
-      var url = hasIndex ? href.replace(indexPattern, next) : href + (hasParams ? '&' : '?') + next
-      paginateNext.setAttribute('href', url)
+      var paginatePrev = document.createElement('a')
+      var prev = find(data.feed.link, function (link) { return link.rel === 'previous' })
+      if (prev) {
+        prev = 'start-index=' + prev.href.match(indexPattern)[1]
+        var url = hasIndex ? href.replace(indexPattern, prev) : href + (hasParams ? '?' : '') + prev
+        paginatePrev.setAttribute('href', url)
+      }
+      paginatePrev.setAttribute('class', 'material-icons')
+      paginatePrev.textContent = 'navigate_before'
+      paginate.appendChild(paginatePrev)
+
+      var paginateNext = document.createElement('a')
+      var next = find(data.feed.link, function (link) { return link.rel === 'next' })
+      if (next) {
+        next = 'start-index=' + next.href.match(indexPattern)[1]
+        var url = hasIndex ? href.replace(indexPattern, next) : href + (hasParams ? '&' : '?') + next
+        paginateNext.setAttribute('href', url)
+      }
+      paginateNext.setAttribute('class', 'material-icons')
+      paginateNext.textContent = 'navigate_next'
+      paginate.appendChild(paginateNext)
     }
 
     // tags

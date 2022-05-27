@@ -19,9 +19,13 @@ form > * {
   max-height: 50%;
 }
 
-#paginatePrev:not([href^=http]),
-#paginateNext:not([href^=http]) {
-  display: none;
+#pagination {
+  text-align: center;
+}
+
+#pagination a:not([href^=http]),
+#pagination a:not([href^=http]) {
+  opacity: 0.25;
 }
 
 body > main:empty {
