@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://embed.runkit.com" data-element-id="runkit"></script>
+    <!-- <script type="text/javascript" src="https://embed.runkit.com" data-element-id="runkit"></script> -->
     <script type="text/javascript" src="/static/js/highlight.js"></script>
     <script>$(function(){
       $('.code').load('/static/code.html', function () {
@@ -98,39 +98,38 @@
           <div class="table-container">
             <table>
               <thead align="left">
-                <th>Plugin</th>
                 <th>Formats</th>
                 <th>Resolver</th>
+                <th>Plugin</th>
               </thead>
               <tbody>
                 <tr>
-                  <td><a href="https://npmjs.com/@citation-js/plugin-doi">@citation-js/plugin-doi</a></td>
                   <td><a href="https://en.wikipedia.org/wiki/Digital_object_identifier">DOIs (Digital Object Identifiers)</a></td>
                   <td><a href="https://citation.crosscite.org/docs.html">DOI Content Negotiation</a></td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-doi">@citation-js/plugin-doi</a></td>
                 </tr>
                 <tr>
-                  <td><a href="https://npmjs.com/@citation-js/plugin-isbn">@citation-js/plugin-isbn</a></td>
                   <td><a href="https://en.wikipedia.org/wiki/ISBN">ISBNs</a></td>
                   <td>
                     <a href="https://developers.google.com/books/docs/v1/reference/volumes/get">Google Books API</a>,
                     <a href="https://openlibrary.org/dev/docs/api/books">OpenLibrary API</a>
                   </td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-isbn">@citation-js/plugin-isbn</a></td>
                 </tr>
                 <tr>
-                  <td><a href="https://npmjs.com/@citation-js/plugin-pubmed">@citation-js/plugin-pubmed</a></td>
                   <td>
                     <a href="https://en.wikipedia.org/wiki/PubMed_ID">PubMed</a> and
                     <a href="https://en.wikipedia.org/wiki/PMCID">PMC</a> identifiers
                   </td>
                   <td><a href="https://api.ncbi.nlm.nih.gov/lit/ctxp">NCBI's Literature Citation Explorer</a></td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-pubmed">@citation-js/plugin-pubmed</a></td>
                 </tr>
                 <tr>
-                  <td><a href="https://npmjs.com/@citation-js/plugin-wikidata">@citation-js/plugin-wikidata</a></td>
                   <td><a href="https://en.wikipedia.org/wiki/Wikidata">Wikidata QIDs</a></td>
                   <td><a href="https://www.wikidata.org/w/api.php">Wikidata MediaWiki API</a></td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-wikidata">@citation-js/plugin-wikidata</a></td>
                 </tr>
                 <tr>
-                  <td><a href="https://npmjs.com/@citation-js/plugin-software-formats">@citation-js/plugin-software-formats</a></td>
                   <td>
                     <a href="https://github.com">GitHub</a> repository URLs and
                     <a href="https://npmjs.com">npm</a> package URLs
@@ -139,6 +138,7 @@
                     <a href="https://docs.github.com/en/rest">GitHub v3 API</a> and
                     <a href="https://docs.npmjs.com/cli/v8/using-npm/registry">npm registry</a>
                   </td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-software-formats">@citation-js/plugin-software-formats</a></td>
                 </tr>
               </tbody>
             </table>
@@ -149,28 +149,32 @@
             <table>
               <thead align="left">
                 <th>Formats</th>
-                <th>Plugin</th>
                 <th>Input</th>
                 <th>Output</th>
+                <th>Plugin</th>
               </thead>
               <tbody>
                 <tr>
+                  <td>JSON</td>
+                  <td><i class="material-icons">check_circle</i></td>
+                  <td><i class="material-icons">check_circle</i></td>
                   <td>&mdash;</td>
+                </tr>
+                <tr>
                   <td>
-                    JSON,
                     <a href="https://github.com/citation-style-language/schema/blob/master/schemas/input/csl-data.json">CSL-JSON</a>
                   </td>
                   <td><i class="material-icons">check_circle</i></td>
                   <td><i class="material-icons">check_circle</i></td>
+                  <td>&mdash;</td>
                 </tr>
                 <tr>
-                  <td><a href="https://npmjs.com/@citation-js/plugin-bibjson">@citation-js/plugin-bibjson</a></td>
                   <td><a href="https://okfnlabs.org/bibjson/">BibJSON</a></td>
                   <td><i class="material-icons">check_circle</i></td>
                   <td><i class="material-icons">highlight_off</i></td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-bibjson">@citation-js/plugin-bibjson</a></td>
                 </tr>
                 <tr>
-                  <td><a href="https://npmjs.com/@citation-js/plugin-csl">@citation-js/plugin-csl</a></td>
                   <td>
                     Formatted bibliographies and citations with
                     <a href="https://citationstyles.org/">CSL</a> and
@@ -178,9 +182,9 @@
                   </td>
                   <td><i class="material-icons">highlight_off</i></td>
                   <td><i class="material-icons">check_circle</i></td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-csl">@citation-js/plugin-csl</a></td>
                 </tr>
                 <tr>
-                  <td><a href="https://npmjs.com/@citation-js/plugin-bibtex">@citation-js/plugin-bibtex</a></td>
                   <td>
                     <a href="https://en.wikipedia.org/wiki/BibTeX">BibTeX</a>,
                     <a href="https://en.wikipedia.org/wiki/Biber_(LaTeX)">BibLaTeX</a>,
@@ -188,39 +192,57 @@
                   </td>
                   <td><i class="material-icons">check_circle</i></td>
                   <td><i class="material-icons">check_circle</i></td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-bibtex">@citation-js/plugin-bibtex</a></td>
                 </tr>
                 <tr>
-                  <td><a href="https://npmjs.com/@citation-js/plugin-ris">@citation-js/plugin-ris</a></td>
+                  <td>
+                    <a href="https://en.wikipedia.org/wiki/EndNote#Import_format"><code>.enw</code> files</a>
+                  </td>
+                  <td><i class="material-icons">check_circle</i></td>
+                  <td><i class="material-icons">check_circle</i></td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-enw">@citation-js/plugin-enw</a></td>
+                </tr>
+                <tr>
+                  <td><a href="https://www.wikidata.org/wiki/Help:QuickStatements#Command_sequence_syntax">QuickStatements v1</a></td>
+                  <td><i class="material-icons">highlight_off</i></td>
+                  <td><i class="material-icons">check_circle</i></td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-quickstatements">@citation-js/plugin-quickstatements</a></td>
+                </tr>
+                <tr>
                   <td><a href="https://en.wikipedia.org/wiki/RIS_(file_format)">RIS</a> (1st and 2nd version)</td>
                   <td><i class="material-icons">check_circle</i></td>
                   <td><i class="material-icons">check_circle</i></td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-ris">@citation-js/plugin-ris</a></td>
                 </tr>
                 <tr>
-                  <td><a href="https://npmjs.com/@citation-js/plugin-refer">@citation-js/plugin-refer</a></td>
                   <td><a href="https://en.wikipedia.org/wiki/Refer_(software)">refer</a> file format</td>
                   <td><i class="material-icons">check_circle</i></td>
                   <td><i class="material-icons">check_circle</i></td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-refer">@citation-js/plugin-refer</a></td>
                 </tr>
                 <tr>
-                  <td><a href="https://npmjs.com/@citation-js/plugin-refworks">@citation-js/plugin-refworks</a></td>
                   <td><a href="https://en.wikipedia.org/wiki/RefWorks">RefWorks</a> tagged format</td>
                   <td><i class="material-icons">check_circle</i></td>
                   <td><i class="material-icons">check_circle</i></td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-refworks">@citation-js/plugin-refworks</a></td>
                 </tr>
                 <tr>
-                  <td><a href="https://npmjs.com/@citation-js/plugin-software-formats">@citation-js/plugin-software-formats</a></td>
                   <td>
                     <a href="https://citation-file-format.github.io/">CFF (Citation File Format)</a>,
                     <a href="https://developers.zenodo.org/#depositions">Zenodo Deposit JSON</a>
                   </td>
                   <td><i class="material-icons">check_circle</i></td>
                   <td><i class="material-icons">check_circle</i></td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-software-formats">@citation-js/plugin-software-formats</a></td>
                 </tr>
                 <tr>
-                  <td><a href="https://npmjs.com/@citation-js/plugin-quickstatements">@citation-js/plugin-quickstatements</a></td>
-                  <td><a href="https://www.wikidata.org/wiki/Help:QuickStatements#Command_sequence_syntax">QuickStatements v1</a></td>
+                  <td>
+                    <a href="https://en.wikipedia.org/wiki/Template:Citation_Style_documentation/cs1">Citation Style 1 templates</a>
+                    of the English Wikipedia
+                  </td>
                   <td><i class="material-icons">highlight_off</i></td>
                   <td><i class="material-icons">check_circle</i></td>
+                  <td><a href="https://npmjs.com/@citation-js/plugin-wikipedia-templates">@citation-js/plugin-wikipedia-templates</a></td>
                 </tr>
               </tbody>
             </table>
