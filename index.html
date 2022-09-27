@@ -18,12 +18,16 @@
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://embed.runkit.com" data-element-id="runkit"></script>
+    <script type="text/javascript" src="https://embed.runkit.com"></script>
     <script type="text/javascript" src="/static/js/highlight.js"></script>
     <script>$(function(){
       $('.code').load('/static/code.html', function () {
         $('.code pre code').highlight()
       })
+      var runkit = document.getElementById('runkit')
+      var runkitSource = runkit.textContent
+      runkit.textContent = ''
+      RunKit.createNotebook({ element: runkit, source: runkitSource, nodeVersion: '18' })
     })</script>
   </head>
   <body>
