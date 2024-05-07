@@ -19,16 +19,12 @@
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://embed.runkit.com"></script>
     <script type="text/javascript" src="/static/js/highlight.js"></script>
     <script>$(function(){
+      $('pre code[data-type]').highlight()
       $('.code').load('/static/code.html', function () {
         $('.code pre code').highlight()
       })
-      var runkit = document.getElementById('runkit')
-      var runkitSource = runkit.textContent
-      runkit.textContent = ''
-      RunKit.createNotebook({ element: runkit, source: runkitSource, nodeVersion: '18' })
     })</script>
   </head>
   <body>
@@ -103,7 +99,7 @@
           <h2>Getting started</h2>
 
           <h3>Install</h3>
-          <pre><code>$ <span class="native">npm</span> <span class="function">install</span> <span class="string">@citation-js/core @citation-js/plugin-doi @citation-js/plugin-doi</span></code></pre>
+          <pre><code><span class="comment">$</span> <span class="native">npm install</span> @citation-js/core @citation-js/plugin-doi @citation-js/plugin-doi</code></pre>
 
           <h3>Usage</h3>
           <pre><code data-type="js">// Load Citation.js
@@ -291,7 +287,7 @@ Cite.async('10.7717/peerj-cs.214').then(data => {
           </div>
         </section>
 
-        <section>
+        <section id="usage">
           <h2>Usage</h2>
 
           <ul>
@@ -336,7 +332,7 @@ Cite.async('10.7717/peerj-cs.214').then(data => {
           </ul>
         </section>
 
-        <section>
+        <section id="alternatives">
           <h2>Similar projects &amp; alternatives</h2>
 
           <ul>
@@ -368,7 +364,7 @@ Cite.async('10.7717/peerj-cs.214').then(data => {
           </ul>
         </section>
 
-        <section>
+        <section id="cite">
           <h2>How to cite</h2>
 
           <blockquote>
@@ -379,18 +375,17 @@ Cite.async('10.7717/peerj-cs.214').then(data => {
 
         <aside>
           <section>
-            <h2>Demo</h2>
-            <pre id="runkit">
-const Cite = require('citation-js')
-
-const data = await Cite.async('Q30000000')
-
-data.format('bibliography', {
-  format: 'html',
-  template: 'apa',
-  lang: 'en-US'
-})
-            </pre>
+            <h2>Contents</h2>
+            <nav>
+              <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#getting-started">Getting started</a></li>
+                <li><a href="#supported-formats">Supported input and output</a></li>
+                <li><a href="#usage">Usage</a></li>
+                <li><a href="#alternatives">Similar projects &amp; alternatives</a></li>
+                <li><a href="#cite">How to cite</a></li>
+              </ul>
+            </nav>
           </section>
         </aside>
       </div>

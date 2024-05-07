@@ -50,6 +50,11 @@ body > nav > div, body > footer > div {
   padding: 1.5em;
 }
 
+nav > ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
 body > header {
   padding: 2em 0;
 }
@@ -66,6 +71,8 @@ body > header .background {
 }
 
 body > header .background pre {
+  background-color: #f0f0f0;
+  border: 0px;
   display: flex;
   margin: 0;
 }
@@ -145,7 +152,7 @@ fieldset {
 }
 
 pre {
-  background-color: #f0f0f0;
+  border: 1px solid black;
   max-width: 100%;
   overflow-x: auto;
   padding: 1em;
