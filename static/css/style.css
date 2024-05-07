@@ -66,11 +66,8 @@ body > header .background {
 }
 
 body > header .background pre {
-  background-color: #f0f0f0;
   display: flex;
-  font-family: monospace;
   margin: 0;
-  white-space: pre;
 }
 
 @media (min-width: 1640px) {
@@ -148,8 +145,10 @@ fieldset {
 }
 
 pre {
+  background-color: #f0f0f0;
   max-width: 100%;
   overflow-x: auto;
+  padding: 1em;
 }
 
 a {

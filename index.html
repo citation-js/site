@@ -70,7 +70,10 @@
             <img height="20" src="https://img.shields.io/npm/v/@citation-js/core.svg" alt="NPM version">
           </a>
           <a class="badge" href="https://npm-stat.com/charts.html?package=@citation-js/core&from=2016-10-10">
-            <img height="20" src="https://img.shields.io/npm/dt/@citation-js/core.svg" alt="NPM total downloads">
+            <img height="20" src="https://img.shields.io/npm/dy/@citation-js/core.svg" alt="NPM total downloads">
+          </a>
+          <a class="badge" href="https://www.jsdelivr.com/package/npm/citation-js?tab=stats">
+            <img height="20" src="https://img.shields.io/jsdelivr/npm/hy/citation-js" alt="jsDelivr hits">
           </a>
           <a class="badge" href="https://github.com/citation-js/citation-js/actions?query=workflow%3Abuild">
             <img height="20" src="https://img.shields.io/github/actions/workflow/status/citation-js/citation-js/build.yml?branch=main" alt="Build Status">
@@ -94,6 +97,31 @@
             <li>A command-line interface (CLI)</li>
             <li>MIT licensed</li>
           </ul>
+        </section>
+
+        <section id="getting-started">
+          <h2>Getting started</h2>
+
+          <h3>Install</h3>
+          <pre><code>$ <span class="native">npm</span> <span class="function">install</span> <span class="string">@citation-js/core @citation-js/plugin-doi @citation-js/plugin-doi</span></code></pre>
+
+          <h3>Usage</h3>
+          <pre><code data-type="js">// Load Citation.js
+const { Cite } = require('@citation-js/core')
+// Load plugins
+require('@citation-js/plugin-doi')
+require('@citation-js/plugin-csl')
+
+// Parse input
+Cite.async('10.7717/peerj-cs.214').then(data => {
+  // Format output
+  const bibliography = data.format('bibliography', {
+    format: 'html',
+    template: 'apa',
+    lang: 'en-US'
+  })
+  console.log(bibliography)
+})</code></pre>
         </section>
 
         <section id="supported-formats">
