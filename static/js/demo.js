@@ -40,7 +40,7 @@ $(window).on('load', function () {
     var format = $('#format').val()
     if (format === 'bibliography') {
       $('#output').html(data.format(format, {
-        template: $('#style').val(),
+        style: $('#style').val(),
         lang: $('#lang').val(),
         format: 'html'
       }))

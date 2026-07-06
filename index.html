@@ -35,7 +35,7 @@
         <a href="/">Citation.js</a>
         <a href="/blog/">Blog</a>
         <a href="/demo/">Demo</a>
-        <a href="/api/0.7">Docs</a>
+        <a href="/api/0.8">Docs</a>
       </div>
     </nav>
 
@@ -113,7 +113,7 @@ Cite.async('10.7717/peerj-cs.214').then(data => {
   // Format output
   const bibliography = data.format('bibliography', {
     format: 'html',
-    template: 'apa',
+    style: 'apa',
     lang: 'en-US'
   })
   console.log(bibliography)
