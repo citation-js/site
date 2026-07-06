@@ -200,7 +200,8 @@ a:hover {
 /* BEGIN Highlight */
 span.default { font-weight: normal; color: #000000; }
 span.important { text-decoration: underline}
-span.key { font-weight: normal; color: #0057ae; }
+span.key ,
+span.key span { font-weight: normal; color: #0057ae; }
 span.function { font-weight: normal; color: #644a9b; }
 span.native { font-weight: bold; color: #000; }
 span.object { font-weight: normal; color: #006e28; }

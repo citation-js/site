@@ -14,7 +14,7 @@ jQuery.fn.highlight = function() {
           .replace(/(cite)([^\(<])/gi, '<span class="important">$1</span>$2')
           .replace(/(\w+)(\s*\:)/gi,'<span class="key">$1</span>$2')
           .replace(/([\s\.{};(])([\w$]+)(?=\s*\()/gi,'$1<span class="function">$2</span>')
-          .replace(/^(.*)(\/\/.*)$/gim,'$1<span class="comment">$2</span>')
+          .replace(/^(.*?)(\/\/.*)$/gim,'$1<span class="comment">$2</span>')
           .replace(/(\/\*[\s\S]*?\*\/)/gi,'<span class="comment">$1</span>')
           .replace(/(-?(?:\d+\.\d+|\d+\.|\.\d+|\d+)(?:e\d+)?)/gi,'<span class="digit">$1</span>')
         );
