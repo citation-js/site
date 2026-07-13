@@ -2708,7 +2708,7 @@ function _interopRequireDefault(e) {
 }
 var isBrowser = typeof location !== 'undefined' && typeof navigator !== 'undefined';
 var asyncFetch = isBrowser ? fetch : _nodeFetch["default"];
-var asyncHeaders = isBrowser ? fetch : _nodeFetch.Headers;
+var asyncHeaders = isBrowser ? Headers : _nodeFetch.Headers;
 var userAgent = "Citation.js/".concat(_package["default"].version);
 if (typeof process !== 'undefined' && process && process.release && process.release.name === 'node' && process.version) {
   userAgent += " Node.js/".concat(process.version);
@@ -3348,7 +3348,7 @@ Translator.CONVERT_TO_TARGET = Symbol('convert to target');
 },{}],43:[function(require,module,exports){
 module.exports={
   "name": "@citation-js/core",
-  "version": "0.8.0",
+  "version": "0.8.2",
   "description": "Convert different bibliographic metadata sources",
   "keywords": [
     "citation-js",
@@ -3390,7 +3390,7 @@ module.exports={
     "node-fetch": "^3.3.2",
     "sync-fetch": "^0.6.0"
   },
-  "gitHead": "8a4691cc9e05664cf17e352ae292a85bafc64f98"
+  "gitHead": "28ce00a6a5dd967baeb7f128f3f6b4a7217e5d46"
 }
 
 },{}],44:[function(require,module,exports){
@@ -7190,7 +7190,7 @@ var name = new _core.util.Translator([{
 var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 var TYPE = exports.TYPE = 'BibTeX type';
 var LABEL = exports.LABEL = 'BibTeX label';
-var MONTHS = exports.MONTHS = _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty({
+var MONTHS = exports.MONTHS = _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty({
   jan: 1,
   feb: 2,
   mar: 3,
@@ -7207,7 +7207,7 @@ var MONTHS = exports.MONTHS = _defineProperty(_defineProperty(_defineProperty(_d
   february: 2,
   march: 3,
   april: 4
-}, "may", 5), "june", 6), "july", 7), "august", 8), "september", 9), "october", 10), "november", 11), "december", 12);
+}, "may", 5), "june", 6), "july", 7), "august", 8), "september", 9), "october", 10), "november", 11), "december", 12), "sept", 9);
 var TYPE_KEYS = exports.TYPE_KEYS = {
   bathesis: 'Bachelor\'s thesis',
   mathesis: 'Master\'s thesis',
