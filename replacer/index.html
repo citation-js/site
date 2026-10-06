@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Replacer - Citation.js</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <meta name="theme-color" content="#FFC107" />
+
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+    <link rel="icon" type="image/png" href="/favicon.png"/>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/highlight.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/demo.css" />
+
+    <script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="application/javascript" src="/static/js/highlight.js"></script>
+    <script>$(function(){
+      $('.code').load('/static/code.html', function () {
+        $('.code pre code').highlight()
+      })
+    })</script>
+  </head>
+  <body>
+    <nav>
+      <div class="background"></div>
+
+      <div>
+        <a href="/">Citation.js</a>
+        <a href="/blog/">Blog</a>
+        <a href="/demo/">Demo</a>
+        <a href="/api/0.8">Docs</a>
+      </div>
+    </nav>
+
+    <header>
+      <div class="background code"></div>
+
+      <section>
+        <h1>Citation.js Replacer</h1>
+
+        <p><a href="https://github.com/citation-js/replacer">GitHub</a></p>
+      </section>
+    </header>
+
+    <article>
+      <section>
+        <h2>Code</h2>
+        <pre><code id="replacer-code"></code></pre>
+      </section>
+
+      <section>
+        <h2>Output</h2>
+        <div id="replacer-html">
+          <div
+            class="citation-js"
+            data-input="Q21972834"
+            data-output-format="bibliography"
+            data-output-template="apa">
+            The Wikidata ID Q21972834
+          </div>
+
+          <script src="/src/replacer.citation.js"></script>
+        </div>
+      </section>
+
+      <script>
+        document.getElementById('replacer-code').textContent = document.getElementById('replacer-html').innerHTML.replace(/^ +/gm, '')
+      </script>
+    </article>
+
+    <footer>
+      <div class="background"></div>
+
+      <div>
+        <span>&copy; 2017-2026 <a href="https://larsgw.github.io">Lars Willighagen</a></span>
+        <span>Citation.js</span>
+        <a href="https://github.com/citation-js/site">Edit on GitHub</a>
+      </div>
+    </footer>
+  </body>
+</html>
